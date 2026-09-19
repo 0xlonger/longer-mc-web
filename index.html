@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<title>LongerMC · Minecraft 1.21.11 原版生存服务器</title>
+<meta name="description" content="LongerMC —— Minecraft Java 版 1.21.11 原版生存服务器，服务器地址 play.mc.longer.xin。长期运营，欢迎一起挖矿、建造、打龙。未来将陆续开放起床战争、空岛战争等小游戏。" />
+<meta name="keywords" content="Minecraft,我的世界,服务器,1.21.11,生存服,LongerMC,起床战争,空岛战争" />
+<meta name="author" content="LongerMC" />
+<meta name="theme-color" content="#0d0f14" />
+<link rel="canonical" href="https://mc.longer.xin/" />
+
+<!-- Open Graph / 社交分享 -->
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="LongerMC" />
+<meta property="og:title" content="LongerMC · Minecraft 1.21.11 原版生存服务器" />
+<meta property="og:description" content="服务器地址：play.mc.longer.xin · 原版生存 · 长期运营 · 和伙伴一起盖出属于自己的世界" />
+<meta property="og:url" content="https://mc.longer.xin/" />
+<meta name="twitter:card" content="summary" />
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><rect width='16' height='16' fill='%2379553a'/><rect width='16' height='5' fill='%235fbf46'/></svg>" />
+
+<!-- 提前标记 JS 可用：避免禁用 JS 时内容被 reveal 动画隐藏 -->
+<script>document.documentElement.classList.add('js');</script>
+
+<link rel="stylesheet" href="css/style.css" />
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "LongerMC",
+  "alternateName": "LongerMC 生存服务器",
+  "url": "https://mc.longer.xin/"
+}
+</script>
+</head>
+<body>
+
+<a class="skip-link" href="#main">跳到主要内容</a>
+
+<!-- ================= 导航 ================= -->
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="#top" aria-label="LongerMC 首页">
+      <span class="cube" aria-hidden="true"></span>
+      <span class="brand-text">Longer<em>MC</em></span>
+    </a>
+    <nav class="nav-links" aria-label="主导航">
+      <a href="#status">服务器状态</a>
+      <a href="#features">生存服</a>
+      <a href="#coming">小游戏</a>
+      <a href="#join">如何加入</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ================= Hero ================= -->
+  <section class="hero" id="top">
+    <div class="hero-content">
+      <div class="badge"><i aria-hidden="true"></i> Java 版 · 1.21.11 生存服</div>
+
+      <h1>Longer<span>MC</span> 服务器</h1>
+      <p class="subtitle">原版生存 · 长期运营 · 和伙伴一起盖出属于自己的世界<br>（网站暂时使用 DeepSeek AI 生成内容，将在未来进行优化）</p>
+
+      <div class="ip-box">
+        <div class="ip-info">
+          <div class="ip-label">服务器地址</div>
+          <div class="ip-addr" data-copy-text>play.mc.longer.xin</div>
+        </div>
+        <button class="mc-btn" type="button"
+                data-copy="play.mc.longer.xin"
+                data-copy-done="已复制 ✓"
+                data-copy-fail="复制失败，请手动复制">点击复制</button>
+      </div>
+
+      <div class="hero-actions">
+        <a class="mc-btn" href="#join">如何加入</a>
+        <a class="mc-btn ghost" href="#coming">看看玩法</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 服务器状态 ================= -->
+  <section class="section reveal" id="status">
+    <div class="section-head">
+      <h2>服务器<span class="hl">状态</span></h2>
+      <p>数据实时获取，每 60 秒自动刷新一次</p>
+    </div>
+
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-label">运行状态</div>
+        <div class="stat-value" aria-live="polite">
+          <span class="dot" id="statusDot" aria-hidden="true"></span><span id="statState">检测中…</span>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-label">在线玩家</div>
+        <div class="stat-value" id="statPlayer" aria-live="polite">--</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-label">游戏版本</div>
+        <div class="stat-value" id="statVersion">Java 1.21.11</div>
+      </div>
+
+      <div class="stat-card clickable"
+           role="button"
+           tabindex="0"
+           title="点击复制服务器地址"
+           aria-label="复制服务器地址 play.mc.longer.xin"
+           data-copy="play.mc.longer.xin"
+           data-copy-done="已复制 ✓">
+        <div class="stat-label">服务器地址</div>
+        <div class="stat-value ip" data-copy-text>play.mc.longer.xin</div>
+      </div>
+    </div>
+
+    <div class="players-panel" id="playersPanel" hidden>
+      <div class="panel-title">当前在线玩家</div>
+      <div class="player-list" id="playerList"></div>
+    </div>
+
+    <noscript>
+      <p class="notice">你的浏览器禁用了 JavaScript，服务器状态无法自动刷新。</p>
+    </noscript>
+  </section>
+
+  <!-- ================= 生存服特色 ================= -->
+  <section class="section reveal" id="features">
+    <div class="section-head">
+      <h2>正在发展的 <span class="hl">1.21.11 生存服</span></h2>
+      <p>一切从一块草方块开始，慢慢长成一座城</p>
+    </div>
+
+    <div class="card-grid">
+      <article class="card">
+        <div class="card-icon" aria-hidden="true">🌱</div>
+        <h3>原版生存体验</h3>
+        <p>基于 1.21.11 版本，保留原汁原味的挖矿、建造与探索乐趣，没有花里胡哨的魔改。</p>
+      </article>
+
+      <article class="card">
+        <div class="card-icon" aria-hidden="true">🏗️</div>
+        <h3>自由建造</h3>
+        <p>找一块喜欢的地方，从火柴盒到空中城堡，你想怎么盖就怎么盖。</p>
+      </article>
+
+      <article class="card">
+        <div class="card-icon" aria-hidden="true">🤝</div>
+        <h3>友善社区</h3>
+        <p>一起挖矿、一起打龙、一起搞基建。欢迎新玩家，拒绝恶意破坏。</p>
+      </article>
+
+      <article class="card">
+        <div class="card-icon" aria-hidden="true">⚡</div>
+        <h3>稳定流畅</h3>
+        <p>长期开服，持续维护与优化，尽量让大家玩得顺心不卡顿。</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ================= 即将上线 ================= -->
+  <section class="section reveal" id="coming">
+    <div class="section-head">
+      <h2>即将上线的<span class="hl">小游戏</span></h2>
+      <p>生存服之外，更多好玩的模式正在路上</p>
+    </div>
+
+    <div class="game-grid">
+      <article class="game-card">
+        <div class="game-thumb thumb-bed">
+          <span aria-hidden="true">🛏️</span>
+          <span class="game-tag">开发中</span>
+        </div>
+        <div class="game-body">
+          <h3>起床战争</h3>
+          <p>守住自己的床，拆掉对手的床，把敌人全部淘汰出局。团队配合与手速的双重考验。</p>
+        </div>
+      </article>
+
+      <article class="game-card">
+        <div class="game-thumb thumb-sky">
+          <span aria-hidden="true">🏝️</span>
+          <span class="game-tag">开发中</span>
+        </div>
+        <div class="game-body">
+          <h3>空岛战争</h3>
+          <p>在悬空的孤岛上开局，抢资源、搭桥、偷袭，成为最后活下来的人。</p>
+        </div>
+      </article>
+
+      <article class="game-card">
+        <div class="game-thumb thumb-more">
+          <span aria-hidden="true">🎮</span>
+          <span class="game-tag later">敬请期待</span>
+        </div>
+        <div class="game-body">
+          <h3>更多玩法</h3>
+          <p>更多小游戏模式正在规划中，欢迎在游戏内提出你喜欢的玩法建议。</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ================= 如何加入 ================= -->
+  <section class="section reveal" id="join">
+    <div class="section-head">
+      <h2>如何<span class="hl">加入</span></h2>
+      <p>四步进入服务器，开始你的生存之旅</p>
+    </div>
+
+    <ol class="steps">
+      <li>
+        <span class="step-num" aria-hidden="true">1</span>
+        <div>
+          <h4>启动 Minecraft Java 版</h4>
+          <p>打开正版启动器，选择 <code>1.21.11</code> 版本并启动游戏。</p>
+        </div>
+      </li>
+      <li>
+        <span class="step-num" aria-hidden="true">2</span>
+        <div>
+          <h4>进入「多人游戏」</h4>
+          <p>在主菜单点击「多人游戏」，然后选择「添加服务器」。</p>
+        </div>
+      </li>
+      <li>
+        <span class="step-num" aria-hidden="true">3</span>
+        <div>
+          <h4>填写服务器地址</h4>
+          <p>服务器地址填入 <code>play.mc.longer.xin</code>，名称随意填写。</p>
+        </div>
+      </li>
+      <li>
+        <span class="step-num" aria-hidden="true">4</span>
+        <div>
+          <h4>双击加入</h4>
+          <p>选中服务器，点击「加入服务器」，就可以开始你的生存之旅啦！</p>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+</main>
+
+<!-- ================= 页脚 ================= -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a class="brand" href="#top">
+        <span class="cube" aria-hidden="true"></span>
+        <span>Longer<em>MC</em></span>
+      </a>
+      <p>一个用心搭建的 Minecraft 服务器，欢迎每一位热爱方块的玩家。</p>
+    </div>
+    <nav class="footer-links" aria-label="页脚导航">
+      <a href="#status">服务器状态</a>
+      <a href="#features">生存服</a>
+      <a href="#coming">小游戏</a>
+      <a href="#join">如何加入</a>
+      <a href="#top">回到顶部</a>
+    </nav>
+  </div>
+  <div class="copyright">
+    © <span id="year">2026</span> 龙ger_longer(LongerMC) · 网站 mc.longer.xin · 服务器 play.mc.longer.xin<br />
+    本站为玩家自建服务器官网，与 Mojang Studios、Microsoft 无任何隶属或关联关系。
+  </div>
+</footer>
+
+<!-- 回到顶部 -->
+<button class="to-top" type="button" aria-label="回到顶部" title="回到顶部">▲</button>
+
+<!-- 脚本：defer 不阻塞渲染 -->
+<script src="js/main.js" defer></script>
+<script src="js/status.js" defer></script>
+</body>
+</html>

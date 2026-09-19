@@ -1,0 +1,537 @@
+/* ============================================================
+   LongerMC · 全站样式表
+   设计语言：0 圆角 / 2px 描边 / 4px 硬投影
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   1. 设计令牌
+   ------------------------------------------------------------ */
+:root{
+  --bg:#0d0f14;
+  --panel:#171a21;
+  --panel-2:#1e222b;
+  --line:#2f3644;
+  --line-soft:#262c37;
+
+  --green:#5fbf46;
+  --green-light:#7fd966;
+  --green-dark:#3d8a2b;
+
+  --text:#e8ecf2;
+  --muted:#98a2b3;
+  --gold:#f0c040;
+  --red:#e05252;
+
+  --bevel:
+    inset 2px 2px 0 rgba(255,255,255,.05),
+    inset -2px -2px 0 rgba(0,0,0,.35);
+  --lift:4px 4px 0 rgba(0,0,0,.55);
+  --lift-hi:6px 6px 0 rgba(0,0,0,.55);
+
+  --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,"Liberation Mono","Courier New",monospace;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+}
+
+/* ------------------------------------------------------------
+   2. 重置与基础
+   ------------------------------------------------------------ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;border-radius:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+
+body{
+  font-family:var(--sans);
+  background-color:var(--bg);
+  background-image:
+    linear-gradient(rgba(255,255,255,.022) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.022) 1px,transparent 1px);
+  background-size:34px 34px;
+  color:var(--text);
+  line-height:1.75;
+  overflow-x:hidden;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+main{flex:1 0 auto;width:100%}
+img{max-width:100%;height:auto}
+a{color:inherit}
+button{font:inherit;color:inherit}
+
+::selection{background:rgba(95,191,70,.32);color:#fff}
+
+:focus-visible{outline:3px solid var(--green);outline-offset:2px}
+
+/* 跳到主要内容（键盘无障碍） */
+.skip-link{
+  position:absolute;left:-9999px;top:0;z-index:200;
+  padding:12px 20px;background:var(--green);color:#fff;
+  font-weight:700;text-decoration:none;border:2px solid #000;
+}
+.skip-link:focus{left:12px;top:12px}
+
+/* 滚动条 */
+::-webkit-scrollbar{width:12px;height:12px}
+::-webkit-scrollbar-track{background:#0a0c10}
+::-webkit-scrollbar-thumb{background:#2f3644;border:2px solid #0a0c10}
+::-webkit-scrollbar-thumb:hover{background:#3d4658}
+
+/* ------------------------------------------------------------
+   3. 导航
+   ------------------------------------------------------------ */
+.nav{
+  position:sticky;top:0;z-index:60;
+  background:rgba(13,15,20,.88);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border-bottom:2px solid var(--line-soft);
+}
+.nav-inner{
+  max-width:1120px;margin:0 auto;padding:13px 20px;
+  display:flex;align-items:center;justify-content:space-between;gap:14px;
+}
+.brand{
+  display:flex;align-items:center;gap:10px;
+  font-weight:800;font-size:17px;letter-spacing:.3px;
+  text-decoration:none;color:var(--text);white-space:nowrap;
+}
+.brand .cube{
+  width:20px;height:20px;flex:0 0 20px;
+  background:linear-gradient(#5fbf46 0 42%,#79553a 42% 100%);
+  border:2px solid #000;
+  box-shadow:inset -2px -2px 0 rgba(0,0,0,.4),inset 2px 2px 0 rgba(255,255,255,.18);
+}
+.brand em{font-style:normal;color:var(--green)}
+
+.nav-links{display:flex;gap:6px;min-width:0;flex-wrap:wrap}
+.nav-links a{
+  color:var(--muted);text-decoration:none;font-size:14px;
+  padding:7px 13px;transition:background .18s,color .18s,border-color .18s;
+  white-space:nowrap;border:2px solid transparent;
+}
+.nav-links a:hover{
+  color:#fff;background:rgba(255,255,255,.07);border-color:var(--line-soft);
+}
+
+/* ------------------------------------------------------------
+   4. Hero
+   ------------------------------------------------------------ */
+.hero{position:relative;padding:96px 20px 84px;text-align:center;overflow:hidden}
+.hero::before{
+  content:'';position:absolute;top:-260px;left:50%;transform:translateX(-50%);
+  width:920px;height:680px;pointer-events:none;
+  background:radial-gradient(circle,rgba(95,191,70,.20),transparent 62%);
+}
+.hero::after{
+  content:'';position:absolute;left:0;right:0;bottom:0;height:6px;opacity:.5;
+  background:repeating-linear-gradient(90deg,#5fbf46 0 10px,#4aa832 10px 20px);
+}
+.hero-content{position:relative;z-index:1;max-width:880px;margin:0 auto}
+
+.badge{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:9px 16px;margin-bottom:28px;
+  border:2px solid rgba(95,191,70,.45);
+  background:rgba(95,191,70,.1);
+  box-shadow:var(--bevel);
+  color:var(--green);
+  font-size:13px;font-weight:700;letter-spacing:.6px;
+}
+.badge i{
+  width:8px;height:8px;background:var(--green);
+  box-shadow:0 0 10px var(--green);animation:pulse 2s infinite;
+}
+
+.hero h1{
+  font-size:clamp(30px,6vw,58px);line-height:1.15;
+  font-weight:900;letter-spacing:-.5px;margin-bottom:18px;
+}
+.hero h1 span{color:var(--green);text-shadow:0 0 34px rgba(95,191,70,.55)}
+.subtitle{color:var(--muted);font-size:clamp(14px,2vw,17px);margin-bottom:8px}
+
+/* IP 卡片 */
+.ip-box{
+  margin:38px auto 0;max-width:580px;
+  background:var(--panel);
+  border:2px solid var(--line-soft);
+  box-shadow:var(--bevel),var(--lift);
+  padding:20px;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:18px;flex-wrap:wrap;
+}
+.ip-info{text-align:left;min-width:0;flex:1 1 200px}
+.ip-label{
+  font-size:11px;letter-spacing:2px;text-transform:uppercase;
+  color:var(--muted);margin-bottom:8px;
+}
+.ip-addr{
+  font-family:var(--mono);
+  font-size:clamp(14px,2.6vw,18px);
+  color:#fff;line-height:1.6;word-break:break-all;letter-spacing:.5px;
+}
+
+/* ------------------------------------------------------------
+   5. Minecraft 风格按钮
+   ------------------------------------------------------------ */
+.mc-btn{
+  display:inline-block;
+  padding:13px 26px;
+  font-size:15px;font-weight:700;font-family:inherit;
+  color:#fff;text-decoration:none;cursor:pointer;
+  background:#5a8f3d;
+  border:2px solid #000;
+  text-shadow:2px 2px 0 rgba(0,0,0,.45);
+  box-shadow:
+    inset 2px 2px 0 rgba(255,255,255,.3),
+    inset -2px -2px 0 rgba(0,0,0,.4),
+    var(--lift);
+  transition:transform .12s ease,background .18s ease,box-shadow .12s ease;
+  white-space:nowrap;
+}
+.mc-btn:hover{
+  background:#6cab4a;
+  transform:translate(-2px,-2px);
+  box-shadow:
+    inset 2px 2px 0 rgba(255,255,255,.3),
+    inset -2px -2px 0 rgba(0,0,0,.4),
+    var(--lift-hi);
+}
+.mc-btn:active{
+  transform:translate(2px,2px);
+  box-shadow:
+    inset 2px 2px 0 rgba(255,255,255,.2),
+    inset -2px -2px 0 rgba(0,0,0,.45),
+    1px 1px 0 rgba(0,0,0,.6);
+}
+.mc-btn.ghost{background:#3a4152}
+.mc-btn.ghost:hover{background:#4a536a}
+.mc-btn.copied{background:var(--green-dark)}
+.mc-btn.failed{background:#8a3d3d}
+
+.hero-actions{margin-top:34px;display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+
+/* ------------------------------------------------------------
+   6. 通用区块
+   ------------------------------------------------------------ */
+.section{max-width:1120px;margin:0 auto;padding:78px 20px;width:100%}
+.section-head{text-align:center;margin-bottom:48px}
+.section-head h2{
+  font-size:clamp(23px,4vw,34px);font-weight:900;
+  letter-spacing:-.4px;margin-bottom:12px;
+}
+.section-head p{color:var(--muted);font-size:15px}
+.hl{color:var(--green)}
+
+.notice{
+  margin-top:18px;padding:14px 18px;font-size:14px;color:var(--muted);
+  background:var(--panel);border:2px solid var(--line-soft);box-shadow:var(--bevel);
+}
+
+/* ------------------------------------------------------------
+   7. 状态卡片
+   ------------------------------------------------------------ */
+.stat-grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}
+.stat-card{
+  position:relative;
+  background:var(--panel);
+  border:2px solid var(--line-soft);
+  box-shadow:var(--bevel),var(--lift);
+  padding:24px;
+  transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease,background .18s ease;
+}
+.stat-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:var(--green);opacity:.55;
+}
+.stat-card:hover{
+  background:var(--panel-2);
+  border-color:rgba(95,191,70,.42);
+  transform:translate(-2px,-2px);
+  box-shadow:var(--bevel),var(--lift-hi);
+}
+.stat-label{
+  font-size:12px;letter-spacing:1.5px;color:var(--muted);
+  text-transform:uppercase;margin-bottom:12px;
+}
+.stat-value{font-size:21px;font-weight:800;color:#fff;line-height:1.4;word-break:break-word}
+.stat-value.ip{
+  font-family:var(--mono);font-size:14px;color:var(--green);line-height:1.7;letter-spacing:.5px;
+}
+.stat-card.clickable{cursor:pointer;-webkit-user-select:none;user-select:none}
+.stat-card.clickable:hover .stat-value.ip{color:var(--green-light)}
+.stat-value.copied{color:var(--green-light) !important}
+
+.dot{
+  display:inline-block;width:10px;height:10px;
+  background:#5c6370;margin-right:10px;
+  vertical-align:middle;position:relative;top:-1px;
+  box-shadow:0 0 0 2px rgba(0,0,0,.5);
+}
+.dot.on{background:var(--green);box-shadow:0 0 0 2px rgba(0,0,0,.5),0 0 12px var(--green);animation:pulse 2s infinite}
+.dot.off{background:var(--red);box-shadow:0 0 0 2px rgba(0,0,0,.5),0 0 12px rgba(224,82,82,.7)}
+
+@keyframes pulse{
+  0%,100%{opacity:1}
+  50%{opacity:.45}
+}
+
+/* 在线玩家 */
+.players-panel{
+  margin-top:18px;
+  background:var(--panel);
+  border:2px solid var(--line-soft);
+  box-shadow:var(--bevel),var(--lift);
+  padding:24px;
+}
+.panel-title{
+  font-size:12px;letter-spacing:1.5px;color:var(--muted);
+  text-transform:uppercase;margin-bottom:16px;
+}
+.player-list{display:flex;flex-wrap:wrap;gap:10px}
+.player-chip{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:8px 14px;font-size:14px;
+  background:rgba(95,191,70,.1);
+  border:2px solid rgba(95,191,70,.3);
+  color:#cdf0c0;
+}
+.player-chip::before{
+  content:'';width:7px;height:7px;
+  background:var(--green);box-shadow:0 0 8px var(--green);
+}
+
+/* ------------------------------------------------------------
+   8. 特色卡片
+   ------------------------------------------------------------ */
+.card-grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.card{
+  background:var(--panel);
+  border:2px solid var(--line-soft);
+  box-shadow:var(--bevel),var(--lift);
+  padding:28px;
+  transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease,background .18s ease;
+}
+.card:hover{
+  background:var(--panel-2);
+  border-color:rgba(95,191,70,.42);
+  transform:translate(-2px,-2px);
+  box-shadow:var(--bevel),var(--lift-hi);
+}
+.card-icon{
+  width:48px;height:48px;
+  display:grid;place-items:center;font-size:22px;
+  background:rgba(95,191,70,.12);
+  border:2px solid rgba(95,191,70,.28);
+  box-shadow:var(--bevel);
+  margin-bottom:18px;
+}
+.card h3{font-size:17px;margin-bottom:9px}
+.card p{font-size:14px;color:var(--muted);line-height:1.8}
+
+/* ------------------------------------------------------------
+   9. 小游戏卡片
+   ------------------------------------------------------------ */
+.game-grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(268px,1fr))}
+.game-card{
+  background:var(--panel);
+  border:2px solid var(--line-soft);
+  box-shadow:var(--bevel),var(--lift);
+  transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease,background .18s ease;
+}
+.game-card:hover{
+  background:var(--panel-2);
+  border-color:rgba(95,191,70,.45);
+  transform:translate(-2px,-2px);
+  box-shadow:var(--bevel),var(--lift-hi);
+}
+.game-thumb{
+  height:130px;display:grid;place-items:center;
+  font-size:48px;position:relative;
+  border-bottom:2px solid var(--line-soft);
+}
+.game-thumb::after{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(0,0,0,.16) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,0,0,.16) 1px,transparent 1px);
+  background-size:16px 16px;
+}
+.thumb-bed{background:linear-gradient(135deg,#8c3b3b,#c25a4a 55%,#e0a24a)}
+.thumb-sky{background:linear-gradient(135deg,#2a6f9e,#4ab5d8 55%,#a8e6f5)}
+.thumb-more{background:linear-gradient(135deg,#3a3f52,#5a6178 55%,#7c86a3)}
+.game-tag{
+  position:absolute;top:12px;right:12px;z-index:2;
+  font-size:11px;font-weight:700;letter-spacing:.6px;
+  padding:5px 11px;
+  background:rgba(0,0,0,.62);color:var(--gold);
+  border:2px solid rgba(240,192,64,.4);
+}
+.game-tag.later{color:var(--muted);border-color:rgba(152,162,179,.35)}
+.game-body{padding:22px}
+.game-body h3{font-size:17px;margin-bottom:9px}
+.game-body p{font-size:14px;color:var(--muted);line-height:1.8}
+
+/* ------------------------------------------------------------
+   10. 步骤
+   ------------------------------------------------------------ */
+.steps{display:grid;gap:16px;max-width:780px;margin:0 auto;list-style:none}
+.steps li{
+  display:flex;gap:20px;align-items:flex-start;
+  background:var(--panel);
+  border:2px solid var(--line-soft);
+  box-shadow:var(--bevel),var(--lift);
+  padding:22px;
+  transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease,background .18s ease;
+}
+.steps li:hover{
+  background:var(--panel-2);
+  border-color:rgba(95,191,70,.4);
+  transform:translate(-2px,-2px);
+  box-shadow:var(--bevel),var(--lift-hi);
+}
+.step-num{
+  flex:0 0 36px;width:36px;height:36px;
+  display:grid;place-items:center;
+  background:linear-gradient(#5fbf46,#3d8a2b);
+  border:2px solid #000;
+  box-shadow:inset -2px -2px 0 rgba(0,0,0,.3),inset 2px 2px 0 rgba(255,255,255,.2);
+  color:#fff;font-family:var(--mono);font-size:15px;font-weight:800;
+}
+.steps h4{font-size:15.5px;margin-bottom:5px}
+.steps p{font-size:14px;color:var(--muted)}
+.steps code{
+  font-family:var(--mono);
+  background:rgba(95,191,70,.12);
+  border:1px solid rgba(95,191,70,.28);
+  color:#a8e88f;padding:1px 7px;font-size:13px;
+}
+
+/* ------------------------------------------------------------
+   11. 页脚
+   ------------------------------------------------------------ */
+.footer{
+  border-top:2px solid var(--line-soft);
+  background:rgba(0,0,0,.28);
+  margin-top:30px;
+  flex-shrink:0;
+}
+.footer-inner{
+  max-width:1120px;margin:0 auto;padding:48px 20px 26px;
+  display:flex;justify-content:space-between;gap:32px;flex-wrap:wrap;
+}
+.footer-brand p{color:var(--muted);font-size:14px;margin-top:14px;max-width:340px}
+.footer-links{display:flex;gap:8px;flex-wrap:wrap;align-content:flex-start}
+.footer-links a{
+  color:var(--muted);text-decoration:none;font-size:14px;
+  padding:6px 12px;border:2px solid transparent;
+  transition:background .18s,color .18s,border-color .18s;
+}
+.footer-links a:hover{color:var(--green);border-color:var(--line-soft);background:rgba(255,255,255,.05)}
+.copyright{
+  max-width:1120px;margin:0 auto;
+  padding:20px 20px 36px;
+  border-top:2px solid rgba(255,255,255,.05);
+  color:#6b7280;font-size:12.5px;line-height:1.9;
+}
+
+/* ------------------------------------------------------------
+   12. 回到顶部
+   ------------------------------------------------------------ */
+.to-top{
+  position:fixed;right:22px;bottom:22px;z-index:55;
+  width:46px;height:46px;
+  display:grid;place-items:center;
+  background:#5a8f3d;color:#fff;
+  border:2px solid #000;cursor:pointer;
+  font-size:16px;line-height:1;
+  box-shadow:var(--lift);
+  opacity:0;visibility:hidden;transform:translateY(12px);
+  transition:opacity .22s ease,transform .22s ease,visibility .22s,background .18s;
+}
+.to-top.show{opacity:1;visibility:visible;transform:none}
+.to-top:hover{background:#6cab4a}
+
+/* ------------------------------------------------------------
+   13. 404 页面
+   ------------------------------------------------------------ */
+.err-wrap{
+  flex:1 0 auto;width:100%;
+  max-width:800px;margin:0 auto;
+  padding:clamp(50px,10vh,110px) 20px 70px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;
+  position:relative;
+}
+.err-wrap::before{
+  content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);
+  width:760px;height:520px;pointer-events:none;
+  background:radial-gradient(circle,rgba(95,191,70,.16),transparent 65%);
+}
+.err-wrap > *{position:relative;z-index:1}
+
+.err-code{
+  font-family:var(--mono);
+  font-size:clamp(76px,20vw,152px);
+  font-weight:800;line-height:1;
+  color:var(--green);
+  letter-spacing:4px;
+  text-shadow:6px 6px 0 rgba(0,0,0,.6),0 0 70px rgba(95,191,70,.35);
+  margin:6px 0 10px;
+}
+.err-title{
+  font-size:clamp(21px,4vw,32px);
+  font-weight:900;letter-spacing:-.3px;margin-bottom:14px;
+}
+.err-desc{color:var(--muted);font-size:15px;line-height:1.9;margin-bottom:34px}
+.err-actions{
+  display:flex;gap:14px;flex-wrap:wrap;justify-content:center;
+}
+.err-ip{
+  margin-top:30px;
+  font-family:var(--mono);font-size:13px;letter-spacing:1px;
+  color:#4d5566;
+}
+
+/* ------------------------------------------------------------
+   14. 动效
+   ------------------------------------------------------------ */
+.js .reveal{opacity:0;transform:translateY(26px);transition:opacity .65s ease,transform .65s ease}
+.js .reveal.in{opacity:1;transform:none}
+
+/* ------------------------------------------------------------
+   15. 无障碍：减少动效
+   ------------------------------------------------------------ */
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .js .reveal{opacity:1;transform:none;transition:none}
+  *,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important}
+  .card:hover,.stat-card:hover,.game-card:hover,.steps li:hover,.mc-btn:hover,.mc-btn:active{transform:none}
+}
+
+/* ------------------------------------------------------------
+   16. 响应式
+   ------------------------------------------------------------ */
+@media (max-width:720px){
+  .nav-inner{padding:11px 16px;gap:10px}
+  .brand{font-size:15px}
+  .nav-links{overflow-x:auto;flex-wrap:nowrap;scrollbar-width:none;-ms-overflow-style:none}
+  .nav-links::-webkit-scrollbar{display:none}
+  .nav-links a{font-size:13px;padding:6px 10px}
+  .hero{padding:70px 18px 64px}
+  .section{padding:60px 18px}
+  .section-head{margin-bottom:34px}
+  .ip-box{padding:18px}
+  .mc-btn{padding:12px 20px;font-size:14px}
+  .steps li{gap:16px;padding:18px}
+  .footer-inner{padding:38px 18px 20px;gap:24px}
+  .copyright{padding:18px 18px 30px}
+  .to-top{right:14px;bottom:14px;width:42px;height:42px}
+}
+
+@media (max-width:420px){
+  .brand .brand-text{display:none}
+  .hero-actions .mc-btn{width:100%}
+  .err-actions{width:100%}
+  .err-actions .mc-btn{width:100%}
+}
