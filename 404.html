@@ -7,64 +7,172 @@
 <title>404 · 页面没有找到 | LongerMC</title>
 <meta name="description" content="你访问的页面不存在。返回 LongerMC 首页，或直接加入服务器 play.mc.longer.xin。" />
 <meta name="robots" content="noindex, follow" />
-<meta name="theme-color" content="#0d0f14" />
+<meta name="theme-color" content="#0a0d12" />
 
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><rect width='16' height='16' fill='%2379553a'/><rect width='16' height='5' fill='%235fbf46'/></svg>" />
+<link rel="icon" href="icon.jpg" type="image/jpeg" />
+<link rel="apple-touch-icon" href="icon.jpg" />
 
-<script>document.documentElement.classList.add('js');</script>
+<link rel="preload" href="assets/fonts/press-start-2p.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="stylesheet" href="css/style.css" />
+<script>document.documentElement.classList.add('js');</script>
 </head>
 <body class="page-404">
 
 <a class="skip-link" href="#main">跳到主要内容</a>
 
-<header class="nav">
+<div class="scroll-progress" aria-hidden="true"><span id="scrollProgress"></span></div>
+
+<svg class="svg-sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="g-grass-top" x1="0" y1="0" x2=".4" y2="1">
+      <stop offset="0" stop-color="#8ae66c"/><stop offset="1" stop-color="#57ad3f"/>
+    </linearGradient>
+    <linearGradient id="g-dirt-left" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#6d4830"/><stop offset="1" stop-color="#523524"/>
+    </linearGradient>
+    <linearGradient id="g-dirt-right" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#8a5c3b"/><stop offset="1" stop-color="#68432b"/>
+    </linearGradient>
+    <linearGradient id="g-stone-top" x1="0" y1="0" x2=".4" y2="1">
+      <stop offset="0" stop-color="#a3b0c2"/><stop offset="1" stop-color="#76839a"/>
+    </linearGradient>
+    <linearGradient id="g-stone-left" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#4d586b"/><stop offset="1" stop-color="#3b4554"/>
+    </linearGradient>
+    <linearGradient id="g-stone-right" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#626e82"/><stop offset="1" stop-color="#4a5568"/>
+    </linearGradient>
+  </defs>
+
+  <g id="cube-grass">
+    <polygon points="0,-48 96,0 0,48 -96,0" fill="url(#g-grass-top)"/>
+    <polygon points="-96,0 0,48 0,118 -96,70" fill="url(#g-dirt-left)"/>
+    <polygon points="0,48 96,0 96,70 0,118" fill="url(#g-dirt-right)"/>
+    <polygon points="-96,0 0,48 0,62 -96,14" fill="#63c94a"/>
+    <polygon points="0,48 96,0 96,14 0,62" fill="#4fa83a"/>
+    <path d="M-40,-20 l14,7 -14,7 -14,-7z" fill="#a6f28b" opacity=".5"/>
+    <path d="M24,-8 l12,6 -12,6 -12,-6z" fill="#4a9a35" opacity=".45"/>
+    <path d="M-76,30 l12,6 -12,6 -12,-6z" fill="#3f2719" opacity=".4"/>
+    <path d="M46,40 l12,6 -12,6 -12,-6z" fill="#4b2d1c" opacity=".28"/>
+  </g>
+
+  <g id="cube-diamond">
+    <polygon points="0,-48 96,0 0,48 -96,0" fill="url(#g-stone-top)"/>
+    <polygon points="-96,0 0,48 0,118 -96,70" fill="url(#g-stone-left)"/>
+    <polygon points="0,48 96,0 96,70 0,118" fill="url(#g-stone-right)"/>
+    <path d="M-18,-12 l13,7 -13,7 -13,-7z" fill="#65dbe8"/>
+    <path d="M-18,-12 l6,3 -6,3 -6,-3z" fill="#d5fbff"/>
+    <path d="M38,4 l10,6 -10,6 -10,-6z" fill="#3fbccd"/>
+    <path d="M-58,38 l11,7 -11,7 -11,-7z" fill="#5ad2df"/>
+    <path d="M34,66 l11,7 -11,7 -11,-7z" fill="#3fbccd"/>
+  </g>
+
+  <symbol id="i-copy" viewBox="0 0 24 24">
+    <g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="miter">
+      <path d="M9 3h11v14h-4"/>
+      <path d="M4 8h11v13H4z"/>
+    </g>
+  </symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24">
+    <path d="M3 12h16M13 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2"/>
+  </symbol>
+  <symbol id="i-home" viewBox="0 0 24 24">
+    <g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="miter">
+      <path d="M3 11 12 3l9 8v10H3z"/>
+      <path d="M10 21v-6h4v6"/>
+    </g>
+  </symbol>
+  <symbol id="i-door" viewBox="0 0 24 24">
+    <g fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M5 3h14v19H5z"/>
+      <path d="M9 7h6v8H9z"/>
+    </g>
+    <rect x="15" y="13" width="2" height="2" fill="currentColor"/>
+  </symbol>
+</svg>
+
+<header class="nav" id="nav">
   <div class="nav-inner">
     <a class="brand" href="index.html" aria-label="LongerMC 首页">
-      <span class="cube" aria-hidden="true"></span>
-      <span class="brand-text">Longer<em>MC</em></span>
+      <img class="brand-logo" src="icon.jpg" alt="" width="38" height="38" />
+      <span class="brand-text">
+        <span class="brand-name">LONGER<em>MC</em></span>
+        <span class="brand-sub">MINECRAFT SERVER</span>
+      </span>
     </a>
+
     <nav class="nav-links" aria-label="主导航">
       <a href="index.html#status">服务器状态</a>
       <a href="index.html#features">生存服</a>
       <a href="index.html#coming">小游戏</a>
       <a href="index.html#join">如何加入</a>
     </nav>
+
+    <div class="nav-actions">
+      <button class="btn btn-sm" type="button"
+              data-copy="play.mc.longer.xin"
+              data-copy-done="已复制"
+              data-copy-fail="请手动复制">
+        <svg class="icon" aria-hidden="true"><use href="#i-copy"/></svg>
+        <span data-copy-label>复制 IP</span>
+      </button>
+    </div>
   </div>
 </header>
 
 <main id="main" class="err-wrap">
-  <div class="badge"><i aria-hidden="true"></i> ERROR 404</div>
+  <span class="err-glow" aria-hidden="true"></span>
 
-  <div class="err-code" aria-hidden="true">404</div>
+  <div class="err-code-row">
+    <svg class="err-mini-cube err-mini-cube--left" viewBox="0 0 120 140" aria-hidden="true">
+      <g transform="translate(60 58)"><g class="bob bob-b"><use href="#cube-grass" transform="scale(.46)"/></g></g>
+    </svg>
 
-  <h1 class="err-title">这个方块<span class="hl">不存在</span></h1>
+    <div class="err-code" aria-hidden="true">404</div>
+
+    <svg class="err-mini-cube err-mini-cube--right" viewBox="0 0 120 140" aria-hidden="true">
+      <g transform="translate(60 58)"><g class="bob bob-c"><use href="#cube-diamond" transform="scale(.4)"/></g></g>
+    </svg>
+  </div>
+
+  <div class="err-kicker"><span class="dot" aria-hidden="true"></span>CHUNK NOT FOUND</div>
+
+  <h1 class="err-title">这个区块<span class="hl">不存在</span></h1>
 
   <p class="err-desc">
-    你要找的页面大概是掉进虚空了……<br />
-    也可能是我们把传送门建错了地方。
+    您的页面掉出了这个世界<br />
+    也可能是我们根本没有这个世界
   </p>
 
   <div class="err-actions">
-    <a class="mc-btn" href="index.html">返回首页</a>
-    <a class="mc-btn ghost" href="index.html#join">如何加入服务器</a>
-    <button class="mc-btn ghost" type="button"
+    <a class="btn" href="index.html">
+      <svg class="icon" aria-hidden="true"><use href="#i-home"/></svg>
+      返回首页
+    </a>
+    <a class="btn btn-ghost" href="index.html#join">
+      <svg class="icon" aria-hidden="true"><use href="#i-door"/></svg>
+      如何加入服务器
+    </a>
+    <button class="btn btn-ghost" type="button"
             data-copy="play.mc.longer.xin"
-            data-copy-done="已复制 ✓"
-            data-copy-fail="请手动复制">复制服务器地址</button>
+            data-copy-done="已复制"
+            data-copy-fail="请手动复制">
+      <svg class="icon" aria-hidden="true"><use href="#i-copy"/></svg>
+      <span data-copy-label>复制服务器地址</span>
+    </button>
   </div>
 
   <p class="err-ip">play.mc.longer.xin</p>
 </main>
 
 <footer class="footer">
-  <div class="copyright">
-    © <span id="year">2026</span> 龙ger_longer (LongerMC) · 网站 mc.longer.xin · 服务器 play.mc.longer.xin<br />
-    本站为玩家自建服务器官网，与 Mojang Studios、Microsoft 无任何隶属或关联关系。
+  <div class="footer-bottom" style="margin-top:0;border-top:0">
+    <span>© <span id="year">2026</span> 龙ger_longer (LongerMC) · mc.longer.xin</span>
+    <span>本站为玩家自建服务器官网，与 Mojang Studios、Microsoft 无任何隶属或关联关系。</span>
   </div>
 </footer>
 
-<button class="to-top" type="button" aria-label="回到顶部" title="回到顶部">▲</button>
+<div class="sr-only" id="copyAnnouncer" aria-live="polite"></div>
 
 <script src="js/main.js" defer></script>
 </body>

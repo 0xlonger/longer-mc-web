@@ -4,27 +4,29 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<title>LongerMC · Minecraft 1.21.11 原版生存服务器</title>
-<meta name="description" content="LongerMC —— Minecraft Java 版 1.21.11 原版生存服务器，服务器地址 play.mc.longer.xin。长期运营，欢迎一起挖矿、建造、打龙。未来将陆续开放起床战争、空岛战争等小游戏。" />
-<meta name="keywords" content="Minecraft,我的世界,服务器,1.21.11,生存服,LongerMC,起床战争,空岛战争" />
+<title>LongerMC · 龙ger_longer の神奇 Minecraft 1.21.11 生存服务器</title>
+<meta name="description" content="LongerMC —— Minecraft Java 版 1.21.11 原版生存服务器，服务器地址 play.mc.longer.xin。领地保护、箱子商店、跨版本进入、自定义皮肤，长期运营，非营利无充值。未来将考虑加入起床战争、空岛战争等小游戏。" />
+<meta name="keywords" content="Minecraft,我的世界,服务器,1.21.11,生存服,LongerMC,龙ger_longer,领地保护,箱子商店,起床战争,空岛战争" />
 <meta name="author" content="LongerMC" />
-<meta name="theme-color" content="#0d0f14" />
+<meta name="theme-color" content="#0a0d12" />
 <link rel="canonical" href="https://mc.longer.xin/" />
 
 <!-- Open Graph / 社交分享 -->
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="LongerMC" />
-<meta property="og:title" content="LongerMC · Minecraft 1.21.11 原版生存服务器" />
-<meta property="og:description" content="服务器地址：play.mc.longer.xin · 原版生存 · 长期运营 · 和伙伴一起盖出属于自己的世界" />
+<meta property="og:title" content="LongerMC · 龙ger_longer の神奇 Minecraft 1.21.11 生存服务器" />
+<meta property="og:description" content="服务器地址：play.mc.longer.xin · 原版生存 · 长期存档" />
 <meta property="og:url" content="https://mc.longer.xin/" />
 <meta name="twitter:card" content="summary" />
 
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><rect width='16' height='16' fill='%2379553a'/><rect width='16' height='5' fill='%235fbf46'/></svg>" />
+<link rel="icon" href="icon.jpg" type="image/jpeg" />
+<link rel="apple-touch-icon" href="icon.jpg" />
+
+<link rel="preload" href="assets/fonts/press-start-2p.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="stylesheet" href="css/style.css" />
 
 <!-- 提前标记 JS 可用：避免禁用 JS 时内容被 reveal 动画隐藏 -->
 <script>document.documentElement.classList.add('js');</script>
-
-<link rel="stylesheet" href="css/style.css" />
 
 <script type="application/ld+json">
 {
@@ -36,23 +38,592 @@
 }
 </script>
 </head>
-<body>
+<body class="page-home">
 
 <a class="skip-link" href="#main">跳到主要内容</a>
 
+<!-- 滚动进度 -->
+<div class="scroll-progress" aria-hidden="true"><span id="scrollProgress"></span></div>
+
+<!-- ================= 顶部声明公告条 ================= -->
+<div class="announce" role="note" aria-label="非营利声明摘要">
+  <div class="announce-inner">
+    <span class="announce-badge">声明</span>
+    <p>
+      本服务器<b>非营利</b>：承诺 <b>至少 2027 年 10 月前</b> 不开设任何充值入口，也请勿赞助。
+      <a href="#nonprofit">查看完整说明</a>
+    </p>
+  </div>
+</div>
+
+<!-- ================= 像素图标 / 插画资源 ================= -->
+<svg class="svg-sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="g-grass-top" x1="0" y1="0" x2=".4" y2="1">
+      <stop offset="0" stop-color="#8ae66c"/><stop offset="1" stop-color="#57ad3f"/>
+    </linearGradient>
+    <linearGradient id="g-dirt-left" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#6d4830"/><stop offset="1" stop-color="#523524"/>
+    </linearGradient>
+    <linearGradient id="g-dirt-right" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#8a5c3b"/><stop offset="1" stop-color="#68432b"/>
+    </linearGradient>
+    <linearGradient id="g-stone-top" x1="0" y1="0" x2=".4" y2="1">
+      <stop offset="0" stop-color="#a3b0c2"/><stop offset="1" stop-color="#76839a"/>
+    </linearGradient>
+    <linearGradient id="g-stone-left" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#4d586b"/><stop offset="1" stop-color="#3b4554"/>
+    </linearGradient>
+    <linearGradient id="g-stone-right" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#626e82"/><stop offset="1" stop-color="#4a5568"/>
+    </linearGradient>
+    <linearGradient id="g-goldblock-top" x1="0" y1="0" x2=".4" y2="1">
+    <stop offset="0" stop-color="#ffe08a"/><stop offset="1" stop-color="#f2c14e"/>
+  </linearGradient>
+  <linearGradient id="g-goldblock-left" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#c9962f"/><stop offset="1" stop-color="#a87a22"/>
+  </linearGradient>
+  <linearGradient id="g-goldblock-right" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#e8b53f"/><stop offset="1" stop-color="#c08c28"/>
+  </linearGradient>
+  <linearGradient id="g-portal" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#c084fc"/><stop offset=".5" stop-color="#8b5cf6"/><stop offset="1" stop-color="#d946ef"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 等距草方块 -->
+  <g id="cube-grass">
+    <polygon points="0,-48 96,0 0,48 -96,0" fill="url(#g-grass-top)"/>
+    <polygon points="-96,0 0,48 0,118 -96,70" fill="url(#g-dirt-left)"/>
+    <polygon points="0,48 96,0 96,70 0,118" fill="url(#g-dirt-right)"/>
+    <polygon points="-96,0 0,48 0,62 -96,14" fill="#63c94a"/>
+    <polygon points="0,48 96,0 96,14 0,62" fill="#4fa83a"/>
+    <path d="M-40,-20 l14,7 -14,7 -14,-7z" fill="#a6f28b" opacity=".5"/>
+    <path d="M24,-8 l12,6 -12,6 -12,-6z" fill="#4a9a35" opacity=".45"/>
+    <path d="M-8,20 l10,5 -10,5 -10,-5z" fill="#a6f28b" opacity=".28"/>
+    <path d="M-76,30 l12,6 -12,6 -12,-6z" fill="#3f2719" opacity=".4"/>
+    <path d="M-44,64 l12,6 -12,6 -12,-6z" fill="#3f2719" opacity=".3"/>
+    <path d="M46,40 l12,6 -12,6 -12,-6z" fill="#4b2d1c" opacity=".28"/>
+    <path d="M12,88 l10,5 -10,5 -10,-5z" fill="#4b2d1c" opacity=".22"/>
+  </g>
+
+  <!-- 等距钻石矿 -->
+  <g id="cube-diamond">
+    <polygon points="0,-48 96,0 0,48 -96,0" fill="url(#g-stone-top)"/>
+    <polygon points="-96,0 0,48 0,118 -96,70" fill="url(#g-stone-left)"/>
+    <polygon points="0,48 96,0 96,70 0,118" fill="url(#g-stone-right)"/>
+    <g>
+      <path d="M-18,-12 l13,7 -13,7 -13,-7z" fill="#65dbe8"/>
+      <path d="M-18,-12 l6,3 -6,3 -6,-3z" fill="#d5fbff"/>
+      <path d="M38,4 l10,6 -10,6 -10,-6z" fill="#3fbccd"/>
+      <path d="M-58,38 l11,7 -11,7 -11,-7z" fill="#5ad2df"/>
+      <path d="M-58,38 l5,3 -5,3 -5,-3z" fill="#c8f8ff"/>
+      <path d="M34,66 l11,7 -11,7 -11,-7z" fill="#3fbccd"/>
+      <path d="M18,82 l8,5 -8,5 -8,-5z" fill="#65dbe8"/>
+    </g>
+  </g>
+
+  <!-- 等距金矿 -->
+  <g id="cube-gold">
+    <polygon points="0,-48 96,0 0,48 -96,0" fill="url(#g-stone-top)"/>
+    <polygon points="-96,0 0,48 0,118 -96,70" fill="url(#g-stone-left)"/>
+    <polygon points="0,48 96,0 96,70 0,118" fill="url(#g-stone-right)"/>
+    <g>
+      <path d="M-24,-10 l13,7 -13,7 -13,-7z" fill="#f2c14e"/>
+      <path d="M-24,-10 l6,3 -6,3 -6,-3z" fill="#ffe9a8"/>
+      <path d="M32,2 l10,6 -10,6 -10,-6z" fill="#d9a531"/>
+      <path d="M-52,44 l11,7 -11,7 -11,-7z" fill="#f2c14e"/>
+      <path d="M30,70 l11,7 -11,7 -11,-7z" fill="#d9a531"/>
+      <path d="M-22,80 l8,5 -8,5 -8,-5z" fill="#f2c14e"/>
+    </g>
+  </g>
+
+  <!-- 等距金块（声明区装饰） -->
+  <g id="cube-goldblock">
+    <polygon points="0,-48 96,0 0,48 -96,0" fill="url(#g-goldblock-top)"/>
+    <polygon points="-96,0 0,48 0,118 -96,70" fill="url(#g-goldblock-left)"/>
+    <polygon points="0,48 96,0 96,70 0,118" fill="url(#g-goldblock-right)"/>
+    <polygon points="-96,0 0,48 0,62 -96,14" fill="#f6d070"/>
+    <polygon points="0,48 96,0 96,14 0,62" fill="#efbf4d"/>
+    <path d="M-52,-8 l40,20 -40,20 -40,-20z" fill="#ffe9a8" opacity=".5"/>
+    <path d="M24,4 l26,13 -26,13 -26,-13z" fill="#d9a531" opacity=".6"/>
+    <path d="M-40,40 l14,7 -14,7 -14,-7z" fill="#a87a22" opacity=".5"/>
+    <path d="M16,72 l12,6 -12,6 -12,-6z" fill="#a87a22" opacity=".4"/>
+  </g>
+
+  <!-- 等距煤矿石 -->
+  <g id="cube-coal">
+    <polygon points="0,-48 96,0 0,48 -96,0" fill="url(#g-stone-top)"/>
+    <polygon points="-96,0 0,48 0,118 -96,70" fill="url(#g-stone-left)"/>
+    <polygon points="0,48 96,0 96,70 0,118" fill="url(#g-stone-right)"/>
+    <g>
+      <path d="M-22,-10 l13,7 -13,7 -13,-7z" fill="#262a31"/>
+      <path d="M-22,-10 l6,3 -6,3 -6,-3z" fill="#454b55"/>
+      <path d="M30,4 l11,6 -11,6 -11,-6z" fill="#1d2127"/>
+      <path d="M-52,38 l11,7 -11,7 -11,-7z" fill="#262a31"/>
+      <path d="M26,66 l11,6 -11,6 -11,-6z" fill="#1d2127"/>
+      <path d="M-16,82 l9,5 -9,5 -9,-5z" fill="#262a31"/>
+    </g>
+  </g>
+
+  <!-- 像素橡树（主视觉装饰） -->
+  <g id="pixel-tree">
+    <rect x="14" y="18" width="8" height="26" fill="#4a2c1a"/>
+    <rect x="16" y="18" width="2" height="26" fill="#6b4026"/>
+    <rect x="0" y="10" width="36" height="8" fill="#35702a"/>
+    <rect x="0" y="2" width="36" height="8" fill="#3f8a2f"/>
+    <rect x="6" y="-8" width="24" height="10" fill="#4aa338"/>
+    <rect x="12" y="-16" width="12" height="8" fill="#5cbb45"/>
+    <rect x="4" y="4" width="8" height="4" fill="#4aa338"/>
+    <rect x="26" y="12" width="6" height="4" fill="#2f6322"/>
+  </g>
+
+  <!-- 像素猫（坐在方块上） -->
+  <g id="pixel-cat">
+    <rect x="-14" y="-10" width="4" height="4" fill="#d9a54f"/>
+    <rect x="-11" y="-14" width="4" height="4" fill="#e8b76a"/>
+    <rect x="-9" y="-14" width="13" height="14" fill="#e8b76a"/>
+    <rect x="-2" y="-24" width="14" height="12" fill="#f0c97e"/>
+    <rect x="-2" y="-28" width="4" height="4" fill="#f0c97e"/>
+    <rect x="8" y="-28" width="4" height="4" fill="#f0c97e"/>
+    <rect x="1" y="-21" width="3" height="3" fill="#57a64a"/>
+    <rect x="7" y="-21" width="3" height="3" fill="#57a64a"/>
+    <rect x="1" y="-21" width="1" height="1" fill="#173015"/>
+    <rect x="7" y="-21" width="1" height="1" fill="#173015"/>
+    <rect x="0" y="-18" width="12" height="2" fill="#e0b268"/>
+    <rect x="-9" y="0" width="5" height="4" fill="#d9a54f"/>
+    <rect x="0" y="0" width="5" height="4" fill="#d9a54f"/>
+  </g>
+
+  <!-- 像素火把（地面装饰） -->
+  <g id="pixel-torch">
+    <rect x="6" y="14" width="7" height="22" fill="#6b4026"/>
+    <rect x="8" y="14" width="2" height="22" fill="#8a5530"/>
+    <rect x="5" y="6" width="9" height="8" fill="#ffb347"/>
+    <rect x="7" y="0" width="5" height="6" fill="#ffd97a"/>
+    <rect x="8" y="-3" width="3" height="3" fill="#fff3c4"/>
+  </g>
+
+  <!-- 通用图标：16/24 网格，硬边像素风 -->
+  <symbol id="i-copy" viewBox="0 0 24 24">
+    <g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="miter">
+      <path d="M9 3h11v14h-4"/>
+      <path d="M4 8h11v13H4z"/>
+    </g>
+  </symbol>
+  <symbol id="i-check" viewBox="0 0 24 24">
+    <path d="m4 12 5 5L20 5" fill="none" stroke="currentColor" stroke-width="2"/>
+  </symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24">
+    <path d="M3 12h16M13 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2"/>
+  </symbol>
+  <symbol id="i-refresh" viewBox="0 0 24 24">
+    <g fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M20 12a8 8 0 1 1-2.4-5.7"/>
+      <path d="M20 3v5h-5"/>
+    </g>
+  </symbol>
+  <symbol id="i-signal" viewBox="0 0 24 24">
+    <g fill="currentColor">
+      <rect x="3" y="15" width="3" height="6"/>
+      <rect x="8" y="12" width="3" height="9"/>
+      <rect x="13" y="8" width="3" height="13"/>
+      <rect x="18" y="4" width="3" height="17"/>
+    </g>
+  </symbol>
+  <symbol id="i-terminal" viewBox="0 0 24 24">
+    <g fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M2 4h20v16H2z"/>
+      <path d="m6 9 3 3-3 3M12 15h6"/>
+    </g>
+  </symbol>
+  <symbol id="i-grass" viewBox="0 0 24 24">
+    <rect x="2" y="3" width="20" height="7" fill="#63c94a"/>
+    <rect x="2" y="3" width="20" height="2" fill="#8ae66c"/>
+    <rect x="2" y="10" width="20" height="11" fill="#7a4f34"/>
+    <rect x="2" y="10" width="20" height="2" fill="#5b3a24"/>
+    <rect x="5" y="13" width="3" height="3" fill="#66412a"/>
+    <rect x="13" y="16" width="3" height="3" fill="#8a5c3c"/>
+    <rect x="17" y="12" width="2" height="2" fill="#5b3a24"/>
+  </symbol>
+  <symbol id="i-pickaxe" viewBox="0 0 24 24">
+    <g fill="currentColor">
+      <rect x="3" y="4" width="5" height="2"/>
+      <rect x="7" y="2" width="10" height="2"/>
+      <rect x="17" y="4" width="4" height="2"/>
+      <rect x="19" y="6" width="2" height="2"/>
+      <rect x="11" y="7" width="2" height="2"/>
+      <rect x="9" y="9" width="2" height="2"/>
+      <rect x="7" y="11" width="2" height="2"/>
+      <rect x="5" y="13" width="2" height="8"/>
+    </g>
+  </symbol>
+  <symbol id="i-bricks" viewBox="0 0 24 24">
+    <g fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M3 4h18v16H3z"/>
+      <path d="M3 12h18M12 4v8M8 12v8M16 12v8"/>
+    </g>
+  </symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24">
+    <g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="miter">
+      <path d="M12 2 4 5v7c0 5 3.5 8 8 10 4.5-2 8-5 8-10V5l-8-3Z"/>
+      <path d="m8 12 3 3 5-6"/>
+    </g>
+  </symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24">
+    <path d="M13 2h7l-5 8h5l-9 12 2-9H8l5-11Z" fill="currentColor"/>
+  </symbol>
+  <symbol id="i-bed" viewBox="0 0 24 24">
+    <g fill="currentColor">
+      <rect x="2" y="7" width="4" height="12"/>
+      <rect x="6" y="10" width="14" height="4"/>
+      <rect x="6" y="14" width="14" height="2"/>
+      <rect x="8" y="8" width="5" height="3"/>
+      <rect x="19" y="12" width="3" height="8"/>
+      <rect x="6" y="16" width="2" height="4"/>
+      <rect x="18" y="16" width="2" height="4"/>
+    </g>
+  </symbol>
+  <symbol id="i-island" viewBox="0 0 24 24">
+    <g fill="currentColor">
+      <path d="M2 9h20l-6 5H8L2 9Z"/>
+      <path d="M8 14h8l-2 4h-4l-2-4Z"/>
+      <rect x="11" y="2" width="2" height="6"/>
+      <rect x="8" y="2" width="8" height="3"/>
+      <rect x="6" y="5" width="12" height="2"/>
+    </g>
+  </symbol>
+  <symbol id="i-portal" viewBox="0 0 24 24">
+    <g fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M4 3h16v18H4z"/>
+      <path d="M8 7h8v10H8z"/>
+    </g>
+  </symbol>
+  <symbol id="i-sword" viewBox="0 0 24 24">
+    <g transform="rotate(45 12 12)" fill="currentColor">
+      <rect x="11" y="1" width="2" height="3"/>
+      <rect x="10" y="4" width="4" height="9"/>
+      <rect x="8" y="13" width="8" height="2"/>
+      <rect x="11" y="15" width="2" height="6"/>
+      <rect x="9" y="19" width="6" height="2"/>
+    </g>
+  </symbol>
+  <symbol id="i-door" viewBox="0 0 24 24">
+    <g fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M5 3h14v19H5z"/>
+      <path d="M9 7h6v8H9z"/>
+    </g>
+    <rect x="15" y="13" width="2" height="2" fill="currentColor"/>
+  </symbol>
+  <symbol id="i-home" viewBox="0 0 24 24">
+    <g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="miter">
+      <path d="M3 11 12 3l9 8v10H3z"/>
+      <path d="M10 21v-6h4v6"/>
+    </g>
+  </symbol>
+  <symbol id="i-head" viewBox="0 0 16 16">
+    <g shape-rendering="crispEdges">
+      <rect width="16" height="16" fill="#3a2a1f"/>
+      <rect x="2" y="4" width="12" height="12" fill="#c8946a"/>
+      <rect x="2" y="4" width="12" height="2" fill="#3a2a1f"/>
+      <rect x="2" y="6" width="3" height="4" fill="#3a2a1f"/>
+      <rect x="11" y="6" width="3" height="4" fill="#3a2a1f"/>
+      <rect x="5" y="9" width="2" height="2" fill="#2b2118"/>
+      <rect x="9" y="9" width="2" height="2" fill="#2b2118"/>
+      <rect x="7" y="12" width="3" height="1" fill="#8a5a3a"/>
+    </g>
+  </symbol>
+
+  <!-- 插件图标：木锄头（领地保护） -->
+  <symbol id="i-hoe" viewBox="0 0 24 24">
+    <g fill="currentColor">
+      <rect x="3" y="3" width="12" height="2"/>
+      <rect x="3" y="5" width="3" height="3"/>
+      <rect x="11" y="5" width="2" height="2"/>
+      <rect x="13" y="7" width="2" height="2"/>
+      <rect x="15" y="9" width="2" height="2"/>
+      <rect x="17" y="11" width="2" height="10"/>
+    </g>
+  </symbol>
+  <!-- 插件图标：多世界 -->
+  <symbol id="i-worlds" viewBox="0 0 24 24">
+    <g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="miter">
+      <path d="M3 3h12v12H3z"/>
+      <path d="M9 9h12v12H9z"/>
+    </g>
+    <rect x="6" y="6" width="3" height="3" fill="currentColor"/>
+  </symbol>
+  <!-- 插件图标：跨版本 -->
+  <symbol id="i-swap" viewBox="0 0 24 24">
+    <g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="miter">
+      <path d="M8 21V6M4 10l4-4 4 4"/>
+      <path d="M16 3v15M12 14l4 4 4-4"/>
+    </g>
+  </symbol>
+  <!-- 插件图标：账号保护 -->
+  <symbol id="i-lock" viewBox="0 0 24 24">
+    <g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="miter">
+      <path d="M7 10V7a5 5 0 0 1 10 0v3"/>
+      <path d="M4 10h16v11H4z"/>
+    </g>
+    <rect x="11" y="14" width="2" height="4" fill="currentColor"/>
+  </symbol>
+  <!-- 插件图标：经济金币 -->
+  <symbol id="i-coin" viewBox="0 0 24 24">
+    <path fill="currentColor" fill-rule="evenodd"
+          d="M7 2h10v2h3v3h2v10h-2v3h-3v2H7v-2H4v-3H2V7h2V4h3V2zm5 5a5 5 0 1 0 0 10 5 5 0 0 0 0-10z"/>
+  </symbol>
+  <!-- 插件图标：箱子商店 -->
+  <symbol id="i-chest" viewBox="0 0 24 24">
+    <g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="miter">
+      <path d="M3 5h18v15H3z"/>
+      <path d="M3 11h18"/>
+    </g>
+    <rect x="10" y="9" width="4" height="5" fill="currentColor"/>
+  </symbol>
+  <!-- 插件图标：自定义皮肤 -->
+  <symbol id="i-shirt" viewBox="0 0 24 24">
+    <path fill="currentColor" d="M8 2h8v2l4 2v6h-3v11H7V12H4V6l4-2V2zm2 3h4l-2 2-2-2z"/>
+  </symbol>
+
+  <!-- 规则图标：出生点树苗 -->
+  <symbol id="i-tree" viewBox="0 0 24 24">
+    <g fill="currentColor">
+      <rect x="9" y="2" width="6" height="2"/>
+      <rect x="6" y="4" width="12" height="6"/>
+      <rect x="8" y="10" width="8" height="2"/>
+      <rect x="11" y="12" width="2" height="9"/>
+      <rect x="7" y="21" width="10" height="2" opacity=".5"/>
+    </g>
+  </symbol>
+  <!-- 规则图标：聊天行为 -->
+  <symbol id="i-chat" viewBox="0 0 24 24">
+    <path d="M3 3h18v13h-9l-5 5v-5H3z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="miter"/>
+    <g fill="currentColor">
+      <rect x="7" y="8" width="2.4" height="2.4"/>
+      <rect x="11" y="8" width="2.4" height="2.4"/>
+      <rect x="15" y="8" width="2.4" height="2.4"/>
+    </g>
+  </symbol>
+  <!-- 规则图标：TNT / 服务器性能 -->
+  <symbol id="i-tnt" viewBox="0 0 24 24">
+    <g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="miter">
+      <path d="M3 7h18v14H3z"/>
+      <path d="M3 12h18"/>
+    </g>
+    <path d="M9 7V4h3" fill="none" stroke="currentColor" stroke-width="2"/>
+    <rect x="13" y="2" width="2.5" height="2.5" fill="currentColor"/>
+    <g fill="currentColor" opacity=".8">
+      <rect x="6" y="15" width="2" height="3"/>
+      <rect x="11" y="15" width="2" height="3"/>
+      <rect x="16" y="15" width="2" height="3"/>
+    </g>
+  </symbol>
+
+  <!-- 小游戏插画 -->
+  <symbol id="art-bed" viewBox="0 0 320 180">
+    <g opacity=".45">
+      <rect x="0" y="128" width="320" height="52" fill="#190d12"/>
+      <rect x="18" y="108" width="34" height="20" fill="#2b1716"/>
+      <rect x="58" y="118" width="22" height="10" fill="#221216"/>
+      <rect x="262" y="104" width="30" height="24" fill="#2b1716"/>
+      <rect x="238" y="120" width="20" height="8" fill="#221216"/>
+    </g>
+    <g transform="translate(78 46) scale(1.15)">
+      <rect x="0" y="12" width="14" height="46" fill="#4a2c1a"/>
+      <rect x="4" y="16" width="4" height="38" fill="#6b4026"/>
+      <rect x="0" y="44" width="132" height="12" fill="#6b4026"/>
+      <rect x="4" y="30" width="124" height="16" fill="#efe7d6"/>
+      <rect x="8" y="26" width="36" height="18" fill="#fbf7ee"/>
+      <rect x="10" y="28" width="32" height="5" fill="#d9d2c2"/>
+      <rect x="54" y="30" width="74" height="16" fill="#cf4a44"/>
+      <rect x="54" y="30" width="74" height="4" fill="#e2635b"/>
+      <rect x="60" y="38" width="8" height="8" fill="#a83b36"/>
+      <rect x="78" y="38" width="8" height="8" fill="#a83b36"/>
+      <rect x="118" y="30" width="6" height="16" fill="#a83b36"/>
+      <rect x="4" y="56" width="10" height="16" fill="#4a2c1a"/>
+      <rect x="118" y="56" width="10" height="16" fill="#4a2c1a"/>
+      <rect x="124" y="40" width="8" height="28" fill="#4a2c1a"/>
+    </g>
+    <rect x="50" y="34" width="18" height="18" fill="#63c94a"/>
+    <rect x="50" y="47" width="18" height="5" fill="#4a2c1a"/>
+    <rect x="264" y="84" width="14" height="14" fill="#f2c14e"/>
+    <rect x="246" y="28" width="10" height="10" fill="#e2635b"/>
+    <g fill="#ffd97a">
+      <rect x="68" y="120" width="4" height="4"/>
+      <rect x="240" y="48" width="4" height="4"/>
+      <rect x="276" y="134" width="3" height="3"/>
+      <rect x="128" y="24" width="3" height="3"/>
+    </g>
+    <!-- 右侧小浮岛 -->
+    <g>
+      <rect x="284" y="120" width="26" height="8" fill="#3f2719"/>
+      <rect x="288" y="114" width="18" height="6" fill="#63c94a"/>
+      <rect x="292" y="128" width="8" height="7" fill="#2b1a10"/>
+    </g>
+    <!-- TNT 与爆炸粒子 -->
+    <g transform="translate(34 110)">
+      <rect x="0" y="0" width="16" height="14" fill="#c2352f"/>
+      <rect x="0" y="4" width="16" height="5" fill="#efe7d6"/>
+      <rect x="3" y="5" width="10" height="3" fill="#2b2b2b"/>
+      <rect x="7" y="-4" width="2" height="4" fill="#3a2a18"/>
+    </g>
+    <g fill="#fff" opacity=".5">
+      <rect x="30" y="96" width="4" height="4"/>
+      <rect x="40" y="90" width="3" height="3"/>
+      <rect x="44" y="100" width="3" height="3"/>
+    </g>
+    <!-- 钻石点 -->
+    <rect x="22" y="94" width="6" height="6" fill="#65dbe8"/>
+  </symbol>
+
+  <symbol id="art-island" viewBox="0 0 320 180">
+    <g transform="translate(78 30)">
+      <polygon points="0,52 80,24 160,52 80,80" fill="#6ccb4f"/>
+      <polygon points="0,52 80,80 80,118 0,90" fill="#553522"/>
+      <polygon points="80,80 160,52 160,90 80,118" fill="#6b462c"/>
+      <polygon points="0,52 80,80 80,88 0,60" fill="#4f9e3a"/>
+      <polygon points="80,80 160,52 160,60 80,88" fill="#3f8a2f"/>
+      <polygon points="0,90 80,118 80,130 54,120 38,126 22,112 0,106" fill="#4a5568"/>
+      <rect x="74" y="6" width="6" height="44" fill="#4a2c1a"/>
+      <rect x="80" y="6" width="6" height="44" fill="#6b4026"/>
+      <rect x="62" y="-16" width="36" height="8" fill="#3f8a2f"/>
+      <rect x="54" y="-8" width="52" height="18" fill="#4aa338"/>
+      <rect x="62" y="10" width="36" height="10" fill="#3f8a2f"/>
+      <rect x="66" y="-12" width="12" height="6" fill="#5cbb45"/>
+    </g>
+    <g fill="#ffffff" opacity=".8">
+      <rect x="38" y="142" width="32" height="8"/>
+      <rect x="48" y="134" width="18" height="8"/>
+      <rect x="228" y="116" width="38" height="8"/>
+      <rect x="240" y="108" width="20" height="8"/>
+    </g>
+    <rect x="258" y="50" width="14" height="14" fill="#6ccb4f"/>
+    <rect x="258" y="60" width="14" height="4" fill="#4a2c1a"/>
+    <g fill="#c8f8ff">
+      <rect x="70" y="40" width="3" height="3"/>
+      <rect x="238" y="150" width="4" height="4"/>
+      <rect x="286" y="98" width="3" height="3"/>
+    </g>
+    <!-- 主岛宝箱 -->
+    <g transform="translate(116 60)">
+      <rect x="0" y="0" width="16" height="12" fill="#8a6a44"/>
+      <rect x="0" y="0" width="16" height="4" fill="#a8845a"/>
+      <rect x="6" y="3" width="4" height="6" fill="#4a4f58"/>
+      <rect x="0" y="12" width="16" height="2" fill="#5f452c"/>
+    </g>
+    <!-- 第二座浮岛与小树 -->
+    <g>
+      <polygon points="216,86 258,70 300,86 258,102" fill="#6ccb4f"/>
+      <polygon points="216,86 258,102 258,132 216,114" fill="#553522"/>
+      <polygon points="258,102 300,86 300,114 258,132" fill="#6b462c"/>
+      <polygon points="216,86 258,102 258,110 216,94" fill="#4f9e3a"/>
+      <polygon points="258,102 300,86 300,94 258,110" fill="#3f8a2f"/>
+      <rect x="242" y="76" width="5" height="12" fill="#4a2c1a"/>
+      <rect x="244" y="76" width="2" height="12" fill="#6b4026"/>
+      <rect x="230" y="66" width="30" height="8" fill="#3f8a2f"/>
+      <rect x="236" y="56" width="18" height="10" fill="#4aa338"/>
+      <rect x="241" y="50" width="8" height="6" fill="#5cbb45"/>
+    </g>
+    <!-- 连接两岛的木桥 -->
+    <g>
+      <rect x="196" y="74" width="64" height="7" fill="#8a6a44"/>
+      <rect x="196" y="81" width="64" height="3" fill="#6b4a28"/>
+      <rect x="204" y="84" width="4" height="10" fill="#6b4a28"/>
+      <rect x="248" y="84" width="4" height="10" fill="#6b4a28"/>
+    </g>
+    <!-- 主岛瀑布 -->
+    <g fill="#9fd8ef" opacity=".8">
+      <rect x="150" y="148" width="5" height="26"/>
+      <rect x="158" y="144" width="3" height="32"/>
+    </g>
+  </symbol>
+
+  <symbol id="art-portal" viewBox="0 0 320 180">
+    <g transform="translate(104 14)">
+      <rect x="0" y="0" width="112" height="150" fill="#2a1d3e"/>
+      <rect x="8" y="8" width="96" height="134" fill="#120c1e"/>
+      <rect x="16" y="16" width="80" height="118" fill="url(#g-portal)"/>
+      <g fill="#d8a6ff" opacity=".5">
+        <rect x="28" y="34" width="10" height="10"/>
+        <rect x="58" y="54" width="14" height="14"/>
+        <rect x="40" y="86" width="10" height="10"/>
+        <rect x="68" y="108" width="8" height="8"/>
+      </g>
+      <g fill="#ffffff" opacity=".35">
+        <rect x="44" y="46" width="6" height="6"/>
+        <rect x="70" y="30" width="4" height="4"/>
+        <rect x="32" y="72" width="5" height="5"/>
+        <rect x="60" y="122" width="5" height="5"/>
+      </g>
+      <rect x="0" y="0" width="112" height="6" fill="#3d2c58"/>
+      <rect x="0" y="0" width="6" height="150" fill="#3d2c58"/>
+      <rect x="8" y="8" width="4" height="134" fill="#4a3768"/>
+      <rect x="104" y="8" width="4" height="134" fill="#241a35"/>
+    </g>
+    <g fill="#c084fc">
+      <rect x="70" y="40" width="4" height="4"/>
+      <rect x="238" y="62" width="5" height="5"/>
+      <rect x="252" y="130" width="4" height="4"/>
+      <rect x="84" y="132" width="3" height="3"/>
+    </g>
+    <rect x="250" y="26" width="12" height="12" fill="#2a1d3e"/>
+    <rect x="253" y="29" width="6" height="6" fill="#c084fc"/>
+    <!-- 门框黑曜石纹理 -->
+    <g fill="#191026">
+      <rect x="104" y="40" width="4" height="14"/>
+      <rect x="212" y="72" width="4" height="14"/>
+      <rect x="132" y="158" width="18" height="6"/>
+      <rect x="170" y="158" width="14" height="6"/>
+      <rect x="140" y="14" width="16" height="4"/>
+    </g>
+    <!-- 门内飘落粒子 -->
+    <g fill="#e9c8ff" opacity=".6">
+      <rect x="128" y="34" width="4" height="4"/>
+      <rect x="176" y="108" width="4" height="4"/>
+      <rect x="136" y="120" width="3" height="3"/>
+      <rect x="188" y="60" width="3" height="3"/>
+    </g>
+    <!-- 底部紫光池 -->
+    <rect x="88" y="164" width="144" height="8" fill="#3a1f63" opacity=".55"/>
+    <rect x="120" y="164" width="80" height="8" fill="#8b5cf6" opacity=".4"/>
+  </symbol>
+
+</svg>
+
 <!-- ================= 导航 ================= -->
-<header class="nav">
+<header class="nav" id="nav">
   <div class="nav-inner">
     <a class="brand" href="#top" aria-label="LongerMC 首页">
-      <span class="cube" aria-hidden="true"></span>
-      <span class="brand-text">Longer<em>MC</em></span>
+      <img class="brand-logo" src="icon.jpg" alt="" width="38" height="38" />
+      <span class="brand-text">
+        <span class="brand-name">LONGER<em>MC</em></span>
+        <span class="brand-sub">MINECRAFT SERVER</span>
+      </span>
     </a>
+
     <nav class="nav-links" aria-label="主导航">
-      <a href="#status">服务器状态</a>
-      <a href="#features">生存服</a>
-      <a href="#coming">小游戏</a>
-      <a href="#join">如何加入</a>
+      <a href="#status" data-nav="status">服务器状态</a>
+      <a href="#features" data-nav="features">生存服</a>
+      <a href="#plugins" data-nav="plugins">介绍</a>
+      <a href="#rules" data-nav="rules">规则</a>
+      <a href="#coming" data-nav="coming">小游戏</a>
+      <a href="#join" data-nav="join">如何进服</a>
     </nav>
+
+    <div class="nav-actions">
+      <span class="nav-live" title="服务器实时状态">
+        <span class="dot" id="navDot" aria-hidden="true"></span>
+        <span id="navState">检测中</span>
+      </span>
+      <button class="btn btn-sm" type="button"
+              data-copy="play.mc.longer.xin"
+              data-copy-done="已复制"
+              data-copy-fail="请手动复制">
+        <svg class="icon" aria-hidden="true"><use href="#i-copy"/></svg>
+        <span data-copy-label>复制 IP</span>
+      </button>
+    </div>
   </div>
 </header>
 
@@ -60,191 +631,718 @@
 
   <!-- ================= Hero ================= -->
   <section class="hero" id="top">
-    <div class="hero-content">
-      <div class="badge"><i aria-hidden="true"></i> Java 版 · 1.21.11 生存服</div>
+    <div class="hero-stars" aria-hidden="true"></div>
+    <span class="pixel-cloud cloud-a" aria-hidden="true"></span>
+    <span class="pixel-cloud cloud-b" aria-hidden="true"></span>
+    <span class="pixel-cloud cloud-c" aria-hidden="true"></span>
 
-      <h1>Longer<span>MC</span> 服务器</h1>
-      <p class="subtitle">原版生存 · 长期运营 · 和伙伴一起盖出属于自己的世界<br>（网站暂时使用 DeepSeek AI 生成内容，将在未来进行优化）</p>
-
-      <div class="ip-box">
-        <div class="ip-info">
-          <div class="ip-label">服务器地址</div>
-          <div class="ip-addr" data-copy-text>play.mc.longer.xin</div>
+    <div class="hero-inner">
+      <div class="hero-copy">
+        <div class="eyebrow">
+          <span class="eyebrow-brand">LONGERMC</span>
+          <span class="eyebrow-div" aria-hidden="true"></span>
+          <span>JAVA EDITION · 1.21.11</span>
         </div>
-        <button class="mc-btn" type="button"
-                data-copy="play.mc.longer.xin"
-                data-copy-done="已复制 ✓"
-                data-copy-fail="复制失败，请手动复制">点击复制</button>
+
+        <h1>世界之上，<br /><span class="hl">方块之我</span><span class="sr-only">—— LongerMC Minecraft 1.21.11 原版生存服务器</span></h1>
+
+        <p class="hero-lede">
+          <span>LongerMC —— 龙ger_longer の神奇 Minecraft 1.21.11 生存服务器</span>
+          <span>(网站使用过 DeepSeek V4.1 Flash, Hy4 preview, GLM 5.3 Flash 生成内容)</span>
+        </p>
+
+        <div class="ip-card">
+          <span class="ip-icon" aria-hidden="true">
+            <svg class="icon"><use href="#i-signal"/></svg>
+          </span>
+          <span class="ip-body">
+            <span class="ip-label">SERVER ADDRESS</span>
+            <code class="ip-value" data-copy-text>play.mc.longer.xin</code>
+          </span>
+          <button class="ip-copy" type="button"
+                  data-copy="play.mc.longer.xin"
+                  data-copy-done="已复制"
+                  data-copy-fail="请手动复制"
+                  aria-label="复制服务器地址 play.mc.longer.xin">
+            <svg class="icon" aria-hidden="true"><use href="#i-copy"/></svg>
+            <span data-copy-label>复制</span>
+          </button>
+        </div>
+
+        <p class="ip-hint">推荐 1.21.11，其它版本也可进入</p>
+
+        <div class="hero-actions">
+          <a class="btn" href="#join">
+            开始加入
+            <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg>
+          </a>
+          <a class="btn btn-ghost" href="#features">玩法</a>
+          <a class="btn btn-ghost" href="#status">服务器状态</a>
+          <a class="btn btn-gold-ghost" href="#nonprofit">关于充值与赞助</a>
+        </div>
+
+        <div class="hero-live" aria-live="polite">
+          <span class="dot" id="heroDot" aria-hidden="true"></span>
+          <span id="heroState">正在连接服务器…</span>
+          <span class="live-sep" aria-hidden="true"></span>
+          <span class="live-count"><b id="heroOnline">--</b> 位玩家在线</span>
+        </div>
       </div>
 
-      <div class="hero-actions">
-        <a class="mc-btn" href="#join">如何加入</a>
-        <a class="mc-btn ghost" href="#coming">看看玩法</a>
+      <div class="hero-art" aria-hidden="true">
+        <span class="art-glow"></span>
+        <span class="art-tag art-tag--survival">SURVIVAL</span>
+        <span class="art-tag art-tag--version">1.21.11</span>
+        <span class="art-tag art-tag--java">JAVA</span>
+
+        <svg class="voxel" viewBox="0 0 460 400" role="presentation">
+          <defs>
+            <radialGradient id="art-shadow" cx="50%" cy="50%" r="50%">
+              <stop offset="0" stop-color="#000" stop-opacity=".55"/>
+              <stop offset="1" stop-color="#000" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+          <ellipse cx="230" cy="348" rx="150" ry="26" fill="url(#art-shadow)"/>
+          <g transform="translate(230 184)"><g class="bob bob-a"><use href="#cube-grass" transform="scale(1.06)"/></g></g>
+          <!-- 方块顶上的橡树与小猫 -->
+          <g transform="translate(196 128)"><g class="bob bob-a"><use href="#pixel-tree" transform="scale(.9)"/></g></g>
+          <g transform="translate(268 168)"><g class="bob bob-a"><use href="#pixel-cat" transform="scale(1.05)"/></g></g>
+          <g transform="translate(82 106)"><g class="bob bob-b"><use href="#cube-diamond" transform="scale(.46)"/></g></g>
+          <g transform="translate(386 136)" class="cube-gold"><g class="bob bob-c"><use href="#cube-gold" transform="scale(.38)"/></g></g>
+          <g transform="translate(74 250)" class="cube-coal"><g class="bob bob-d"><use href="#cube-coal" transform="scale(.36)"/></g></g>
+          <g transform="translate(354 300)" class="cube-small"><g class="bob bob-b"><use href="#cube-grass" transform="scale(.30)"/></g></g>
+          <g class="sparks" fill="#8ae66f">
+            <rect x="52" y="222" width="7" height="7"/>
+            <rect x="118" y="60" width="5" height="5"/>
+            <rect x="404" y="246" width="6" height="6"/>
+            <rect x="330" y="86" width="4" height="4"/>
+            <rect x="150" y="320" width="5" height="5"/>
+          </g>
+          <g class="sparks sparks--gold" fill="#f2c14e">
+            <rect x="150" y="40" width="5" height="5"/>
+            <rect x="426" y="196" width="5" height="5"/>
+            <rect x="36" y="300" width="4" height="4"/>
+            <rect x="300" y="40" width="4" height="4"/>
+          </g>
+        </svg>
       </div>
+    </div>
+
+    <div class="terrain" aria-hidden="true">
+      <svg class="terra-hills" viewBox="0 0 1440 240" preserveAspectRatio="none" focusable="false">
+        <defs>
+          <linearGradient id="g-hill-rim" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#3f8f2f"/>
+            <stop offset=".45" stop-color="#1b3320"/>
+            <stop offset="1" stop-color="#0b1410"/>
+          </linearGradient>
+        </defs>
+        <path d="M0 128 H80 V110 H160 V124 H240 V98 H320 V118 H400 V92 H480 V114 H560 V130 H640 V106 H720 V122 H800 V96 H880 V116 H960 V134 H1040 V108 H1120 V126 H1200 V100 H1280 V120 H1360 V106 H1440 V240 H0 Z" fill="#1a3020"/>
+        <path d="M0 150 H60 V132 H120 V146 H180 V118 H240 V138 H300 V112 H360 V142 H420 V126 H480 V150 H540 V120 H600 V136 H660 V108 H720 V130 H780 V116 H840 V144 H900 V124 H960 V148 H1020 V118 H1080 V134 H1140 V110 H1200 V130 H1260 V150 H1320 V122 H1380 V138 H1440 V240 H0 Z" fill="url(#g-hill-rim)"/>
+      </svg>
+      <!-- 山丘上的像素树与火把（剪影装饰） -->
+      <svg class="terra-prop terra-prop--tree1" viewBox="-2 -18 40 66" aria-hidden="true"><use href="#pixel-tree"/></svg>
+      <svg class="terra-prop terra-prop--tree2" viewBox="-2 -18 40 66" aria-hidden="true"><use href="#pixel-tree"/></svg>
+      <svg class="terra-prop terra-prop--tree3" viewBox="-2 -18 40 66" aria-hidden="true"><use href="#pixel-tree"/></svg>
+      <span class="terra-glow terra-glow--t1" aria-hidden="true"></span>
+      <svg class="terra-prop terra-prop--t1" viewBox="-2 -5 24 44" aria-hidden="true"><use href="#pixel-torch"/></svg>
+      <span class="terra-glow terra-glow--t2" aria-hidden="true"></span>
+      <svg class="terra-prop terra-prop--t2" viewBox="-2 -5 24 44" aria-hidden="true"><use href="#pixel-torch"/></svg>
     </div>
   </section>
 
   <!-- ================= 服务器状态 ================= -->
   <section class="section reveal" id="status">
     <div class="section-head">
+      <div class="kicker"><span>01</span> SERVER STATUS</div>
       <h2>服务器<span class="hl">状态</span></h2>
-      <p>数据实时获取，每 60 秒自动刷新一次</p>
+      <p>每 60 秒自动同步一次，数据来自 mcsrvstat.us。页面切回前台立即刷新。</p>
     </div>
 
-    <div class="stat-grid">
-      <div class="stat-card">
-        <div class="stat-label">运行状态</div>
-        <div class="stat-value" aria-live="polite">
-          <span class="dot" id="statusDot" aria-hidden="true"></span><span id="statState">检测中…</span>
+    <div class="console">
+      <div class="console-bar">
+        <div class="console-title">
+          <span class="console-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+          server.status
+          <span class="console-path">/ play.mc.longer.xin</span>
+        </div>
+        <div class="console-tools">
+          <span class="console-updated" id="statUpdated">等待首次同步…</span>
+          <button class="icon-btn" id="refreshStatus" type="button" aria-label="立即刷新服务器状态" title="立即刷新">
+            <svg class="icon" aria-hidden="true"><use href="#i-refresh"/></svg>
+          </button>
         </div>
       </div>
 
-      <div class="stat-card">
-        <div class="stat-label">在线玩家</div>
-        <div class="stat-value" id="statPlayer" aria-live="polite">--</div>
+      <div class="server-entry">
+        <div class="server-icon">
+          <img src="icon.jpg" alt="" width="64" height="64" />
+        </div>
+        <div class="server-meta">
+          <div class="server-name">
+            LongerMC
+            <span class="version-pill">1.21.11</span>
+            <span class="edition-pill">JAVA</span>
+          </div>
+          <p class="server-motd" id="statMotd">原版生存 · 玩法丰富 · 欢迎回家</p>
+          <div class="server-addr">
+            <svg class="icon" aria-hidden="true"><use href="#i-signal"/></svg>
+            <code>play.mc.longer.xin</code>
+          </div>
+        </div>
+        <div class="server-side">
+          <div class="server-state" aria-live="polite">
+            <span class="dot" id="statusDot" aria-hidden="true"></span>
+            <span id="statState">检测中…</span>
+          </div>
+          <div class="ping-bars" id="pingBars" aria-hidden="true">
+            <i></i><i></i><i></i><i></i><i></i>
+          </div>
+        </div>
       </div>
 
-      <div class="stat-card">
-        <div class="stat-label">游戏版本</div>
-        <div class="stat-value" id="statVersion">Java 1.21.11</div>
+      <div class="stat-grid">
+        <div class="stat">
+          <div class="stat-top">
+            <span class="stat-label">在线玩家</span>
+            <span class="stat-index">01</span>
+          </div>
+          <div class="stat-value" id="statPlayer" aria-live="polite">--</div>
+          <div class="stat-note">实时同步</div>
+        </div>
+
+        <div class="stat">
+          <div class="stat-top">
+            <span class="stat-label">游戏版本</span>
+            <span class="stat-index">02</span>
+          </div>
+          <div class="stat-value" id="statVersion">Java 1.21.11</div>
+          <div class="stat-note">原版核心</div>
+        </div>
+
+        <button class="stat stat-copy" type="button"
+                data-copy="play.mc.longer.xin"
+                data-copy-done="已复制"
+                data-copy-fail="请手动复制"
+                aria-label="复制服务器地址 play.mc.longer.xin">
+          <span class="stat-top">
+            <span class="stat-label">服务器地址</span>
+            <span class="stat-index">03</span>
+          </span>
+          <span class="stat-value stat-value--ip"><code>play.mc.longer.xin</code></span>
+          <span class="stat-note" data-copy-label>点击复制</span>
+        </button>
       </div>
 
-      <div class="stat-card clickable"
-           role="button"
-           tabindex="0"
-           title="点击复制服务器地址"
-           aria-label="复制服务器地址 play.mc.longer.xin"
-           data-copy="play.mc.longer.xin"
-           data-copy-done="已复制 ✓">
-        <div class="stat-label">服务器地址</div>
-        <div class="stat-value ip" data-copy-text>play.mc.longer.xin</div>
+      <div class="players-panel" id="playersPanel" hidden>
+        <div class="panel-title">
+          当前在线玩家
+          <span class="panel-count" id="playerCount"></span>
+        </div>
+        <div class="player-list" id="playerList"></div>
       </div>
-    </div>
-
-    <div class="players-panel" id="playersPanel" hidden>
-      <div class="panel-title">当前在线玩家</div>
-      <div class="player-list" id="playerList"></div>
     </div>
 
     <noscript>
-      <p class="notice">你的浏览器禁用了 JavaScript，服务器状态无法自动刷新。</p>
+      <p class="notice">您的浏览器禁用了 JavaScript，服务器状态无法自动刷新。服务器地址：<code>play.mc.longer.xin</code></p>
     </noscript>
   </section>
 
   <!-- ================= 生存服特色 ================= -->
   <section class="section reveal" id="features">
     <div class="section-head">
-      <h2>正在发展的 <span class="hl">1.21.11 生存服</span></h2>
-      <p>一切从一块草方块开始，慢慢长成一座城</p>
+      <div class="kicker"><span>02</span> SURVIVAL</div>
+      <h2><span class="hl">原版</span>之上，<span class="hl">插件</span>之趣</h2>
+      <p>1.21.11 原版之上，安装了丰富的插件，更多乐趣。</p>
     </div>
 
-    <div class="card-grid">
-      <article class="card">
-        <div class="card-icon" aria-hidden="true">🌱</div>
-        <h3>原版生存体验</h3>
-        <p>基于 1.21.11 版本，保留原汁原味的挖矿、建造与探索乐趣，没有花里胡哨的魔改。</p>
+    <div class="bento">
+      <article class="feature feature--wide">
+        <div class="feature-body">
+          <div class="icon-tile" aria-hidden="true"><svg class="icon"><use href="#i-grass"/></svg></div>
+          <h3>原版生存</h3>
+          <p>没有魔改与付费特权。合成表、红石逻辑、刷怪机制皆保持原样，您的体验，宾至如归。</p>
+          <ul class="ticks">
+            <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>1.21.11 原版核心</li>
+            <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>长期存档</li>
+            <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>公平规则</li>
+          </ul>
+        </div>
+        <div class="feature-art" aria-hidden="true">
+          <span class="feature-art-glow"></span>
+          <svg viewBox="0 0 180 200">
+            <g class="sparks" fill="#8ae66f">
+              <rect x="16" y="44" width="4" height="4"/>
+              <rect x="152" y="66" width="4" height="4"/>
+              <rect x="142" y="152" width="4" height="4"/>
+            </g>
+            <use href="#cube-grass" transform="translate(90 86) scale(.72)"/>
+            <g transform="translate(64 40)"><use href="#pixel-tree" transform="scale(.62)"/></g>
+            <g transform="translate(102 76)"><use href="#pixel-cat" transform="scale(.72)"/></g>
+          </svg>
+        </div>
       </article>
 
-      <article class="card">
-        <div class="card-icon" aria-hidden="true">🏗️</div>
+      <article class="feature feature--sm">
+        <div class="icon-tile icon-tile--gold" aria-hidden="true"><svg class="icon"><use href="#i-bricks"/></svg></div>
         <h3>自由建造</h3>
-        <p>找一块喜欢的地方，从火柴盒到空中城堡，你想怎么盖就怎么盖。</p>
+        <p>寻找您扎根的土地，安心建造，长期存档。</p>
+        <span class="feature-deco" aria-hidden="true">
+          <svg viewBox="0 0 64 46">
+            <rect x="24" y="0" width="10" height="8" fill="#5a3d24"/>
+            <rect x="6" y="8" width="46" height="12" fill="#a83b36"/>
+            <rect x="6" y="8" width="46" height="4" fill="#c04842"/>
+            <rect x="10" y="20" width="38" height="20" fill="#8a6a44"/>
+            <rect x="10" y="20" width="38" height="3" fill="#9c7a52"/>
+            <rect x="26" y="27" width="9" height="13" fill="#5a3d24"/>
+            <rect x="15" y="25" width="7" height="7" fill="#aee2ff"/>
+            <rect x="37" y="25" width="7" height="7" fill="#aee2ff"/>
+          </svg>
+        </span>
+        <span class="feature-meta">任意选址 · 长期保存</span>
       </article>
 
-      <article class="card">
-        <div class="card-icon" aria-hidden="true">🤝</div>
+      <article class="feature feature--sm">
+        <div class="icon-tile icon-tile--diamond" aria-hidden="true"><svg class="icon"><use href="#i-shield"/></svg></div>
         <h3>友善社区</h3>
-        <p>一起挖矿、一起打龙、一起搞基建。欢迎新玩家，拒绝恶意破坏。</p>
+        <p>共同游玩，体验乐趣。欢迎新玩家，反破坏规则明确。</p>
+        <span class="feature-deco" aria-hidden="true">
+          <svg viewBox="0 0 64 22">
+            <g>
+              <rect x="2" y="2" width="18" height="18" fill="#c98d5e"/>
+              <rect x="2" y="2" width="18" height="5" fill="#3b2a1a"/>
+              <rect x="6" y="10" width="4" height="3" fill="#2f9e44"/>
+              <rect x="13" y="10" width="4" height="3" fill="#2f9e44"/>
+              <rect x="7" y="16" width="8" height="2" fill="#8a5a38"/>
+            </g>
+            <g>
+              <rect x="23" y="2" width="18" height="18" fill="#d9a56e"/>
+              <rect x="23" y="2" width="18" height="5" fill="#1e293b"/>
+              <rect x="27" y="10" width="4" height="3" fill="#3b82f6"/>
+              <rect x="34" y="10" width="4" height="3" fill="#3b82f6"/>
+              <rect x="28" y="16" width="8" height="2" fill="#9a6a42"/>
+            </g>
+            <g>
+              <rect x="44" y="2" width="18" height="18" fill="#b57f52"/>
+              <rect x="44" y="2" width="18" height="5" fill="#5a2d0e"/>
+              <rect x="48" y="10" width="4" height="3" fill="#e2b93b"/>
+              <rect x="55" y="10" width="4" height="3" fill="#e2b93b"/>
+              <rect x="49" y="16" width="8" height="2" fill="#7a5030"/>
+            </g>
+          </svg>
+        </span>
+        <span class="feature-meta">共同维护 · 拒绝破坏</span>
       </article>
 
-      <article class="card">
-        <div class="card-icon" aria-hidden="true">⚡</div>
+      <article class="feature feature--sm">
+        <div class="icon-tile icon-tile--torch" aria-hidden="true"><svg class="icon"><use href="#i-bolt"/></svg></div>
         <h3>稳定流畅</h3>
-        <p>长期开服，持续维护与优化，尽量让大家玩得顺心不卡顿。</p>
+        <p>长期开服，持续维护与优化。让您安心流畅地游玩。</p>
+        <span class="feature-deco feature-deco--bars" aria-hidden="true">
+          <svg viewBox="0 0 64 42">
+            <rect x="4" y="30" width="10" height="12" fill="#63c94a"/>
+            <rect x="20" y="22" width="10" height="20" fill="#63c94a"/>
+            <rect x="36" y="14" width="10" height="28" fill="#63c94a"/>
+            <rect class="bar-live" x="52" y="6" width="10" height="36" fill="#8ae66f"/>
+          </svg>
+        </span>
+        <span class="feature-meta">持续维护 · 低延迟</span>
+      </article>
+
+      <article class="feature feature--sm feature--copy">
+        <div class="feature-copy-head">
+          <span class="kicker kicker--plain">QUICK JOIN</span>
+          <h3>复制地址，直接开玩</h3>
+        </div>
+        <code class="feature-ip">play.mc.longer.xin</code>
+        <button class="btn btn-sm btn-block" type="button"
+                data-copy="play.mc.longer.xin"
+                data-copy-done="已复制，去启动器粘贴吧"
+                data-copy-fail="请手动复制">
+          <svg class="icon" aria-hidden="true"><use href="#i-copy"/></svg>
+          <span data-copy-label>复制服务器地址</span>
+        </button>
+        <span class="feature-meta">启动器 → 添加服务器 → 粘贴</span>
       </article>
     </div>
   </section>
 
-  <!-- ================= 即将上线 ================= -->
-  <section class="section reveal" id="coming">
+  <!-- ================= 服务器介绍（插件） ================= -->
+  <section class="section reveal" id="plugins">
     <div class="section-head">
-      <h2>即将上线的<span class="hl">小游戏</span></h2>
-      <p>生存服之外，更多好玩的模式正在路上</p>
+      <div class="kicker"><span>03</span> WHAT'S INSTALLED</div>
+      <h2>服务器<span class="hl">介绍</span></h2>
+      <p>在原版生存的基础上，安装了许多插件从而获得更好的体验。体验更佳。</p>
     </div>
 
-    <div class="game-grid">
-      <article class="game-card">
-        <div class="game-thumb thumb-bed">
-          <span aria-hidden="true">🛏️</span>
-          <span class="game-tag">开发中</span>
+    <div class="plugin-grid">
+      <article class="plugin">
+        <div class="plugin-top">
+          <div class="icon-tile" aria-hidden="true"><svg class="icon"><use href="#i-hoe"/></svg></div>
+          <span class="plugin-num" aria-hidden="true">01</span>
+        </div>
+        <h3>领地保护</h3>
+        <p>使用木锄头，左 / 右键选择起点和终点，支付所需金币（0.01 金币/格）即可圈地，安心保护你的建筑与箱子。</p>
+        <span class="plugin-meta">Residence</span>
+      </article>
+
+      <article class="plugin">
+        <div class="plugin-top">
+          <div class="icon-tile icon-tile--diamond" aria-hidden="true"><svg class="icon"><use href="#i-worlds"/></svg></div>
+          <span class="plugin-num" aria-hidden="true">02</span>
+        </div>
+        <h3>多世界管理</h3>
+        <p>主城、生存·主世界、生存·鸢尾原初（由 Iris - Dimension Engine 插件生成的更真实的世界）。</p>
+        <span class="plugin-meta">Multiverse-Core · Iris - Dimension Engine</span>
+      </article>
+
+      <article class="plugin">
+        <div class="plugin-top">
+          <div class="icon-tile" aria-hidden="true"><svg class="icon"><use href="#i-swap"/></svg></div>
+          <span class="plugin-num" aria-hidden="true">03</span>
+        </div>
+        <h3>跨版本进入</h3>
+        <p>首要推荐 1.21.11 版本，其它版本也可进入。现有版本差别不大也可放心游玩。</p>
+        <span class="plugin-meta">ViaVersion · ViaBackwards · ViaRewind</span>
+      </article>
+
+      <article class="plugin">
+        <div class="plugin-top">
+          <div class="icon-tile icon-tile--diamond" aria-hidden="true"><svg class="icon"><use href="#i-lock"/></svg></div>
+          <span class="plugin-num" aria-hidden="true">04</span>
+        </div>
+        <h3>账号保护</h3>
+        <p>第一次进入需要注册密码，请牢记您的密码。忘记密码请联系管理员，并提供充足证据以证明您的账号。</p>
+        <span class="plugin-meta">AuthMe</span>
+      </article>
+
+      <article class="plugin">
+        <div class="plugin-top">
+          <div class="icon-tile" aria-hidden="true"><svg class="icon"><use href="#i-terminal"/></svg></div>
+          <span class="plugin-num" aria-hidden="true">05</span>
+        </div>
+        <h3>实用指令</h3>
+        <p>可用回家、传送、传送点、私信等基础指令，具体可在游戏中输入 <code>/help</code> 查看。</p>
+        <span class="plugin-meta">EssentialsX</span>
+      </article>
+
+      <article class="plugin">
+        <div class="plugin-top">
+          <div class="icon-tile icon-tile--gold" aria-hidden="true"><svg class="icon"><use href="#i-coin"/></svg></div>
+          <span class="plugin-num" aria-hidden="true">06</span>
+        </div>
+        <h3>权限与经济</h3>
+        <p>LuckPerms 分组和权限统一管理，Vault 提供经济接口，支撑圈地与商店体系稳定运转。</p>
+        <span class="plugin-meta">LuckPerms · Vault</span>
+      </article>
+
+      <article class="plugin">
+        <div class="plugin-top">
+          <div class="icon-tile icon-tile--gold" aria-hidden="true"><svg class="icon"><use href="#i-chest"/></svg></div>
+          <span class="plugin-num" aria-hidden="true">07</span>
+        </div>
+        <h3>箱子商店</h3>
+        <p>左键箱子为手中的物品创建商店，右键已创建的商店即可修改商店设置，祝您生意兴隆，财源广进。</p>
+        <span class="plugin-meta">QuickShop-Hikari</span>
+      </article>
+
+      <article class="plugin">
+        <div class="plugin-top">
+          <div class="icon-tile icon-tile--torch" aria-hidden="true"><svg class="icon"><use href="#i-shirt"/></svg></div>
+          <span class="plugin-num" aria-hidden="true">08</span>
+        </div>
+        <h3>自定义皮肤</h3>
+        <p>使用 <code>/skin</code> 指令设置皮肤，可设置为正版玩家皮肤，也可从 URL 获取。</p>
+        <span class="plugin-meta">NovaSkin</span>
+      </article>
+    </div>
+  </section>
+
+  <!-- ================= 服务器基本规则 ================= -->
+  <section class="section section--rules reveal" id="rules">
+    <div class="section-head">
+      <div class="kicker"><span>04</span> RULES</div>
+      <h2>服务器<span class="hl">基本规则</span></h2>
+      <p>请遵守服务器规则以保证其他玩家与自己的良好体验。</p>
+    </div>
+
+    <div class="rules">
+      <div class="rules-bar">
+        <span class="rules-title">
+          <svg class="icon" aria-hidden="true"><use href="#i-shield"/></svg>
+          SERVER RULES
+        </span>
+        <span class="rules-count">共 5 条 · 请自觉遵守</span>
+      </div>
+      <ol class="rule-list">
+        <li class="rule">
+          <span class="rule-num" aria-hidden="true">01</span>
+          <div class="rule-main">
+            <div class="rule-head">
+              <svg class="icon rule-icon" aria-hidden="true"><use href="#i-tree"/></svg>
+              <span class="rule-cat">出生点</span>
+            </div>
+            <p>禁止在出生点附近大兴土木，影响玩家出生。</p>
+          </div>
+        </li>
+        <li class="rule">
+          <span class="rule-num" aria-hidden="true">02</span>
+          <div class="rule-main">
+            <div class="rule-head">
+              <svg class="icon rule-icon" aria-hidden="true"><use href="#i-hoe"/></svg>
+              <span class="rule-cat">领地使用</span>
+            </div>
+            <p>禁止圈大片领地而不使用，请勿圈领地围堵他人。</p>
+          </div>
+        </li>
+        <li class="rule">
+          <span class="rule-num" aria-hidden="true">03</span>
+          <div class="rule-main">
+            <div class="rule-head">
+              <svg class="icon rule-icon" aria-hidden="true"><use href="#i-sword"/></svg>
+              <span class="rule-cat">作弊与模组</span>
+            </div>
+            <p>严禁外挂。服务器未启用飞行（创造、权限允许除外），禁止透视类模组、材质包（允许灵魂出窍）。</p>
+          </div>
+        </li>
+        <li class="rule">
+          <span class="rule-num" aria-hidden="true">04</span>
+          <div class="rule-main">
+            <div class="rule-head">
+              <svg class="icon rule-icon" aria-hidden="true"><use href="#i-chat"/></svg>
+              <span class="rule-cat">聊天与内容</span>
+            </div>
+            <p>请勿用语过激，禁止发布违法违规与政治敏感内容。</p>
+          </div>
+        </li>
+        <li class="rule">
+          <span class="rule-num" aria-hidden="true">05</span>
+          <div class="rule-main">
+            <div class="rule-head">
+              <svg class="icon rule-icon" aria-hidden="true"><use href="#i-tnt"/></svg>
+              <span class="rule-cat">服务器性能</span>
+            </div>
+            <p>禁止建造卡服建筑。</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ================= 小游戏（规划中） ================= -->
+  <section class="section section--coming reveal" id="coming">
+    <span class="coming-pixel coming-pixel--a" aria-hidden="true"></span>
+    <span class="coming-pixel coming-pixel--b" aria-hidden="true"></span>
+    <span class="coming-pixel coming-pixel--c" aria-hidden="true"></span>
+    <div class="section-head">
+      <div class="kicker"><span>05</span> PLANNED · NOT OPEN</div>
+      <h2>小游戏正在<span class="hl">考虑之中</span></h2>
+      <p>以后将会考虑加入如起床战争、空岛战争等小游戏，也欢迎联系管理员及服主提供建议。</p>
+
+      <div class="road-progress">
+        <div class="road-head">
+          <span class="road-title">ROADMAP PROGRESS</span>
+          <span class="road-note">1 已上线 · 3 评估中</span>
+        </div>
+        <div class="road-bar"><i class="is-live"></i><i></i><i></i><i></i></div>
+        <div class="road-legend">
+          <span><i></i>生存服 · 已上线</span>
+          <span><i></i>起床战争 · 评估中</span>
+          <span><i></i>空岛战争 · 评估中</span>
+          <span><i></i>更多玩法 · 尽情想象</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="games">
+      <article class="game game--featured">
+        <div class="game-art game-art--bed">
+          <svg viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><use href="#art-bed"/></svg>
+          <span class="game-tag"><i aria-hidden="true"></i>未开放</span>
         </div>
         <div class="game-body">
-          <h3>起床战争</h3>
-          <p>守住自己的床，拆掉对手的床，把敌人全部淘汰出局。团队配合与手速的双重考验。</p>
+          <div class="game-title-row">
+            <h3>起床战争</h3>
+            <span class="game-sub">BED WARS</span>
+          </div>
+          <p>守住自己的床，拆掉对手的床，将敌人全部淘汰。正在考虑之中。</p>
+          <ul class="game-specs">
+            <li><span>模式</span><b><svg class="icon spec-ico" aria-hidden="true"><use href="#i-sword"/></svg>团队 PVP</b></li>
+            <li><span>核心</span><b><svg class="icon spec-ico" aria-hidden="true"><use href="#i-chest"/></svg>资源争夺</b></li>
+            <li><span>节奏</span><b><svg class="icon spec-ico" aria-hidden="true"><use href="#i-bolt"/></svg>快速对局</b></li>
+          </ul>
+          <div class="game-foot">
+            <span class="game-status"><i aria-hidden="true"></i>仍在考虑</span>
+            <a class="game-link" href="#join">先玩生存服 <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          </div>
         </div>
       </article>
 
-      <article class="game-card">
-        <div class="game-thumb thumb-sky">
-          <span aria-hidden="true">🏝️</span>
-          <span class="game-tag">开发中</span>
-        </div>
-        <div class="game-body">
-          <h3>空岛战争</h3>
-          <p>在悬空的孤岛上开局，抢资源、搭桥、偷袭，成为最后活下来的人。</p>
-        </div>
-      </article>
+      <div class="games-side">
+        <article class="game game--row">
+          <div class="game-art game-art--sky">
+            <svg viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><use href="#art-island"/></svg>
+            <span class="game-tag"><i aria-hidden="true"></i>未开放</span>
+          </div>
+          <div class="game-body">
+            <div class="game-title-row">
+              <h3>空岛战争</h3>
+              <span class="game-sub">SKY WARS</span>
+            </div>
+            <p>孤岛开局，抢资源、搭桥、偷袭，成为最后存活的玩家。仍在考虑之中。</p>
+            <div class="game-tags"><span>生存竞技</span><span>快速对局</span></div>
+            <div class="game-row-foot">
+              <span class="game-status"><i aria-hidden="true"></i>设计评估中</span>
+              <span class="game-prio" aria-label="优先级：高"><span class="prio-bars" aria-hidden="true"><i></i><i></i><i></i><i class="off"></i></span>优先级 高</span>
+            </div>
+          </div>
+        </article>
 
-      <article class="game-card">
-        <div class="game-thumb thumb-more">
-          <span aria-hidden="true">🎮</span>
-          <span class="game-tag later">敬请期待</span>
+        <article class="game game--row">
+          <div class="game-art game-art--portal">
+            <svg viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><use href="#art-portal"/></svg>
+            <span class="game-tag game-tag--later"><i aria-hidden="true"></i>未知</span>
+          </div>
+          <div class="game-body">
+            <div class="game-title-row">
+              <h3>更多玩法</h3>
+              <span class="game-sub">ROADMAP</span>
+            </div>
+            <p>更多模式仍在考虑之中，欢迎提供建议。</p>
+            <div class="game-tags"><span>由你决定</span><span>持续更新</span></div>
+            <div class="game-row-foot">
+              <span class="game-status game-status--purple"><i aria-hidden="true"></i>提案收集中</span>
+              <a class="game-link game-link--purple" href="#join">游戏内提议新玩法 <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 非营利声明 ================= -->
+  <section class="section section--gold reveal" id="nonprofit">
+    <div class="section-head">
+      <div class="kicker kicker--gold">NON-PROFIT</div>
+      <h2>暂不提供任何充值入口，<span class="hl hl--gold">也请勿赞助</span></h2>
+      <p>服务器由 SimpFun（简幻欢）提供，由于其公益性质，故暂不开放充值入口，同时也请勿赞助服务器。</p>
+    </div>
+
+    <div class="pledge">
+      <div class="pledge-art" aria-hidden="true">
+        <svg viewBox="0 0 220 240"><g transform="translate(110 96) scale(.62)"><use href="#cube-goldblock"/></g></svg>
+        <span class="pledge-spark" style="top:8%;left:18%"></span>
+        <span class="pledge-spark pledge-spark--b" style="top:34%;left:86%"></span>
+        <span class="pledge-spark pledge-spark--c" style="top:72%;left:74%"></span>
+      </div>
+
+      <div class="pledge-body">
+        <div class="pledge-item">
+          <span class="pledge-cube" aria-hidden="true">01</span>
+          <p><b>承诺期限：</b>在 <b class="gold">2027 年 10 月之前</b>，服务器不会开设任何形式的充值、氪金、付费特权或内购通道。</p>
         </div>
-        <div class="game-body">
-          <h3>更多玩法</h3>
-          <p>更多小游戏模式正在规划中，欢迎在游戏内提出你喜欢的玩法建议。</p>
+        <div class="pledge-item">
+          <span class="pledge-cube" aria-hidden="true">02</span>
+          <p><b>请不要赞助该服务器。</b>无需转账、请勿打赏。若您想支持该服务器，进入游玩即可。</p>
         </div>
-      </article>
+        <div class="pledge-item">
+          <span class="pledge-cube" aria-hidden="true">03</span>
+          <p><b>人人平等。</b>服务器中没有任何需要花费现金购买的等级、道具、头衔或权限，包括管理。</p>
+        </div>
+        <div class="pledge-item">
+          <span class="pledge-cube" aria-hidden="true">04</span>
+          <p><b>若要改变，将会事先通知。</b>若要改变，服务器将从 SimpFun（简幻欢）迁移，并事先通知，尽量确保您能够知晓。</p>
+        </div>
+
+        <div class="pledge-meta">
+          <p>本条声明发布于 2026 年 10 月 · 有效期至少至 2027 年 10 月</p>
+          <p>到期后如继续以非营利方式运营，本页会更新新的期限。</p>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- ================= 如何加入 ================= -->
   <section class="section reveal" id="join">
     <div class="section-head">
-      <h2>如何<span class="hl">加入</span></h2>
-      <p>四步进入服务器，开始你的生存之旅</p>
+      <div class="kicker"><span>06</span> HOW TO JOIN</div>
+      <h2>四步，<span class="hl">进入世界</span></h2>
+      <p>Minecraft Java 版，可离线进入，无需正版。</p>
     </div>
 
     <ol class="steps">
-      <li>
-        <span class="step-num" aria-hidden="true">1</span>
-        <div>
-          <h4>启动 Minecraft Java 版</h4>
-          <p>打开正版启动器，选择 <code>1.21.11</code> 版本并启动游戏。</p>
+      <li class="step">
+        <span class="step-ghost" aria-hidden="true">01</span>
+        <div class="step-top">
+          <span class="step-num" aria-hidden="true">01</span>
+          <span class="step-line" aria-hidden="true"></span>
+          <span class="step-ico" aria-hidden="true"><svg class="icon"><use href="#i-grass"/></svg></span>
         </div>
+        <h4>启动 Minecraft Java 版</h4>
+        <p>推荐启动 <code>1.21.11</code> 版本。已安装 ViaVersion / ViaBackwards / ViaRewind 插件，其它版本也可进入。</p>
       </li>
-      <li>
-        <span class="step-num" aria-hidden="true">2</span>
-        <div>
-          <h4>进入「多人游戏」</h4>
-          <p>在主菜单点击「多人游戏」，然后选择「添加服务器」。</p>
+      <li class="step">
+        <span class="step-ghost" aria-hidden="true">02</span>
+        <div class="step-top">
+          <span class="step-num" aria-hidden="true">02</span>
+          <span class="step-line" aria-hidden="true"></span>
+          <span class="step-ico" aria-hidden="true"><svg class="icon"><use href="#i-door"/></svg></span>
         </div>
+        <h4>多人游戏 → 添加服务器</h4>
+        <p>主菜单点击「多人游戏」，然后点击「添加服务器」。</p>
       </li>
-      <li>
-        <span class="step-num" aria-hidden="true">3</span>
-        <div>
-          <h4>填写服务器地址</h4>
-          <p>服务器地址填入 <code>play.mc.longer.xin</code>，名称随意填写。</p>
+      <li class="step">
+        <span class="step-ghost" aria-hidden="true">03</span>
+        <div class="step-top">
+          <span class="step-num" aria-hidden="true">03</span>
+          <span class="step-line" aria-hidden="true"></span>
+          <span class="step-ico" aria-hidden="true"><svg class="icon"><use href="#i-terminal"/></svg></span>
         </div>
+        <h4>填写服务器地址</h4>
+        <p>
+          地址填入
+          <span class="inline-ip">
+            <code>play.mc.longer.xin</code>
+            <button class="copy-mini" type="button"
+                    data-copy="play.mc.longer.xin"
+                    data-copy-done="已复制"
+                    data-copy-fail="请手动复制"
+                    aria-label="复制服务器地址">
+              <svg class="icon" aria-hidden="true"><use href="#i-copy"/></svg>
+            </button>
+          </span>
+          ，名称可自定义。
+        </p>
       </li>
-      <li>
-        <span class="step-num" aria-hidden="true">4</span>
-        <div>
-          <h4>双击加入</h4>
-          <p>选中服务器，点击「加入服务器」，就可以开始你的生存之旅啦！</p>
+      <li class="step">
+        <span class="step-ghost" aria-hidden="true">04</span>
+        <div class="step-top">
+          <span class="step-num" aria-hidden="true">04</span>
+          <span class="step-line" aria-hidden="true"></span>
+          <span class="step-ico" aria-hidden="true"><svg class="icon"><use href="#i-lock"/></svg></span>
         </div>
+        <h4>首次进服需要注册</h4>
+        <p>AuthMe 会要求您注册一个密码，此后您将使用该密码登录，请牢记密码。若忘记密码，请向管理员提供充足证据以重置。</p>
       </li>
     </ol>
+
+    <div class="join-cta">
+      <div class="join-cta-text">
+        <div class="kicker kicker--plain">READY TO PLAY</div>
+        <h3>复制地址，今晚开建</h3>
+        <p>基岩版暂不互通，请使用 Java 版进入。</p>
+      </div>
+      <div class="join-cta-actions">
+        <code class="join-cta-ip">play.mc.longer.xin</code>
+        <button class="btn" type="button"
+                data-copy="play.mc.longer.xin"
+                data-copy-done="已复制"
+                data-copy-fail="请手动复制">
+          <svg class="icon" aria-hidden="true"><use href="#i-copy"/></svg>
+          <span data-copy-label>复制服务器地址</span>
+        </button>
+      </div>
+    </div>
   </section>
 
 </main>
@@ -253,28 +1351,77 @@
 <footer class="footer">
   <div class="footer-inner">
     <div class="footer-brand">
-      <a class="brand" href="#top">
-        <span class="cube" aria-hidden="true"></span>
-        <span>Longer<em>MC</em></span>
+      <a class="brand" href="#top" aria-label="LongerMC 首页">
+        <img class="brand-logo" src="icon.jpg" alt="" width="38" height="38" />
+        <span class="brand-text">
+          <span class="brand-name">LONGER<em>MC</em></span>
+          <span class="brand-sub">MINECRAFT SERVER</span>
+        </span>
       </a>
-      <p>一个用心搭建的 Minecraft 服务器，欢迎每一位热爱方块的玩家。</p>
+      <p>龙ger_longer の神奇 Minecraft Java 版 1.21.11 生存服务器，欢迎您的加入！</p>
+      <div class="footer-status">
+        <span class="dot" aria-hidden="true"></span>
+        <span>play.mc.longer.xin · Java 1.21.11</span>
+      </div>
+      <div class="footer-status footer-status--gold">
+        <i aria-hidden="true"></i>
+        <span>目前阶段非营利 · 无充值 · 不接受赞助</span>
+      </div>
     </div>
-    <nav class="footer-links" aria-label="页脚导航">
+
+    <nav class="footer-col" aria-label="页脚导航">
+      <h4>EXPLORE</h4>
       <a href="#status">服务器状态</a>
       <a href="#features">生存服</a>
+      <a href="#plugins">服务器介绍</a>
+      <a href="#rules">服务器规则</a>
       <a href="#coming">小游戏</a>
-      <a href="#join">如何加入</a>
-      <a href="#top">回到顶部</a>
+      <a href="#nonprofit">非营利声明</a>
+      <a href="#join">如何进服</a>
     </nav>
+
+    <div class="footer-col">
+      <h4>SERVER</h4>
+      <span class="footer-kv"><b>地址</b> play.mc.longer.xin</span>
+      <span class="footer-kv"><b>版本</b> Java 1.21.11</span>
+      <span class="footer-kv"><b>模式</b> 原版生存</span>
+      <span class="footer-kv"><b>充值</b> 暂不开放（至 2027.10）</span>
+      <a class="footer-top-link" href="#top">回到顶部 ↑</a>
+    </div>
   </div>
-  <div class="copyright">
-    © <span id="year">2026</span> 龙ger_longer (LongerMC) · 网站 mc.longer.xin · 服务器 play.mc.longer.xin<br />
-    本站为玩家自建服务器官网，与 Mojang Studios、Microsoft 无任何隶属或关联关系。
+
+  <div class="footer-bottom">
+    <span>© <span id="year">2026</span> 龙ger_longer (LongerMC) · mc.longer.xin</span>
+    <span>本站为玩家自建服务器官网，与 Mojang Studios、Microsoft 无任何隶属或关联关系。</span>
   </div>
 </footer>
 
+<!-- 移动端快捷导航（MC 物品栏风格） -->
+<nav class="hotbar" aria-label="快捷导航">
+  <a href="#status" data-nav="status">
+    <svg class="icon" aria-hidden="true"><use href="#i-signal"/></svg>
+    <span>状态</span>
+  </a>
+  <a href="#features" data-nav="features">
+    <svg class="icon" aria-hidden="true"><use href="#i-grass"/></svg>
+    <span>生存服</span>
+  </a>
+  <a href="#coming" data-nav="coming">
+    <svg class="icon" aria-hidden="true"><use href="#i-sword"/></svg>
+    <span>小游戏</span>
+  </a>
+  <a href="#join" data-nav="join">
+    <svg class="icon" aria-hidden="true"><use href="#i-door"/></svg>
+    <span>加入</span>
+  </a>
+</nav>
+
 <!-- 回到顶部 -->
-<button class="to-top" type="button" aria-label="回到顶部" title="回到顶部">▲</button>
+<button class="to-top" type="button" aria-label="回到顶部" title="回到顶部">
+  <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg>
+</button>
+
+<div class="sr-only" id="copyAnnouncer" aria-live="polite"></div>
 
 <!-- 脚本：defer 不阻塞渲染 -->
 <script src="js/main.js" defer></script>

@@ -1,9 +1,11 @@
 /* ============================================================
    LongerMC · 通用交互脚本
-   负责：年份、复制地址、滚动渐入、回到顶部
+   负责：年份、复制地址、滚动进度、导航高亮、渐入、回到顶部
    ============================================================ */
 (function () {
   'use strict';
+
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* ----------------------------------------------------------
      1. 页脚年份
@@ -42,6 +44,13 @@
   }
 
   var RESTORE_MS = 1800;
+  var announcer = document.getElementById('copyAnnouncer');
+
+  function announce(message) {
+    if (!announcer) return;
+    announcer.textContent = '';
+    window.setTimeout(function () { announcer.textContent = message; }, 30);
+  }
 
   function handleCopy(el) {
     if (el.dataset.busy === '1') return;
@@ -49,26 +58,27 @@
     var text = el.getAttribute('data-copy');
     if (!text) return;
 
-    // 优先更新带 data-copy-text 的子元素，否则更新元素自身文本
-    var target = el.querySelector('[data-copy-text]') || el;
-    var doneText = el.getAttribute('data-copy-done') || '已复制 ✓';
+    var label = el.querySelector('[data-copy-label]');
+    var target = label || el.querySelector('[data-copy-text]') || null;
+    var doneText = el.getAttribute('data-copy-done') || '已复制';
     var failText = el.getAttribute('data-copy-fail') || '复制失败';
+    var original = target ? target.textContent : null;
 
     el.dataset.busy = '1';
 
     copyText(text).then(
-      function () { flash(doneText, 'copied'); },
-      function () { flash(failText, 'failed'); }
+      function () { flash(doneText, true); announce('已复制：' + text); },
+      function () { flash(failText, false); announce('复制失败，请手动选择地址复制'); }
     );
 
-    function flash(text, cls) {
-      var original = target.textContent;
-      target.textContent = text;
-      target.classList.add(cls);
+    function flash(message, ok) {
+      el.classList.toggle('is-copied', ok);
+      el.classList.toggle('is-failed', !ok);
+      if (target) target.textContent = message;
 
-      setTimeout(function () {
-        target.textContent = original;
-        target.classList.remove(cls);
+      window.setTimeout(function () {
+        el.classList.remove('is-copied', 'is-failed');
+        if (target && original !== null) target.textContent = original;
         el.dataset.busy = '0';
       }, RESTORE_MS);
     }
@@ -84,7 +94,7 @@
     if (e.key !== 'Enter' && e.key !== ' ' && e.key !== 'Spacebar') return;
 
     var el = e.target.closest('[data-copy][role="button"]');
-    if (!el || el.tagName === 'BUTTON') return; // BUTTON 自身会派发 click
+    if (!el || el.tagName === 'BUTTON') return;
 
     e.preventDefault();
     handleCopy(el);
@@ -96,14 +106,14 @@
   var reveals = document.querySelectorAll('.reveal');
 
   if (reveals.length) {
-    if ('IntersectionObserver' in window) {
+    if ('IntersectionObserver' in window && !reduceMotion) {
       var io = new IntersectionObserver(function (entries) {
         entries.forEach(function (entry) {
           if (!entry.isIntersecting) return;
           entry.target.classList.add('in');
           io.unobserve(entry.target);
         });
-      }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+      }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
 
       reveals.forEach(function (el) { io.observe(el); });
     } else {
@@ -112,28 +122,66 @@
   }
 
   /* ----------------------------------------------------------
-     4. 回到顶部按钮
+     4. 滚动进度 / 导航状态 / 回到顶部 / 当前区块
      ---------------------------------------------------------- */
+  var nav = document.getElementById('nav');
+  var progress = document.getElementById('scrollProgress');
   var toTop = document.querySelector('.to-top');
+  var hotbar = document.querySelector('.hotbar');
+  var navLinks = Array.prototype.slice.call(document.querySelectorAll('[data-nav]'));
+  var sections = Array.prototype.slice.call(document.querySelectorAll('main section[id]'));
+  var ticking = false;
 
-  if (toTop) {
-    var ticking = false;
+  function updateScrollUI() {
+    var y = window.scrollY || window.pageYOffset;
+    var doc = document.documentElement;
+    var max = doc.scrollHeight - window.innerHeight;
 
-    function syncToTop() {
-      toTop.classList.toggle('show', window.scrollY > 600);
-      ticking = false;
+    if (progress) {
+      var ratio = max > 0 ? Math.min(1, Math.max(0, y / max)) : 0;
+      progress.style.transform = 'scaleX(' + ratio + ')';
     }
 
-    window.addEventListener('scroll', function () {
-      if (ticking) return;
-      ticking = true;
-      window.requestAnimationFrame(syncToTop);
-    }, { passive: true });
+    if (nav) nav.classList.toggle('scrolled', y > 8);
+    if (toTop) toTop.classList.toggle('show', y > 720);
+    if (hotbar) hotbar.classList.toggle('show', y > 320);
 
-    syncToTop();
+    // 当前区块
+    var current = '';
+    for (var i = 0; i < sections.length; i++) {
+      if (sections[i].getBoundingClientRect().top <= 150) current = sections[i].id;
+    }
 
-    toTop.addEventListener('click', function () {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+    navLinks.forEach(function (link) {
+      var active = link.getAttribute('data-nav') === current;
+      link.classList.toggle('active', active);
+      if (active) link.setAttribute('aria-current', 'true');
+      else link.removeAttribute('aria-current');
     });
+
+    ticking = false;
+  }
+
+  function requestScrollUpdate() {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(updateScrollUI);
+  }
+
+  window.addEventListener('scroll', requestScrollUpdate, { passive: true });
+  window.addEventListener('resize', requestScrollUpdate);
+  updateScrollUI();
+
+  if (toTop) {
+    toTop.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
+    });
+  }
+
+  /* ----------------------------------------------------------
+     5. 减少动效时，锚点跳转不用平滑滚动
+     ---------------------------------------------------------- */
+  if (reduceMotion) {
+    document.documentElement.style.scrollBehavior = 'auto';
   }
 })();
