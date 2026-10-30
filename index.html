@@ -34,7 +34,12 @@
     "@type": "WebSite",
     "name": "LongerMC",
     "alternateName": "LongerMC 生存服务器",
-    "url": "https://mc.longer.xin/"
+    "url": "https://mc.longer.xin/",
+    "author": {
+      "@type": "Person",
+      "name": "龙ger_longer",
+      "url": "https://www.longer.xin/"
+    }
   }
   </script>
 </head>
@@ -319,6 +324,32 @@
       <g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="miter">
         <path d="M3 11 12 3l9 8v10H3z"/>
         <path d="M10 21v-6h4v6"/>
+      </g>
+    </symbol>
+    <!-- 外链（主站 / QQ 群） -->
+    <symbol id="i-external" viewBox="0 0 24 24">
+      <g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="miter">
+        <path d="M14 3h7v7M21 3l-9 9"/>
+        <path d="M18 14v7H3V6h7"/>
+      </g>
+    </symbol>
+    <!-- 外链：Discord（像素风对话手柄） -->
+    <symbol id="i-discord" viewBox="0 0 24 24">
+      <g fill="currentColor">
+        <rect x="9" y="2" width="6" height="3"/>
+        <rect x="6" y="4" width="3" height="3"/>
+        <rect x="15" y="4" width="3" height="3"/>
+        <rect x="4" y="7" width="4" height="4"/>
+        <rect x="16" y="7" width="4" height="4"/>
+        <rect x="3" y="9" width="3" height="7"/>
+        <rect x="18" y="9" width="3" height="7"/>
+        <rect x="5" y="15" width="14" height="4"/>
+        <rect x="7" y="18" width="3" height="3"/>
+        <rect x="14" y="18" width="3" height="3"/>
+      </g>
+      <g fill="#0d121a">
+        <rect x="8" y="11" width="2" height="3"/>
+        <rect x="14" y="11" width="2" height="3"/>
       </g>
     </symbol>
     <symbol id="i-head" viewBox="0 0 16 16">
@@ -615,7 +646,7 @@
           <h1>世界之上，<br /><span class="hl">方块之我</span><span class="sr-only">—— LongerMC Minecraft 1.21.11 原版生存服务器</span></h1>
 
           <p class="hero-lede">
-            <span>LongerMC —— 龙ger_longer の神奇 Minecraft 1.21.11 生存服务器</span>
+            <span>LongerMC —— <a class="blue-link" href="https://www.longer.xin/" target="_blank" rel="noopener" title="龙ger_longer 主站 · www.longer.xin">龙ger_longer</a> の神奇 Minecraft 1.21.11 生存服务器</span>
             <span>(网站使用过 DeepSeek V4.1 Flash, Hy4 preview, GLM 5.3 Flash 生成内容)</span>
           </p>
 
@@ -654,6 +685,8 @@
             <span id="heroState">正在连接服务器…</span>
             <span class="live-sep" aria-hidden="true"></span>
             <span class="live-count"><b id="heroOnline">--</b> 位玩家在线</span>
+            <span class="live-sep" aria-hidden="true"></span>
+            <a class="live-qq" href="#community">服务器 QQ 交流群 <code>1130448476</code></a>
           </div>
         </div>
 
@@ -980,7 +1013,7 @@
             <span class="plugin-num" aria-hidden="true">04</span>
           </div>
           <h3>账号保护</h3>
-          <p>第一次进入需要注册密码，请牢记您的密码。忘记密码请联系管理员，并提供充足证据以证明您的账号。</p>
+          <p>第一次进入需要注册密码，请牢记您的密码。忘记密码请在 <a class="blue-link" href="#community">QQ 交流群</a>联系管理员，并提供充足证据以证明您的账号。</p>
           <span class="plugin-meta">AuthMe</span>
         </article>
 
@@ -1105,7 +1138,7 @@
       <div class="section-head">
         <div class="kicker"><span>05</span> PLANNED · NOT OPEN</div>
         <h2>小游戏正在<span class="hl">考虑之中</span></h2>
-        <p>以后将会考虑加入如起床战争、空岛战争等小游戏，也欢迎联系管理员及服主提供建议。</p>
+        <p>以后将会考虑加入如起床战争、空岛战争等小游戏，也欢迎<a class="blue-link" href="#community">联系管理员及服主</a>提供建议。</p>
 
         <div class="road-progress">
           <div class="road-head">
@@ -1290,7 +1323,7 @@
             <span class="step-ico" aria-hidden="true"><svg class="icon"><use href="#i-lock"/></svg></span>
           </div>
           <h4>首次进服需要注册</h4>
-          <p>AuthMe 会要求您注册一个密码，此后您将使用该密码登录，请牢记密码。若忘记密码，请向管理员提供充足证据以重置。</p>
+          <p>AuthMe 会要求您注册一个密码，此后您将使用该密码登录，请牢记密码。若忘记密码，请在 <a class="blue-link" href="#community">QQ 交流群</a>向管理员提供充足证据以重置。</p>
         </li>
       </ol>
 
@@ -1309,6 +1342,39 @@
             <svg class="icon" aria-hidden="true"><use href="#i-copy"/></svg>
             <span data-copy-label>复制服务器地址</span>
           </button>
+        </div>
+      </div>
+
+      <!-- 交流群：LongerMC 服务器专属 QQ 群（不是主站的群） -->
+      <div class="community" id="community">
+        <span class="community-ico" aria-hidden="true"><svg class="icon"><use href="#i-chat"/></svg></span>
+        <div class="community-text">
+          <h3>遇到问题？来交流群找我们</h3>
+          <p>本群专注 LongerMC 服务器：忘记密码、领地纠纷、想提议新玩法，都可以在这里联系管理员和服主。（主站 www.longer.xin 另有其群，本群只聊服务器）</p>
+        </div>
+        <div class="community-actions">
+          <span class="community-num">
+            <span class="ip-label">QQ GROUP</span>
+            <code>1130448476</code>
+          </span>
+          <button class="ip-copy" type="button"
+                  data-copy="1130448476"
+                  data-copy-done="已复制"
+                  data-copy-fail="请手动复制"
+                  aria-label="复制服务器 QQ 群号 1130448476">
+            <svg class="icon" aria-hidden="true"><use href="#i-copy"/></svg>
+            <span data-copy-label>复制群号</span>
+          </button>
+          <a class="community-join" href="https://qm.qq.com/cgi-bin/qm/qr?k=7uWmEcsvjU61zbH_lQV5NHn1FgCGu4-p&jump_from=webapi&authKey=6m5vfwgN1axSJ7N7C4mhjQ/WxzSkATbDAlqb0M2LRTxvWwmhnW4H1MmSM1GvHJtP"
+             target="_blank" rel="noopener">
+            加群
+            <svg class="icon" aria-hidden="true"><use href="#i-external"/></svg>
+          </a>
+          <a class="community-join community-discord" href="https://discord.gg/Ab4Gw2vBK"
+             target="_blank" rel="noopener" title="LongerMC Discord 服务器">
+            Discord
+            <svg class="icon" aria-hidden="true"><use href="#i-external"/></svg>
+          </a>
         </div>
       </div>
     </section>

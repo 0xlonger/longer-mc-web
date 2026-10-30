@@ -19,6 +19,24 @@ Longer MC 的官方网站源码，用于展示服务器信息与玩家引导。
 - 小游戏预告（起床战争 / 空岛战争插画场景化：TNT 与爆炸粒子、双岛木桥与瀑布宝箱、下界传送门黑曜石纹理与紫光池；附 ROADMAP 进度条、优先级徽章与玩法提案引导）
 - 加入教程（四步引导，每步配像素图标与幽灵编号，含首次进服 AuthMe 注册说明）
 - 适配手机端（底部 MC 物品栏快捷导航），纯静态无依赖
+- 主站入口（导航栏「主站」按钮、页脚主站卡片，指向 www.longer.xin）
+- 社区入口（加入区「QQ 群 / Discord」卡片：群号一键复制 + 加群 / Discord 跳转；页脚同步展示群号与 Discord 邀请链接）
+
+## 目录结构
+
+```
+index.html            首页（含全部 SVG 图标 symbol）
+404.html              404 页（自带精简版图标 symbol）
+partials/nav.html     导航栏片段，由 js/nav.js 注入
+partials/footer.html  页脚片段，由 js/footer.js 注入
+css/style.css         全站样式
+js/nav.js             载入导航栏片段
+js/footer.js          载入页脚片段
+js/main.js            交互（复制、滚动、导航高亮等）
+js/status.js          服务器状态（mcsrvstat.us）
+```
+
+导航与页脚是公共片段，改一次即在首页与 404 页同时生效（本地直接双击打开时因 `fetch` 限制不会注入，需用静态服务器预览）。
 
 ## 技术栈
 
@@ -43,6 +61,14 @@ python3 -m http.server 8080
 
 - `index.html` 中的 `play.mc.longer.xin`
 - `index.html` 脚本中的 `var SERVER_IP = 'play.mc.longer.xin';`
+
+社区入口（QQ 群号、加群链接、Discord 邀请链接）出现在以下位置，需要修改时请一并替换：
+
+- `index.html` 加入区的 `#community` 卡片（群号、复制按钮、`加群` / `Discord` 按钮）
+- `index.html` 首屏状态行的 QQ 群号
+- `partials/footer.html` 的 `footer-qq` 与 `footer-discord`
+
+> 注意：QQ 群 `1130448476` 是 **LongerMC 服务器专属群**（只聊服务器），与主站 www.longer.xin 的群不是同一个。
 
 其他可替换资源：
 

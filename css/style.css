@@ -33,6 +33,15 @@
   --diamond:#65dbe8;
   --red:#e85d5d;
 
+  /* 外链身份色：主站 www.longer.xin 的蓝 + 横幅青→紫渐变（按像素分 5 段）
+     只用在指向主站、QQ 群、Discord 的元素上，不作为本站主题色 */
+  --www:#00aeec;
+  --www-2:#5cccf5;
+  --www-grad:linear-gradient(90deg,#00dbde 0 20%,#3fa4e6 20% 40%,#7e6eef 40% 60%,#bd37f7 60% 80%,#fc00ff 80%);
+  /* Discord 品牌紫（同样只用于外链） */
+  --discord:#5865f2;
+  --discord-2:#8b95ff;
+
   --text:#eef2f8;
   --text-2:#c7d0dd;
   --muted:#8d99ac;
@@ -1346,6 +1355,131 @@ code{font-family:var(--mono)}
 }
 
 /* ------------------------------------------------------------
+   12.1 外链：主站 / QQ 群 / Discord
+   形状、硬投影、像素字体仍是本站的；
+   蓝色与青→紫渐变来自主站，Discord 紫只出现在这两处
+   ------------------------------------------------------------ */
+
+/* 行内链接：指向主站、QQ 群或 Discord */
+.blue-link{
+  color:var(--www-2);text-decoration:none;
+  border-bottom:1px dashed rgba(0,174,236,.5);
+  transition:color .18s,border-color .18s,text-shadow .18s;
+}
+.blue-link:hover{
+  color:#fff;border-bottom-style:solid;border-color:var(--www);
+  text-shadow:0 0 12px rgba(0,174,236,.6);
+}
+
+/* 小号蓝色方块入口：导航“主站”、交流群“加群” */
+.nav-home,.community-join{
+  display:inline-flex;align-items:center;gap:6px;flex:none;
+  padding:8px 11px;
+  font-size:12.5px;font-weight:700;line-height:1;white-space:nowrap;
+  color:var(--www-2);text-decoration:none;
+  background:rgba(0,174,236,.07);
+  border:1px solid rgba(0,174,236,.32);
+  box-shadow:2px 2px 0 rgba(0,0,0,.35);
+  transition:color .18s,background .18s,border-color .18s,box-shadow .18s;
+}
+.nav-home .icon,.community-join .icon{width:13px;height:13px}
+.nav-home:hover,.community-join:hover{
+  color:#fff;background:rgba(0,174,236,.14);border-color:rgba(0,174,236,.62);
+  box-shadow:2px 2px 0 rgba(0,0,0,.35),0 3px 24px rgba(0,174,236,.35);
+}
+
+/* Hero 状态行：交流群 */
+.live-qq{color:var(--muted);text-decoration:none;transition:color .18s}
+.live-qq code{color:var(--text-2);font-size:12.5px;letter-spacing:.3px;transition:color .18s}
+.live-qq:hover,.live-qq:hover code{color:var(--www-2)}
+
+/* 加入区：交流群 / Discord */
+.community{
+  position:relative;
+  display:flex;align-items:center;gap:18px;
+  margin-top:14px;padding:18px 20px 18px 24px;
+  background:linear-gradient(180deg,#111720 0%,#0d121a 100%);
+  border:1px solid var(--line);
+  box-shadow:var(--shadow-card);
+  scroll-margin-top:110px;
+}
+.community::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:3px;
+  background:linear-gradient(180deg,var(--www-2),#0089bd);
+}
+.community-ico{
+  width:40px;height:40px;flex:none;display:grid;place-items:center;
+  color:var(--www-2);
+  background:rgba(0,174,236,.09);
+  border:1px solid rgba(0,174,236,.28);
+  box-shadow:2px 2px 0 rgba(0,0,0,.3);
+}
+.community-ico .icon{width:19px;height:19px}
+.community-text{flex:1;min-width:0}
+.community-text h3{font-size:15px;font-weight:800;line-height:1.5}
+.community-text p{margin-top:3px;font-size:13px;line-height:1.8;color:var(--muted)}
+.community-actions{display:flex;align-items:center;gap:10px;flex:none}
+.community-num{display:flex;flex-direction:column;gap:6px;margin-right:4px}
+.community-num code{font-size:16px;line-height:1.1;letter-spacing:.6px;color:#fff}
+.community .ip-copy{color:var(--www-2);background:rgba(0,174,236,.1);border-color:rgba(0,174,236,.32)}
+.community .ip-copy:hover{color:#fff;background:rgba(0,174,236,.2)}
+/* Discord 方块入口：与“加群”同形，换成 Discord 紫 */
+.community-discord{
+  color:var(--discord-2);
+  background:rgba(88,101,242,.11);
+  border-color:rgba(88,101,242,.38);
+}
+.community-discord:hover{
+  color:#fff;background:rgba(88,101,242,.2);border-color:rgba(88,101,242,.7);
+  box-shadow:2px 2px 0 rgba(0,0,0,.35),0 3px 24px rgba(88,101,242,.38);
+}
+
+/* 页脚：主站入口（融合 www.longer.xin 的主题蓝，保持 MC 硬边风格） */
+.footer-site{
+  display:inline-flex;align-items:center;gap:10px;flex-wrap:wrap;
+  margin-top:14px;padding:9px 12px;max-width:360px;
+  text-decoration:none;
+  border:1px solid rgba(0,174,236,.42);
+  background:linear-gradient(180deg,rgba(0,174,236,.12),rgba(0,174,236,.03));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+  transition:border-color .2s var(--ease),background .2s var(--ease),transform .2s var(--ease);
+}
+.footer-site:hover{
+  border-color:rgba(0,174,236,.75);
+  background:linear-gradient(180deg,rgba(0,174,236,.2),rgba(0,174,236,.06));
+  transform:translateY(-1px);
+}
+.footer-site-ico{
+  width:9px;height:9px;flex:none;
+  background:linear-gradient(180deg,#7fe3ff,#00aeec);
+  box-shadow:1px 1px 0 rgba(0,0,0,.45);
+}
+.footer-site-text{display:flex;flex-direction:column;gap:3px;min-width:0}
+.footer-site-text b{font-size:12.5px;font-weight:700;color:var(--text-2)}
+.footer-site-text code{font-family:var(--mono);font-size:11px;color:#7fe3ff;letter-spacing:.3px}
+.footer-site .icon{width:15px;height:15px;flex:none;color:#7fe3ff;transition:transform .2s var(--ease)}
+.footer-site:hover .icon{transform:translateX(2px)}
+
+/* 页脚：QQ 群 / Discord（低调但可发现） */
+.footer-brand .footer-qq,.footer-brand .footer-discord{
+  display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+  margin-top:10px;font-size:12.5px;color:var(--muted-2);
+}
+.footer-qq .icon,.footer-discord .icon{width:14px;height:14px;flex:none;color:var(--muted-2)}
+.footer-qq a{
+  font-family:var(--mono);color:var(--text-2);text-decoration:none;
+  border-bottom:1px dashed rgba(0,174,236,.5);
+  transition:color .18s,border-color .18s;
+}
+.footer-qq a:hover{color:#7fe3ff;border-bottom-color:#7fe3ff}
+.footer-discord a{
+  font-family:var(--mono);font-size:11.5px;color:var(--text-2);text-decoration:none;
+  border-bottom:1px dashed rgba(88,101,242,.6);
+  transition:color .18s,border-color .18s;
+}
+.footer-discord a:hover{color:var(--discord-2);border-bottom-color:var(--discord-2)}
+
+/* ------------------------------------------------------------
    13. 回到顶部 / 移动端快捷栏
    ------------------------------------------------------------ */
 .to-top{
@@ -1545,6 +1679,8 @@ code{font-family:var(--mono)}
   .hotbar a.active .icon{color:var(--grass-2);filter:drop-shadow(0 0 6px rgba(99,201,74,.45))}
   .to-top{bottom:86px;right:16px;width:40px;height:40px}
   .footer{padding:44px 20px 24px}
+  .community{flex-wrap:wrap}
+  .community-actions{width:100%;padding-left:58px}
 }
 
 @media (max-width:720px){
@@ -1626,6 +1762,12 @@ code{font-family:var(--mono)}
   .err-desc{font-size:13.5px}
   .err-actions .btn{width:100%}
   .err-actions{width:100%;max-width:340px}
+  .community{gap:14px;padding:18px 16px 18px 20px}
+  .community-ico{width:34px;height:34px}
+  .community-text h3{font-size:14.5px}
+  .community-text p{font-size:12.5px}
+  .community-actions{padding-left:0;flex-wrap:wrap}
+  .community-num{flex:1 0 auto}
 }
 
 @media (max-width:420px){
@@ -1645,6 +1787,9 @@ code{font-family:var(--mono)}
   .step{padding:20px 17px}
   .step-ghost{font-size:38px;bottom:-8px;right:5px}
   .footer{padding:40px 16px 22px}
+  .nav-home{padding:8px 9px}
+  .nav-home .icon{display:none}
+  .community .ip-copy{width:auto}
 }
 
 /* 打印 */
