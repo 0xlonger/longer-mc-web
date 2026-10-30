@@ -1389,7 +1389,7 @@ code{font-family:var(--mono)}
    ------------------------------------------------------------ */
 .page-404 .nav-links{opacity:.9}
 .page-404{padding-bottom:0}
-.page-404 .footer{margin-top:0;padding-top:26px;padding-bottom:22px}
+/* 404 现在复用统一页脚，不再单独覆盖间距 */
 .err-wrap{
   position:relative;overflow:hidden;
   flex:1 0 auto;width:100%;

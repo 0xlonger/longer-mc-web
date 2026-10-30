@@ -9,8 +9,8 @@
   <meta name="robots" content="noindex, follow" />
   <meta name="theme-color" content="#0a0d12" />
 
-  <link rel="icon" href="icon.jpg" type="image/jpeg" />
-  <link rel="apple-touch-icon" href="icon.jpg" />
+  <link rel="icon" href="/icon.jpg" type="image/jpeg" />
+  <link rel="apple-touch-icon" href="/icon.jpg" />
 
   <link rel="preload" href="/assets/fonts/press-start-2p.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="/css/style.css" />
@@ -91,34 +91,11 @@
     </symbol>
   </svg>
 
-  <header class="nav" id="nav">
-    <div class="nav-inner">
-      <a class="brand" href="index.html" aria-label="LongerMC 首页">
-        <img class="brand-logo" src="icon.jpg" alt="" width="38" height="38" />
-        <span class="brand-text">
-          <span class="brand-name">LONGER<em>MC</em></span>
-          <span class="brand-sub">MINECRAFT SERVER</span>
-        </span>
-      </a>
+  <!-- 导航栏：由 js/nav.js 从 /partials/nav.html 统一载入（与首页同一份） -->
+  <div id="nav-root"></div>
 
-      <nav class="nav-links" aria-label="主导航">
-        <a href="index.html#status">服务器状态</a>
-        <a href="index.html#features">生存服</a>
-        <a href="index.html#coming">小游戏</a>
-        <a href="index.html#join">如何加入</a>
-      </nav>
 
-      <div class="nav-actions">
-        <button class="btn btn-sm" type="button"
-                data-copy="play.mc.longer.xin"
-                data-copy-done="已复制"
-                data-copy-fail="请手动复制">
-          <svg class="icon" aria-hidden="true"><use href="#i-copy"/></svg>
-          <span data-copy-label>复制 IP</span>
-        </button>
-      </div>
-    </div>
-  </header>
+  <span id="top"></span>
 
   <main id="main" class="err-wrap">
     <span class="err-glow" aria-hidden="true"></span>
@@ -165,15 +142,14 @@
     <p class="err-ip">play.mc.longer.xin</p>
   </main>
 
-  <footer class="footer">
-    <div class="footer-bottom" style="margin-top:0;border-top:0">
-      <span>© <span id="year">2026</span> 龙ger_longer (LongerMC) · mc.longer.xin</span>
-      <span>本站为玩家自建服务器官网，与 Mojang Studios、Microsoft 无任何隶属或关联关系。</span>
-    </div>
-  </footer>
+  <!-- 页脚：由 js/footer.js 从 /partials/footer.html 统一载入（与首页同一份） -->
+  <div id="footer-root"></div>
 
   <div class="sr-only" id="copyAnnouncer" aria-live="polite"></div>
 
+  <script src="js/nav.js" defer></script>
+  <script src="js/footer.js" defer></script>
   <script src="js/main.js" defer></script>
+  <script src="js/status.js" defer></script>
 </body>
 </html>
