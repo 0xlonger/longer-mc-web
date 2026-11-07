@@ -1,0 +1,87 @@
+# ============================================================
+# LongerMC 白名单系统 · 本地开发环境变量示例
+# 使用方法：复制为 .dev.vars（已被 .gitignore 忽略），填入你自己的值。
+# 注意：真实密钥不要写进仓库；生产环境请在 Cloudflare Pages 后台
+#       Settings → Environment variables 中配置同名变量。
+# ============================================================
+
+# ---------- 邮件（Resend）----------
+# 留空则进入「模拟发送」模式：邮件只写日志 + D1 email_outbox，不会真发信
+RESEND_API_KEY=
+# 发件人，支持 "显示名 <地址>" 写法
+EMAIL_FROM="LongerMC 白名单 <whitelist@notify.longer.xin>"
+# 可选：回复地址
+EMAIL_REPLY_TO=
+# 强制指定驱动：resend | log（留空 = 有 RESEND_API_KEY 就走 resend）
+EMAIL_DRIVER=
+
+# ---------- Cloudflare Turnstile ----------
+# 留空（且非生产域名）时，前端使用固定模拟 token 通过校验，方便本地联调
+TURNSTILE_SITE_KEY=
+TURNSTILE_SECRET=
+# 可选：额外允许哪些站点域名签发的凭证通过校验（逗号分隔）。
+# 服务端会核对 siteverify 返回的 hostname：不在「本变量 ∪ 当前访问域名」里的一律拒绝。
+# 只在「同一个 Turnstile 站点密钥被多个域名共用」时才需要配。
+TURNSTILE_ALLOWED_HOSTNAMES=
+
+# ---------- 验证码 / 票据哈希 pepper ----------
+# 生产环境必须设置（长度 ≥ 8），否则服务端直接报错
+CODE_PEPPER=local-dev-pepper-change-me-please
+
+# ---------- 站点地址（邮件中的链接用）----------
+APP_BASE_URL=https://mc.longer.xin
+
+# ---------- 网页不可用时的「全人工白名单」入口 ----------
+# 网页端（申请 / 查询 / 修改）出故障时，用户可直接进群 / 进 Discord 说明情况，
+# 由管理员走全人工流程添加白名单。这段说明会显示在白名单各页底部与邮件里。
+# 留空则使用默认群号 / 邀请链接；留空且填了下面的 URL 也可以只显示链接。
+FALLBACK_QQ_GROUP=1130448476
+FALLBACK_QQ_GROUP_URL=
+FALLBACK_DISCORD_INVITE=https://discord.gg/Ab4Gw2vBK
+
+# ---------- 重复冲突提示粒度 ----------
+# generic（默认）：统一提示「信息与已有记录冲突」，不区分字段、不返回对方申请编号
+#   —— 防止任何人用一次邮箱验证码就反复探测别人的 IGN / QQ / Discord 是否被申请过
+# detailed：按字段返回 duplicate_ign / duplicate_qq / ...（对正常用户更友好，但泄露面更大）
+DUPLICATE_HINT_MODE=generic
+
+# ---------- 生产 / 开发域名判定 ----------
+# 判定采用「安全默认」：只有命中 DEV_HOSTS 的域名才算开发环境，
+# 其余（包括 Pages 预览部署 *.pages.dev、以及任何没列出来的域名）一律按生产处理。
+# 这样即使以后换域名、或出现新的预览地址，也不会因为漏配而把
+# 「验证码回显 / Turnstile 模拟 token / 后台 bypass」三重降级打开。
+# 生产环境会关闭：devCode 回显、dev-mock-turnstile-token、DEV_ALLOW_ADMIN_BYPASS。
+PRODUCTION_HOSTS=mc.longer.xin,longer-mc.pages.dev
+# 只有这两个（及其子域）会被当成开发环境，一般不需要改
+DEV_HOSTS=localhost,127.0.0.1,[::1],0.0.0.0
+
+# ---------- 管理后台（本地开发）----------
+# ⚠️ 千万不要把 DEV_ALLOW_ADMIN_BYPASS 配到 Cloudflare Pages 后台！
+#    它只在 DEV_HOSTS 命中的域名上生效，生产环境即使被误配也会被忽略（并打日志告警），
+#    但配上去本身就是风险。Pages 后台只需要配生产那几个变量（见 DEPLOY.md）。
+DEV_ALLOW_ADMIN_BYPASS=1
+DEV_ADMIN_EMAIL=dev@localhost
+# 可选：Access 之上的第二道管理员白名单（多个用逗号分隔）
+ADMIN_ALLOWED_EMAILS=
+
+# ---------- 过渡方案：暂时用 WAF 保护后台（Zero Trust 还没激活时）----------
+# ⚠️ 严格只认 '1' 为开启；写成 'true' / 'yes' / '0' / 留空都算关闭。
+#    两个变量都不要提交到仓库，只在 Cloudflare Pages 后台配置。
+#
+# 开启后，后台允许「没有 Access 头」的请求进入，由 Cloudflare WAF 的 IP 白名单
+# 负责拦截。前提必须是 WAF 规则已按 DEPLOY.md 配好并实测生效，
+# 否则任何人 curl 带个头就能进后台。
+# 审计日志里的操作人取 ADMIN_FALLBACK_ACTOR（默认 waf-admin@local.invalid）。
+ADMIN_ALLOW_ACCESS_FALLBACK=0
+ADMIN_FALLBACK_ACTOR=waf-admin@local.invalid
+#
+# 「测试锁定」：为 1 时，除 /admin/test 外的所有后台页面与接口一律 403。
+# 用于配置 WAF 的阶段——此时即使 WAF 写错，别人拿到的也只是一个
+# 不含任何数据的自检页，看不到申请记录。
+# 上线顺序必须是：先开这个锁 → 配并验证 WAF → 再开 fallback → 最后关掉这个锁。
+ADMIN_LOCKDOWN_TEST=0
+
+# ---------- Cloudflare Access JWT 严格校验（可选）----------
+# 两者都填才会做服务端 JWT 校验；留空则只信任 Cf-Access-Authenticated-User-Email 头
+ACCESS_TEAM_DOMAIN=
+ACCESS_AUD=

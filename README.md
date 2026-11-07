@@ -21,6 +21,10 @@ Longer MC 的官方网站源码，用于展示服务器信息与玩家引导。
 - 适配手机端（底部 MC 物品栏快捷导航），纯静态无依赖
 - 主站入口（导航栏「主站」按钮、页脚主站卡片，指向 www.longer.xin）
 - 社区入口（加入区「QQ 群 / Discord」卡片：群号一键复制 + 加群 / Discord 跳转；页脚同步展示群号与 Discord 邀请链接）
+- 白名单系统（`/whitelist`）：在线申请、状态自助查询、信息修改申请；`/admin/whitelist` 为人工审核后台
+  - 邮箱六位数验证码 + Cloudflare Turnstile 人机验证（均服务端校验）
+  - 审核通过只代表系统记录通过，原版白名单由管理员手动执行，另有「已人工加入原版白名单」标记
+  - 详见 [DEPLOY.md](DEPLOY.md)
 
 ## 目录结构
 
@@ -34,6 +38,20 @@ js/nav.js             载入导航栏片段
 js/footer.js          载入页脚片段
 js/main.js            交互（复制、滚动、导航高亮等）
 js/status.js          服务器状态（mcsrvstat.us）
+js/icons.js           白名单 / 后台页面用的精简图标 sprite
+js/whitelist.js       白名单：申请 / 查询 / 修改页逻辑
+js/admin-whitelist.js 白名单审核后台逻辑
+css/whitelist.css     白名单与后台样式
+whitelist/            白名单前台页面（index / apply / inquire / modify）
+admin/whitelist/      白名单审核后台页面（由 Cloudflare Access 保护 /admin*）
+functions/            Cloudflare Pages Functions（后端接口）
+  _lib/               共享模块（非路由）
+  api/whitelist/      公开接口
+  admin/api/whitelist/ 管理接口
+migrations/           D1 数据库迁移
+wrangler.toml         本地开发 + D1 迁移配置（database_id 需自行替换）
+.dev.vars.example     环境变量示例（复制为 .dev.vars 使用，勿提交）
+DEPLOY.md             部署与配置说明（含需要手动执行的 D1 迁移命令）
 ```
 
 导航与页脚是公共片段，改一次即在首页与 404 页同时生效（本地直接双击打开时因 `fetch` 限制不会注入，需用静态服务器预览）。
@@ -41,8 +59,25 @@ js/status.js          服务器状态（mcsrvstat.us）
 ## 技术栈
 
 - HTML5 + CSS3 + 原生 JavaScript
+- 界面设计语言：Minecraft OreUI（色板 / 按钮斜面 / 硬边取自 minecraft.net 官方组件库 `mc-components.css`：0 圆角、2px `#171615` 描边、`inset 0 ±6px` 斜面、`#1157be` 焦点色）
 - 服务器状态数据来自 [mcsrvstat.us](https://api.mcsrvstat.us/)
 - 无框架、无构建步骤，直接部署即可
+- 白名单系统：Cloudflare Pages Functions + D1 + Turnstile + Resend（无第三方运行时依赖）
+
+## 复刻本项目
+
+白名单系统依赖的外部服务都需要换成你自己的：
+
+1. 复制 `.dev.vars.example` 为 `.dev.vars` 并填写（本地开发可全部留空，进入模拟模式）
+2. 创建 D1 数据库并把 `database_id` 填进 `wrangler.toml`
+3. 申请你自己的 Turnstile 站点密钥与 Resend API Key（并验证你自己的发件域名）
+4. 按 [DEPLOY.md](DEPLOY.md) 配置 Pages 环境变量、D1 绑定与 Cloudflare Access
+5. **替换「全人工通道」的联系方式**：不配 `FALLBACK_QQ_GROUP` / `FALLBACK_DISCORD_INVITE`
+   时，`functions/_lib/env.js` 里的默认值会把用户引导到 **LongerMC 自己的 QQ 群与 Discord**。
+   复刻时务必通过环境变量（或在该文件里改默认值）换成你自己的，
+   否则你的玩家会跑到别人的群里问白名单。
+
+仓库中不包含任何真实密钥、API Key 或私有地址；`.dev.vars`、`.wrangler/` 已在 `.gitignore` 中忽略。
 
 ## 本地预览
 

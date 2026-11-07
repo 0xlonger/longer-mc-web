@@ -1,0 +1,746 @@
+/* ============================================================
+   LongerMC · 白名单系统样式
+   OreUI 组件层：复用 css/style.css 的令牌，补齐表单 / 表格 / 弹窗
+   形状规则：0 圆角、2px #171615 硬边、inset 斜面、#1157be 焦点
+   ============================================================ */
+
+.wl-page {
+  padding-top: calc(var(--nav-h) + 24px);
+  padding-bottom: 64px;
+}
+
+.wl-wrap {
+  width: min(1080px, 100% - 40px);
+  margin: 0 auto;
+}
+
+.wl-head {
+  margin-bottom: 26px;
+}
+
+.wl-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--pixel);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  color: var(--grass-2);
+  margin-bottom: 10px;
+}
+
+.wl-kicker::before {
+  content: "";
+  width: 18px;
+  height: 4px;
+  background: var(--grass);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+.wl-title {
+  font-size: clamp(24px, 5vw, 34px);
+  margin: 0 0 8px;
+  font-weight: 900;
+  letter-spacing: -0.01em;
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.45);
+}
+
+.wl-title em {
+  font-style: normal;
+  color: var(--grass-2);
+}
+
+.wl-sub {
+  margin: 0;
+  color: var(--text-2);
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+/* ---------------- 入口卡片 ---------------- */
+.wl-entries {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+  margin-top: 26px;
+}
+
+.wl-entry {
+  position: relative;
+  display: block;
+  padding: 22px;
+  background: linear-gradient(180deg, #2b2827 0%, #262423 100%);
+  border: 2px solid #171615;
+  box-shadow: var(--shadow-card);
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.18s var(--ease), box-shadow 0.18s var(--ease), background 0.18s var(--ease);
+}
+
+.wl-entry::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--grass-3);
+  transition: background 0.18s;
+}
+
+.wl-entry:hover {
+  border-color: #000;
+  background: linear-gradient(180deg, #332f2e 0%, #2b2827 100%);
+  box-shadow: var(--shadow-card-hover);
+}
+
+.wl-entry:hover::before {
+  background: var(--grass-2);
+}
+
+.wl-entry-ico {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  background: #171615;
+  border: 2px solid #3d3938;
+  color: var(--grass-2);
+  margin-bottom: 14px;
+}
+
+.wl-entry h3 {
+  margin: 0 0 6px;
+  font-size: 16px;
+  font-weight: 900;
+}
+
+.wl-entry p {
+  margin: 0 0 12px;
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+.wl-entry-go {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--grass-2);
+}
+
+/* ---------------- 表单 / 卡片 ---------------- */
+.wl-card {
+  background: linear-gradient(180deg, #2b2827 0%, #262423 100%);
+  border: 2px solid #171615;
+  box-shadow: var(--shadow-card);
+  padding: 24px;
+}
+
+.wl-card + .wl-card {
+  margin-top: 18px;
+}
+
+.wl-card h2 {
+  margin: 0 0 6px;
+  font-size: 17px;
+  font-weight: 900;
+}
+
+.wl-card .wl-hint {
+  margin: 0 0 18px;
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.wl-field {
+  margin-bottom: 16px;
+}
+
+.wl-label {
+  display: block;
+  font-size: 13px;
+  color: var(--text-2);
+  margin-bottom: 7px;
+}
+
+.wl-label .req {
+  color: var(--gold);
+  margin-left: 3px;
+}
+
+.wl-label .opt {
+  color: var(--muted-2);
+  font-size: 12px;
+  margin-left: 4px;
+}
+
+.wl-input,
+.wl-textarea,
+.wl-select {
+  width: 100%;
+  padding: 11px 13px;
+  background: #171615;
+  border: 2px solid #3d3938;
+  color: var(--text);
+  font-size: 14px;
+  font-family: inherit;
+  outline: none;
+  box-shadow: inset 0 2px 0 rgba(0, 0, 0, 0.35);
+  transition: border-color 0.15s var(--ease), box-shadow 0.15s var(--ease);
+}
+
+.wl-input::placeholder,
+.wl-textarea::placeholder {
+  color: #6b6562;
+}
+
+.wl-input:focus,
+.wl-textarea:focus,
+.wl-select:focus {
+  border-color: var(--grass-3);
+  box-shadow: inset 0 2px 0 rgba(0, 0, 0, 0.35), 0 0 0 2px #1157be;
+}
+
+.wl-textarea {
+  min-height: 92px;
+  resize: vertical;
+  line-height: 1.7;
+}
+
+.wl-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.wl-inline {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.wl-inline .wl-input {
+  flex: 1;
+}
+
+/* OreUI 按钮：主/次/幽灵 */
+.wl-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 11px 18px;
+  border: 2px solid #171615;
+  background: #3d3938;
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  white-space: nowrap;
+  box-shadow: inset 0 4px 0 rgba(255, 255, 255, 0.1), inset 0 -4px 0 #171615;
+  transition: background 0.15s var(--ease), box-shadow 0.12s var(--ease), color 0.15s;
+}
+
+.wl-btn:hover:not(:disabled) {
+  background: linear-gradient(0deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.12)), #3d3938;
+}
+
+.wl-btn:active:not(:disabled) {
+  background: #171615;
+  box-shadow: none;
+  transform: translateY(2px);
+}
+
+.wl-btn:focus-visible {
+  outline: 2px solid #1157be;
+  outline-offset: -2px;
+  box-shadow: 0 0 0 2px #1157be, 0 0 0 3px #fff;
+}
+
+.wl-btn:disabled {
+  background: #ede5e2;
+  color: #aba09c;
+  border-color: #aba09c;
+  box-shadow: inset 0 -4px 0 #d0c5c0;
+  cursor: not-allowed;
+}
+
+.wl-btn--primary {
+  background: var(--grass-3);
+  color: #fff;
+  box-shadow: inset 0 4px 0 rgba(255, 255, 255, 0.18), inset 0 -4px 0 var(--grass-ink);
+}
+
+.wl-btn--primary:hover:not(:disabled) {
+  background: linear-gradient(0deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.16)), var(--grass-3);
+}
+
+.wl-btn--primary:active:not(:disabled) {
+  background: var(--grass-ink);
+  box-shadow: none;
+}
+
+.wl-btn--ghost {
+  background: transparent;
+  box-shadow: none;
+  border-color: #6b6562;
+}
+
+.wl-btn--ghost:hover:not(:disabled) {
+  background: #262423;
+  border-color: var(--muted);
+}
+
+.wl-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+/* ---------------- 提示条 ---------------- */
+.wl-alert {
+  padding: 12px 14px;
+  font-size: 13px;
+  line-height: 1.7;
+  border: 2px solid #3d3938;
+  border-left-width: 4px;
+  background: #171615;
+  color: var(--text-2);
+  margin-bottom: 14px;
+  word-break: break-word;
+}
+
+.wl-alert:empty {
+  display: none;
+}
+
+.wl-alert--info {
+  border-color: #2b4a54;
+  border-left-color: var(--diamond);
+  color: #b8eef4;
+}
+
+.wl-alert--ok {
+  border-color: #3c8527;
+  border-left-color: var(--grass-2);
+  color: #b6eda4;
+}
+
+.wl-alert--warn {
+  border-color: #4a3c18;
+  border-left-color: var(--gold);
+  color: #ffd953;
+}
+
+.wl-alert--err {
+  border-color: #8f1f0b;
+  border-left-color: var(--red);
+  color: #ff925b;
+}
+
+/* ---------------- Turnstile / 验证码 ---------------- */
+.wl-turnstile {
+  margin: 14px 0;
+  min-height: 65px;
+}
+
+.wl-devcode {
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--gold);
+}
+
+.wl-note {
+  font-size: 12px;
+  color: var(--muted-2);
+  line-height: 1.7;
+  margin-top: 10px;
+}
+
+/* ---------------- 查询结果 ---------------- */
+.wl-result {
+  margin-top: 18px;
+}
+
+.wl-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  font-size: 13px;
+  font-weight: 700;
+  border: 2px solid #3d3938;
+  background: #171615;
+  box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.06);
+}
+
+.wl-status-badge--pending {
+  color: #171615;
+  background: var(--gold);
+  border-color: #171615;
+}
+
+.wl-status-badge--approved {
+  color: #171615;
+  background: var(--grass-2);
+  border-color: #171615;
+}
+
+.wl-status-badge--rejected {
+  color: #fff;
+  background: #b42d10;
+  border-color: #171615;
+}
+
+.wl-kv {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 10px 16px;
+  font-size: 14px;
+  margin-top: 16px;
+}
+
+.wl-kv dt {
+  color: var(--muted);
+}
+
+.wl-kv dd {
+  margin: 0;
+  color: var(--text);
+  word-break: break-all;
+}
+
+/* ---------------- 管理后台 ---------------- */
+.wl-admin {
+  padding-top: calc(var(--nav-h) + 20px);
+  padding-bottom: 60px;
+}
+
+.wl-admin-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.wl-actor {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.wl-actor b {
+  color: var(--text);
+  font-weight: 700;
+}
+
+/* 后台标签页：OreUI 分段按钮 */
+.wl-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.wl-tab {
+  padding: 9px 14px;
+  border: 2px solid #171615;
+  background: #262423;
+  color: var(--text-2);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+  box-shadow: inset 0 3px 0 rgba(255, 255, 255, 0.07), inset 0 -3px 0 rgba(0, 0, 0, 0.3);
+  transition: background 0.15s, color 0.15s;
+}
+
+.wl-tab:hover {
+  background: #3d3938;
+  color: var(--text);
+}
+
+.wl-tab.active {
+  background: var(--grass-3);
+  color: #fff;
+  box-shadow: inset 0 3px 0 rgba(255, 255, 255, 0.2), inset 0 -3px 0 var(--grass-ink);
+}
+
+.wl-tab .wl-count {
+  margin-left: 6px;
+  font-family: var(--mono);
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+.wl-table-wrap {
+  overflow-x: auto;
+  border: 2px solid #171615;
+  background: #262423;
+  box-shadow: var(--shadow-card);
+}
+
+.wl-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  min-width: 720px;
+}
+
+.wl-table th,
+.wl-table td {
+  padding: 11px 14px;
+  text-align: left;
+  border-bottom: 2px solid #171615;
+  vertical-align: top;
+}
+
+.wl-table th {
+  color: var(--muted);
+  font-weight: 700;
+  background: #171615;
+  white-space: nowrap;
+}
+
+.wl-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.wl-table tbody tr:hover {
+  background: rgba(252, 245, 241, 0.03);
+}
+
+.wl-link {
+  color: var(--grass-2);
+  cursor: pointer;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.wl-link:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.wl-mono {
+  font-family: var(--mono);
+  font-size: 12px;
+}
+
+.wl-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 18px;
+}
+
+.wl-diff {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  margin-top: 8px;
+}
+
+.wl-diff th,
+.wl-diff td {
+  padding: 8px 10px;
+  border: 2px solid #171615;
+  text-align: left;
+}
+
+.wl-diff th {
+  background: #171615;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+/* 复制到服务器的指令块 */
+.wl-cmd {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.wl-cmd code {
+  flex: 1;
+  min-width: 220px;
+  padding: 10px 12px;
+  background: #0d0c0b;
+  border: 2px solid #3d3938;
+  border-left-width: 4px;
+  border-left-color: var(--grass-3);
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--diamond);
+  word-break: break-all;
+}
+
+.wl-log {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 12.5px;
+}
+
+.wl-log li {
+  padding: 8px 0;
+  border-bottom: 1px solid #3d3938;
+  color: var(--text-2);
+  line-height: 1.7;
+}
+
+.wl-log li:last-child {
+  border-bottom: 0;
+}
+
+.wl-log time {
+  color: var(--muted-2);
+  font-family: var(--mono);
+  font-size: 11.5px;
+  margin-right: 8px;
+}
+
+.wl-empty {
+  padding: 34px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* 弹窗：OreUI 面板 + 暗幕 */
+.wl-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(13, 12, 11, 0.82);
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  z-index: 60;
+}
+
+.wl-modal {
+  width: min(720px, 100%);
+  max-height: 86vh;
+  overflow: auto;
+  background: linear-gradient(180deg, #2f2b2a 0%, #262423 100%);
+  border: 2px solid #171615;
+  padding: 22px;
+  box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.08), 0 24px 48px -20px #000;
+}
+
+.wl-modal h3 {
+  margin: 0 0 14px;
+  font-size: 17px;
+  font-weight: 900;
+}
+
+.wl-close {
+  float: right;
+  background: #171615;
+  border: 2px solid #3d3938;
+  color: var(--muted);
+  font-size: 18px;
+  line-height: 1;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+}
+
+.wl-close:hover {
+  color: #fff;
+  border-color: var(--grass-3);
+}
+
+.wl-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--text-2);
+  cursor: pointer;
+}
+
+.wl-switch input[type="checkbox"] {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  background: #171615;
+  border: 2px solid #6b6562;
+  cursor: pointer;
+  position: relative;
+}
+
+.wl-switch input[type="checkbox"]:checked {
+  background: var(--grass-2);
+  border-color: #171615;
+}
+
+.wl-switch input[type="checkbox"]:checked::after {
+  content: "";
+  position: absolute;
+  inset: 3px;
+  background: #171615;
+  clip-path: polygon(14% 44%, 0 65%, 40% 100%, 100% 16%, 84% 0, 38% 68%);
+}
+
+.wl-footer-nav {
+  margin-top: 30px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.wl-footer-nav a {
+  color: var(--grass-2);
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.wl-footer-nav a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 560px) {
+  .wl-kv {
+    grid-template-columns: 96px 1fr;
+  }
+  .wl-wrap {
+    width: calc(100% - 28px);
+  }
+  .wl-tabs {
+    gap: 4px;
+  }
+  .wl-tab {
+    padding: 8px 10px;
+    font-size: 12px;
+  }
+}
+/* ------------------------------------------------------------
+   网页通道不可用时的「全人工白名单」提示块
+   ------------------------------------------------------------ */
+.wl-fallback {
+  border-left: 4px solid var(--gold);
+}
+
+.wl-fallback-list {
+  margin: 10px 0 0;
+  padding-left: 20px;
+  font-size: 14px;
+  line-height: 2;
+  color: var(--text);
+}
+
+.wl-fallback-list a {
+  color: var(--diamond);
+  text-decoration: none;
+  border-bottom: 1px solid var(--line-2);
+}
+
+.wl-fallback-list a:hover {
+  color: var(--grass-2);
+}

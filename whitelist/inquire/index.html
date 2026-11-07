@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>查询申请状态 · LongerMC</title>
+  <meta name="description" content="自助查询 LongerMC 白名单申请审核进度：游戏 ID + 邮箱 + 六位数邮箱验证码。" />
+  <meta name="author" content="LongerMC" />
+  <meta name="theme-color" content="#0a0d12" />
+  <link rel="canonical" href="https://mc.longer.xin/whitelist/inquire/" />
+  <meta name="robots" content="noindex,follow" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="LongerMC" />
+  <meta property="og:title" content="查询申请状态 · LongerMC" />
+  <meta property="og:url" content="https://mc.longer.xin/whitelist/inquire/" />
+
+  <link rel="icon" href="/icon.jpg" type="image/jpeg" />
+  <link rel="apple-touch-icon" href="/icon.jpg" />
+
+  <link rel="preload" href="/assets/fonts/press-start-2p.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/whitelist.css" />
+
+  <script>document.documentElement.classList.add('js');</script>
+  <script>
+    window.__lmcTsCb = window.__lmcTsCb || [];
+    window.lmcTurnstileReady = function () {
+      window.__lmcTsReady = true;
+      (window.__lmcTsCb || []).forEach(function (f) { try { f(); } catch (e) {} });
+    };
+  </script>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=lmcTurnstileReady&render=explicit" async defer></script>
+</head>
+<body data-page="inquire">
+  <script src="/js/icons.js"></script>
+  <div id="nav-root"></div>
+
+  <main id="main" class="wl-page">
+    <div class="wl-wrap">
+      <header class="wl-head">
+        <div class="wl-kicker">INQUIRE</div>
+        <h1 class="wl-title">查询<em>申请状态</em></h1>
+        <p class="wl-sub">
+          只需输入申请时使用的邮箱，通过邮箱验证码验证后即可自助查看审核进度，无需等待人工回复。
+        </p>
+      </header>
+
+      <div id="inqAlert" class="wl-alert"></div>
+
+      <section class="wl-card">
+        <h2>身份验证</h2>
+        <p class="wl-hint">
+          仅凭邮箱无法查询，必须输入邮箱收到的 6 位验证码以证明你对该邮箱的控制权。
+          无论该邮箱是否有申请记录，发送验证码的返回提示都是一样的。
+        </p>
+
+        <div class="wl-field">
+          <label class="wl-label" for="email">邮箱<span class="req">*</span></label>
+          <div class="wl-inline">
+            <input class="wl-input" id="email" name="email" type="email" inputmode="email" autocomplete="email"
+                   maxlength="254" placeholder="申请时填写的邮箱" />
+            <button class="wl-btn" id="btnSendCode" type="button">发送验证码</button>
+          </div>
+          <p class="wl-note">
+            更换过绑定邮箱的，请使用<b>当前生效的邮箱</b>。旧邮箱已无法收取邮件时，请走页面底部的全人工通道。
+          </p>
+        </div>
+
+        <div class="wl-field">
+          <label class="wl-label" for="code">邮箱验证码<span class="req">*</span></label>
+          <input class="wl-input" id="code" name="code" type="text" inputmode="numeric" autocomplete="one-time-code"
+                 maxlength="6" placeholder="6 位数字" style="max-width:180px;" />
+        </div>
+
+        <div class="wl-turnstile" data-turnstile></div>
+
+        <div class="wl-actions">
+          <button class="wl-btn wl-btn--primary" id="btnQuery" type="button">查询状态</button>
+          <a class="wl-btn wl-btn--ghost" href="/whitelist/">返回白名单首页</a>
+        </div>
+      </section>
+
+      <section class="wl-card wl-result" id="inqResult" hidden></section>
+
+      <p class="wl-footer-nav">
+        <a href="/whitelist/">← 返回白名单首页</a>
+      </p>
+
+      <!-- 网页通道不可用时的「全人工白名单」入口（内容由 js/whitelist.js 按后端配置渲染） -->
+      <section class="wl-card wl-fallback" data-fallback hidden></section>
+    </div>
+</main>
+
+  <div id="footer-root"></div>
+
+  <script src="/js/nav.js" defer></script>
+  <script src="/js/footer.js" defer></script>
+  <script src="/js/main.js" defer></script>
+  <script src="/js/status.js" defer></script>
+  <script src="/js/whitelist.js" defer></script>
+</body>
+</html>

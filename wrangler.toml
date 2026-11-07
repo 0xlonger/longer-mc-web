@@ -1,0 +1,23 @@
+# ============================================================
+# wrangler.toml
+#
+# 用途：
+#   1) 本地开发：npx wrangler pages dev .  （读取 D1 绑定与 .dev.vars）
+#   2) 数据库迁移：npx wrangler d1 migrations apply longer-mc-db --remote
+#
+# 说明：本站通过 Cloudflare Pages 的 Git 集成部署，零构建步骤
+#      （不需要配置 Build Command / output directory），
+#      Git Push 即自动部署。生产环境变量请在 Pages 后台配置。
+# ============================================================
+
+name = "longer-mc-web"
+compatibility_date = "2025-01-01"
+
+# D1 数据库绑定（Functions 中通过 env.DB 访问）
+# TODO: 把 database_id 替换为你自己的 D1 数据库 ID
+#       获取方式：npx wrangler d1 create longer-mc-db
+[[d1_databases]]
+binding = "DB"
+database_name = "longer-mc-db"
+database_id = "d9d6b394-2df8-406b-b31a-de10d9a564c6"
+migrations_dir = "migrations"

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>修改白名单信息 · LongerMC</title>
+  <meta name="description" content="申请修改 LongerMC 白名单信息：QQ / Discord / 游戏 ID，需邮箱验证码与修改理由，提交后人工审核。" />
+  <meta name="author" content="LongerMC" />
+  <meta name="theme-color" content="#0a0d12" />
+  <link rel="canonical" href="https://mc.longer.xin/whitelist/modify/" />
+  <meta name="robots" content="noindex,follow" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="LongerMC" />
+  <meta property="og:title" content="修改白名单信息 · LongerMC" />
+  <meta property="og:url" content="https://mc.longer.xin/whitelist/modify/" />
+
+  <link rel="icon" href="/icon.jpg" type="image/jpeg" />
+  <link rel="apple-touch-icon" href="/icon.jpg" />
+
+  <link rel="preload" href="/assets/fonts/press-start-2p.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/whitelist.css" />
+
+  <script>document.documentElement.classList.add('js');</script>
+  <script>
+    window.__lmcTsCb = window.__lmcTsCb || [];
+    window.lmcTurnstileReady = function () {
+      window.__lmcTsReady = true;
+      (window.__lmcTsCb || []).forEach(function (f) { try { f(); } catch (e) {} });
+    };
+  </script>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=lmcTurnstileReady&render=explicit" async defer></script>
+</head>
+<body data-page="modify">
+  <script src="/js/icons.js"></script>
+  <div id="nav-root"></div>
+
+  <main id="main" class="wl-page">
+    <div class="wl-wrap">
+      <header class="wl-head">
+        <div class="wl-kicker">MODIFY</div>
+        <h1 class="wl-title">修改<em>白名单信息</em></h1>
+        <p class="wl-sub">
+          可修改 QQ、Discord 或游戏 ID，也可以补充之前未填的联系方式。修改需填写理由，
+          提交后进入人工审核；审核通过前当前白名单信息保持不变。
+        </p>
+      </header>
+
+      <div id="modAlert" class="wl-alert"></div>
+
+      <section class="wl-card">
+        <h2>1 · 身份验证</h2>
+        <p class="wl-hint">
+          需要<b>邮箱</b>（必填，接收 6 位验证码）+ <b>QQ / Discord / 游戏 ID 三选一</b>做辅助验证。
+          系统会核对这两项是否与你的申请记录一致。<b>用哪一项验证，本次就不能改哪一项</b>；
+          要改某一项，请改用另外两项之一来验证。
+        </p>
+
+        <div class="wl-field">
+          <label class="wl-label" for="email">邮箱<span class="req">*</span></label>
+          <div class="wl-inline">
+            <input class="wl-input" id="email" name="email" type="email" inputmode="email" autocomplete="email"
+                   maxlength="254" placeholder="申请时填写的邮箱" />
+            <button class="wl-btn" id="btnSendCode" type="button">发送验证码</button>
+          </div>
+        </div>
+
+        <div class="wl-row">
+          <div class="wl-field">
+            <label class="wl-label" for="factor">辅助验证方式<span class="req">*</span></label>
+            <select class="wl-input" id="factor" name="factor">
+              <option value="ign">游戏 ID（IGN）</option>
+              <option value="qq">QQ 号</option>
+              <option value="discord">Discord</option>
+            </select>
+            <p class="wl-note">选择你当前仍记得、且已绑定在申请记录上的那一项。</p>
+          </div>
+          <div class="wl-field">
+            <label class="wl-label" for="factorValue"><span data-factor-label>当前游戏 ID</span><span class="req">*</span></label>
+            <input class="wl-input" id="factorValue" name="factorValue" type="text" maxlength="40" autocomplete="off"
+                   placeholder="当前生效的游戏 ID" />
+            <p class="wl-note" id="factorTip">请填写当前生效的游戏 ID。</p>
+          </div>
+        </div>
+
+        <div class="wl-field">
+          <label class="wl-label" for="code">邮箱验证码<span class="req">*</span></label>
+          <input class="wl-input" id="code" name="code" type="text" inputmode="numeric" autocomplete="one-time-code"
+                 maxlength="6" placeholder="6 位数字" style="max-width:180px;" />
+        </div>
+
+        <div class="wl-turnstile" data-turnstile></div>
+
+        <div class="wl-actions">
+          <button class="wl-btn" id="btnVerify" type="button">验证并进入修改</button>
+        </div>
+        <input type="hidden" id="ticket" value="" />
+      </section>
+
+      <section class="wl-card" id="modCurrent" hidden></section>
+
+      <!-- 三项都无法验证时的全人工通道引导（内容由 js/whitelist.js 渲染） -->
+      <section class="wl-card wl-fallback" id="modManual" hidden></section>
+
+      <section class="wl-card" id="modForm" hidden>
+        <h2>2 · 填写修改内容</h2>
+        <p class="wl-hint">只填写需要变更的项，留空表示不修改。修改理由必填（至少 5 个字）。<b>QQ 与 Discord 不能同时为空</b>，如需清空某一项请勾选对应的「清空」。</p>
+
+        <div class="wl-row">
+          <div class="wl-field">
+            <label class="wl-label" for="newIgn">新游戏 ID</label>
+            <input class="wl-input" id="newIgn" type="text" maxlength="16" autocomplete="off" />
+            <p class="wl-note">修改游戏 ID 后，管理员需要到原版服务器手动替换白名单条目。</p>
+          </div>
+          <div class="wl-field">
+            <label class="wl-label" for="newQq">新 QQ 号</label>
+            <input class="wl-input" id="newQq" type="text" inputmode="numeric" maxlength="11" autocomplete="off" />
+            <label class="wl-switch" style="margin-top:8px;">
+              <input type="checkbox" id="clearQq" /> 清空 QQ（不再使用旧号）
+            </label>
+          </div>
+          <div class="wl-field">
+            <label class="wl-label" for="newDiscord">新 Discord</label>
+            <input class="wl-input" id="newDiscord" type="text" maxlength="40" autocomplete="off" />
+            <label class="wl-switch" style="margin-top:8px;">
+              <input type="checkbox" id="clearDiscord" /> 清空 Discord（不再使用旧标识）
+            </label>
+          </div>
+        </div>
+
+        <div class="wl-field">
+          <label class="wl-label">绑定邮箱（可选）</label>
+          <label class="wl-switch">
+            <input type="checkbox" id="changeEmail" /> 我需要更换绑定邮箱
+          </label>
+          <p class="wl-note">
+            当前邮箱仍可正常收信时才能在线更换：<b>新邮箱必须独立完成一次验证码验证</b>。
+            如果当前邮箱已经无法使用（停用、丢失、收不到信），在线流程无法验证你的身份，
+            请改用页面底部的全人工通道。
+          </p>
+        </div>
+
+        <div class="wl-row" id="emailChangeBox" hidden>
+          <div class="wl-field">
+            <label class="wl-label" for="newEmail">新邮箱<span class="req">*</span></label>
+            <div class="wl-inline">
+              <input class="wl-input" id="newEmail" type="email" inputmode="email" autocomplete="email"
+                     maxlength="254" placeholder="新的邮箱地址" />
+              <button class="wl-btn" id="btnSendEmailCode" type="button">发送验证码</button>
+            </div>
+          </div>
+          <div class="wl-field">
+            <label class="wl-label" for="newEmailCode">新邮箱验证码<span class="req">*</span></label>
+            <input class="wl-input" id="newEmailCode" type="text" inputmode="numeric" autocomplete="one-time-code"
+                   maxlength="6" placeholder="6 位数字" style="max-width:180px;" />
+            <p class="wl-note">更换后，状态查询与后续通知都将使用新邮箱。</p>
+          </div>
+        </div>
+
+        <div class="wl-field">
+          <label class="wl-label" for="reason">修改理由<span class="req">*</span></label>
+          <textarea class="wl-textarea" id="reason" maxlength="500"
+                    placeholder="例如：QQ 号已更换，旧号停用；Discord 用户名已改为 xxx；原邮箱停用需换绑"></textarea>
+        </div>
+
+        <div class="wl-actions">
+          <button class="wl-btn wl-btn--primary" id="btnSubmit" type="button">提交修改申请</button>
+        </div>
+      </section>
+
+      <section class="wl-card" id="modDone" hidden>
+        <h2>修改申请已提交</h2>
+        <p class="wl-hint">
+          修改编号 <b class="wl-mono" id="modRef"></b>，状态为「待人工审核」。
+          审核通过前当前白名单信息保持不变，审核结果会通过邮件通知你。
+        </p>
+      </section>
+
+      <p class="wl-footer-nav">
+        <a href="/whitelist/">← 返回白名单首页</a>
+      </p>
+
+      <!-- 网页通道不可用时的「全人工白名单」入口（内容由 js/whitelist.js 按后端配置渲染） -->
+      <section class="wl-card wl-fallback" data-fallback hidden></section>
+    </div>
+</main>
+
+  <div id="footer-root"></div>
+
+  <script src="/js/nav.js" defer></script>
+  <script src="/js/footer.js" defer></script>
+  <script src="/js/main.js" defer></script>
+  <script src="/js/status.js" defer></script>
+  <script src="/js/whitelist.js" defer></script>
+</body>
+</html>

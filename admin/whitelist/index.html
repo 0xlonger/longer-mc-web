@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>白名单审核后台 · LongerMC</title>
+  <meta name="robots" content="noindex,nofollow" />
+  <meta name="author" content="LongerMC" />
+  <meta name="theme-color" content="#0a0d12" />
+
+  <link rel="icon" href="/icon.jpg" type="image/jpeg" />
+  <link rel="apple-touch-icon" href="/icon.jpg" />
+
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/whitelist.css" />
+
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body data-page="admin">
+  <script src="/js/icons.js"></script>
+  <div id="nav-root"></div>
+
+  <main id="main" class="wl-admin">
+    <div class="wl-wrap">
+      <header class="wl-head">
+        <div class="wl-kicker">ADMIN · WHITELIST</div>
+        <h1 class="wl-title">白名单<em>审核后台</em></h1>
+        <p class="wl-sub">
+          本页由 Cloudflare Access 保护。系统只记录审核结果，不会自动修改 Minecraft 服务器的 whitelist.json，
+          所有原版白名单操作需你手动执行。
+        </p>
+      </header>
+
+      <div id="adminAlert" class="wl-alert"></div>
+
+      <div class="wl-admin-bar">
+        <span class="wl-actor">当前管理员：<b id="adminActor">检测中…</b></span>
+        <div class="wl-actions">
+          <button class="wl-btn" id="btnRefresh" type="button">刷新</button>
+          <a class="wl-btn wl-btn--ghost" href="/whitelist/" target="_blank" rel="noopener">打开白名单前台</a>
+        </div>
+      </div>
+
+      <nav class="wl-tabs" id="adminTabs" aria-label="审核分类"></nav>
+
+      <div class="wl-card" id="adminPanel" style="padding:0;border:0;background:transparent;box-shadow:none;"></div>
+    </div>
+  </main>
+
+  <div id="footer-root"></div>
+
+  <div id="modalRoot"></div>
+
+  <script src="/js/nav.js" defer></script>
+  <script src="/js/footer.js" defer></script>
+  <script src="/js/main.js" defer></script>
+  <script src="/js/admin-whitelist.js" defer></script>
+</body>
+</html>

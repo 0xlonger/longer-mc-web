@@ -1,0 +1,23 @@
+# 本地开发密钥：复制 .dev.vars.example 为 .dev.vars 后填写，切勿提交
+.dev.vars
+.dev.vars.*
+!.dev.vars.example
+
+# Wrangler / 本地 D1 数据
+.wrangler/
+.mf/
+*.sqlite
+*.sqlite3
+*.sqlite-journal
+
+# 依赖与构建产物
+node_modules/
+dist/
+build/
+
+# 编辑器与系统
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.log

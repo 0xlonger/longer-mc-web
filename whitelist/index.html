@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>白名单申请 · LongerMC</title>
+  <meta name="description" content="LongerMC 白名单：在线提交申请、自助查询审核状态、申请修改白名单信息。服务器地址 play.mc.longer.xin。" />
+  <meta name="author" content="LongerMC" />
+  <meta name="theme-color" content="#0a0d12" />
+  <link rel="canonical" href="https://mc.longer.xin/whitelist/" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="LongerMC" />
+  <meta property="og:title" content="白名单申请 · LongerMC" />
+  <meta property="og:description" content="提交白名单申请 / 查询审核进度 / 申请修改白名单信息" />
+  <meta property="og:url" content="https://mc.longer.xin/whitelist/" />
+
+  <link rel="icon" href="/icon.jpg" type="image/jpeg" />
+  <link rel="apple-touch-icon" href="/icon.jpg" />
+
+  <link rel="preload" href="/assets/fonts/press-start-2p.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/whitelist.css" />
+
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body data-section="whitelist">
+  <script src="/js/icons.js"></script>
+  <div id="nav-root"></div>
+
+  <main id="main" class="wl-page">
+    <div class="wl-wrap">
+      <header class="wl-head">
+        <div class="wl-kicker">WHITELIST</div>
+        <h1 class="wl-title">白名单<em>申请与查询</em></h1>
+        <p class="wl-sub">
+          LongerMC 使用 Minecraft 原版白名单。本系统只负责收集申请、邮箱验证与人工审核记录，
+          最终是否加入原版白名单由管理员在服务器上手动执行。
+        </p>
+      </header>
+
+      <div class="wl-entries">
+        <a class="wl-entry" href="/whitelist/apply/">
+          <span class="wl-entry-ico" aria-hidden="true"><svg class="icon"><use href="#i-shield"/></svg></span>
+          <h3>申请白名单</h3>
+          <p>填写邮箱、游戏 ID 与联系方式（QQ / Discord 至少一项），完成邮箱验证码与人机验证后提交。</p>
+          <span class="wl-entry-go">前往填写 →</span>
+        </a>
+
+        <a class="wl-entry" href="/whitelist/inquire/">
+          <span class="wl-entry-ico" aria-hidden="true"><svg class="icon"><use href="#i-search"/></svg></span>
+          <h3>查询申请状态</h3>
+          <p>输入邮箱，通过邮箱验证码验证后自助查看审核进度，无需等待人工回复。</p>
+          <span class="wl-entry-go">前往查询 →</span>
+        </a>
+
+        <a class="wl-entry" href="/whitelist/modify/">
+          <span class="wl-entry-ico" aria-hidden="true"><svg class="icon"><use href="#i-edit"/></svg></span>
+          <h3>修改白名单信息</h3>
+          <p>修改 QQ / Discord / 游戏 ID 或绑定邮箱，也可补充之前未填的联系方式，需填写修改理由并人工审核。</p>
+          <span class="wl-entry-go">前往修改 →</span>
+        </a>
+      </div>
+
+      <section class="wl-card" style="margin-top:22px;">
+        <h2>进服前须知</h2>
+        <p class="wl-hint">申请前请确认以下条件，审核员会逐项人工核验：</p>
+        <ul style="margin:0;padding-left:20px;color:var(--text-2);font-size:14px;line-height:1.9;">
+          <li>QQ 号已加入或已申请加入服务器 QQ 交流群（<b>QQ 等级需满 15 级</b>才可进群），且该 QQ 号尚未申请过白名单；</li>
+          <li>或 Discord 已加入 / 已申请加入 LongerMC Discord 服务器；</li>
+          <li>游戏 ID（IGN）填写准确，只能包含字母、数字与下划线，长度 3-16 位；</li>
+          <li>邮箱需能正常接收验证码，用于申请、查询与修改的身份校验。</li>
+        </ul>
+        <p class="wl-note">
+          说明：本系统内的审核记录独立于 Minecraft 服务器。审核通过只代表申请已获批准，
+          管理员还需在服务器执行 <code class="wl-mono">whitelist add &lt;IGN&gt;</code> 后才能真正进服。
+        </p>
+      </section>
+
+      <p class="wl-footer-nav">
+        <a href="/">← 返回 LongerMC 首页</a>
+      </p>
+
+      <!-- 网页通道不可用时的「全人工白名单」入口（内容由 js/whitelist.js 按后端配置渲染） -->
+      <section class="wl-card wl-fallback" data-fallback hidden></section>
+    </div>
+</main>
+
+  <div id="footer-root"></div>
+
+  <script src="/js/nav.js" defer></script>
+  <script src="/js/footer.js" defer></script>
+  <script src="/js/main.js" defer></script>
+  <script src="/js/status.js" defer></script>
+  <script src="/js/whitelist.js" defer></script>
+</body>
+</html>

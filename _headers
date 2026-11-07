@@ -1,0 +1,70 @@
+# ============================================================
+# Cloudflare Pages · 自定义响应头
+# 文档：https://developers.cloudflare.com/pages/configuration/headers/
+#
+# 格式约定（重要）：
+#   - 以 # 开头的行是注释，必须顶格
+#   - 路径行顶格，其下的 header 行必须缩进
+#   - header 块内部不要再写 # 注释，否则可能被当成 header 名解析，
+#     导致整个文件失效——所有说明都放在文件顶部
+#
+# 本文件零构建生效：Pages 的 output directory 就是仓库根目录。
+# ============================================================
+
+/*
+  X-Frame-Options: SAMEORIGIN
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
+  Strict-Transport-Security: max-age=15552000
+
+/api/*
+  Cache-Control: no-store
+  X-Content-Type-Options: nosniff
+
+/admin/*
+  Cache-Control: no-store
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+
+/assets/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/icon.jpg
+  Cache-Control: public, max-age=604800
+
+# ============================================================
+# 关于上面那些头的说明
+#
+# X-Frame-Options: SAMEORIGIN   —— 只允许被本站自身嵌套（防点击劫持）
+# X-Content-Type-Options: nosniff —— 阻止浏览器猜测响应类型（防 MIME 混淆）
+# Referrer-Policy: strict-origin-when-cross-origin
+#     —— 跨站跳转只带来源、不带完整路径。白名单票据曾经走过 URL query，
+#        这条能减少外泄面。
+# Permissions-Policy —— 明确关掉本站用不到的设备能力（摄像头/麦克风/定位/支付/USB）
+# Strict-Transport-Security: max-age=15552000
+#     —— 强制 HTTPS。浏览器记住后，180 天内该主机名只能用 HTTPS 访问。
+#        刻意不加 includeSubDomains / preload，把影响范围限制在本主机名，
+#        避免波及 longer.xin 下的其它子域。
+#        注意：如果 Cloudflare 面板 SSL/TLS → Edge Certificates 里也开了 HSTS，
+#        响应里会出现两个 HSTS 头，浏览器取最严格的，不会有问题。
+# ============================================================
+
+# ============================================================
+# CSP：暂不启用，需要你先在预览部署验证
+# ============================================================
+# 本站页面里有若干内联 <style> 与 <script>，并且依赖 Cloudflare Turnstile
+# （challenges.cloudflare.com 的脚本 + iframe，运行时可能用到 blob: / worker）。
+# CSP 写错会直接让整个人机验证失效，白名单申请 / 查询 / 修改三个流程全部不可用，
+# 所以这里不默认启用。
+#
+# 要在预览部署验证，把下面几行开头的 "# " 去掉，让它们变成正常的规则块：
+#
+# /*
+#   Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://challenges.cloudflare.com; frame-src https://challenges.cloudflare.com; object-src 'none'; base-uri 'self'; frame-ancestors 'self'
+#
+# 验证清单：
+#   1. 白名单三个页面的人机验证能正常渲染并通过
+#   2. 浏览器控制台无 CSP 报错
+#   3. 导航栏、页脚能正常注入
+#   4. 后台页面能正常加载数据与渲染

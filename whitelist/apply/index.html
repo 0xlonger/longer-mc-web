@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>申请白名单 · LongerMC</title>
+  <meta name="description" content="提交 LongerMC 白名单申请：邮箱验证 + 人机验证，填写游戏 ID 与 QQ / Discord 联系方式。" />
+  <meta name="author" content="LongerMC" />
+  <meta name="theme-color" content="#0a0d12" />
+  <link rel="canonical" href="https://mc.longer.xin/whitelist/apply/" />
+  <meta name="robots" content="index,follow" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="LongerMC" />
+  <meta property="og:title" content="申请白名单 · LongerMC" />
+  <meta property="og:url" content="https://mc.longer.xin/whitelist/apply/" />
+
+  <link rel="icon" href="/icon.jpg" type="image/jpeg" />
+  <link rel="apple-touch-icon" href="/icon.jpg" />
+
+  <link rel="preload" href="/assets/fonts/press-start-2p.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/whitelist.css" />
+
+  <script>document.documentElement.classList.add('js');</script>
+  <script>
+    // Turnstile 异步加载回调（先占位，避免 whitelist.js 尚未执行时回调丢失）
+    window.__lmcTsCb = window.__lmcTsCb || [];
+    window.lmcTurnstileReady = function () {
+      window.__lmcTsReady = true;
+      (window.__lmcTsCb || []).forEach(function (f) { try { f(); } catch (e) {} });
+    };
+  </script>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=lmcTurnstileReady&render=explicit" async defer></script>
+</head>
+<body data-page="apply">
+  <script src="/js/icons.js"></script>
+  <div id="nav-root"></div>
+
+  <main id="main" class="wl-page">
+    <div class="wl-wrap">
+      <header class="wl-head">
+        <div class="wl-kicker">APPLY</div>
+        <h1 class="wl-title">申请<em>白名单</em></h1>
+        <p class="wl-sub">
+          请填写真实可用的邮箱并完成验证。提交后进入人工审核，审核结果会通过邮件通知你。
+        </p>
+      </header>
+
+      <div id="applyAlert" class="wl-alert"></div>
+
+      <section class="wl-card">
+        <h2>1 · 邮箱验证</h2>
+        <p class="wl-hint">验证码为 6 位数字，10 分钟内有效，一次性使用。同一邮箱 60 秒内只能发送一次。</p>
+
+        <div class="wl-field">
+          <label class="wl-label" for="email">邮箱<span class="req">*</span></label>
+          <div class="wl-inline">
+            <input class="wl-input" id="email" name="email" type="email" inputmode="email" autocomplete="email"
+                   maxlength="254" placeholder="you@example.com" />
+            <button class="wl-btn" id="btnSendCode" type="button">发送验证码</button>
+          </div>
+        </div>
+
+        <div class="wl-field">
+          <label class="wl-label" for="code">邮箱验证码<span class="req">*</span></label>
+          <input class="wl-input" id="code" name="code" type="text" inputmode="numeric" autocomplete="one-time-code"
+                 maxlength="6" placeholder="6 位数字" style="max-width:180px;" />
+        </div>
+
+        <div class="wl-turnstile" data-turnstile></div>
+
+        <div class="wl-actions">
+          <button class="wl-btn" id="btnVerify" type="button">验证邮箱</button>
+        </div>
+        <input type="hidden" id="ticket" value="" />
+      </section>
+
+      <section class="wl-card" id="applyInfo" hidden>
+        <h2>2 · 申请信息</h2>
+        <p class="wl-hint">QQ 号与 Discord 至少填写一项，可都填。审核员会人工核验入群 / 加入 Discord 情况。</p>
+
+        <div class="wl-field">
+          <label class="wl-label" for="ign">Minecraft 游戏 ID（IGN）<span class="req">*</span></label>
+          <input class="wl-input" id="ign" name="ign" type="text" maxlength="16" autocomplete="off"
+                 placeholder="例如 Longer_Player" />
+          <p class="wl-note">只能包含字母、数字和下划线，长度 3-16 位。请与你在服务器登录时使用的 ID 完全一致。</p>
+        </div>
+
+        <div class="wl-row">
+          <div class="wl-field">
+            <label class="wl-label" for="qq">QQ 号<span class="opt">（二选一）</span></label>
+            <input class="wl-input" id="qq" name="qq" type="text" inputmode="numeric" maxlength="11" autocomplete="off"
+                   placeholder="5-11 位数字" />
+          </div>
+          <div class="wl-field">
+            <label class="wl-label" for="discord">Discord<span class="opt">（二选一）</span></label>
+            <input class="wl-input" id="discord" name="discord" type="text" maxlength="40" autocomplete="off"
+                   placeholder="用户名 或 name#1234" />
+          </div>
+        </div>
+      </section>
+
+      <section class="wl-card">
+        <h2>3 · 人机验证与提交</h2>
+        <p class="wl-hint">提交前请再完成一次人机验证，然后提交申请。</p>
+        <div class="wl-turnstile" data-turnstile></div>
+        <div class="wl-actions">
+          <button class="wl-btn wl-btn--primary" id="btnSubmit" type="button">提交申请</button>
+          <a class="wl-btn wl-btn--ghost" href="/whitelist/">返回白名单首页</a>
+        </div>
+      </section>
+
+      <section class="wl-card" id="applyDone" hidden>
+        <h2>提交成功</h2>
+        <p class="wl-hint">
+          你的申请编号是 <b class="wl-mono" id="applyRef"></b>，状态为「待人工审核」。
+          我们已向你的邮箱发送确认邮件。可到
+          <a href="/whitelist/inquire/" style="color:var(--grass-2);">状态查询页</a> 自助查询进度。
+        </p>
+      </section>
+
+      <p class="wl-footer-nav">
+        <a href="/whitelist/">← 返回白名单首页</a>
+      </p>
+
+      <!-- 网页通道不可用时的「全人工白名单」入口（内容由 js/whitelist.js 按后端配置渲染） -->
+      <section class="wl-card wl-fallback" data-fallback hidden></section>
+    </div>
+</main>
+
+  <div id="footer-root"></div>
+
+  <script src="/js/nav.js" defer></script>
+  <script src="/js/footer.js" defer></script>
+  <script src="/js/main.js" defer></script>
+  <script src="/js/status.js" defer></script>
+  <script src="/js/whitelist.js" defer></script>
+</body>
+</html>
