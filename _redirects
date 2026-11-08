@@ -1,0 +1,13 @@
+# Cloudflare Pages 路径规范化
+# 统一去掉 index.html，与 canonical / sitemap 的目录 URL 保持一致
+/index.html   /   301
+/whitelist/index.html   /whitelist/   301
+/whitelist/apply/index.html   /whitelist/apply/   301
+/whitelist/inquire/index.html   /whitelist/inquire/   301
+/whitelist/modify/index.html   /whitelist/modify/   301
+
+# 目录 URL 统一带尾斜杠
+/whitelist   /whitelist/   301
+/whitelist/apply   /whitelist/apply/   301
+/whitelist/inquire   /whitelist/inquire/   301
+/whitelist/modify   /whitelist/modify/   301

@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /api/whitelist/config/
+Disallow: /admin/
+Disallow: /api/
+Disallow: /functions/
+Disallow: /migrations/
+Allow: /
+
+Sitemap: https://mc.longer.xin/sitemap.xml

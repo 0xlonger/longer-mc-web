@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LongerMC · 龙ger_longer の神奇 Minecraft 生存服务器</title>
+    <link>https://mc.longer.xin/</link>
+    <description>LongerMC 官方站点订阅：服务器总览、白名单入口、玩法与规则。Minecraft Java 版 1.21.11 原版生存，服务器地址 play.mc.longer.xin，长期存档、非营利、无充值。</description>
+    <language>zh-CN</language>
+    <copyright>LongerMC</copyright>
+    <lastBuildDate>Sun, 08 Nov 2026 00:00:00 +0800</lastBuildDate>
+    <atom:link href="https://mc.longer.xin/feed.xml" rel="self" type="application/rss+xml" />
+    <image>
+      <url>https://mc.longer.xin/icon.jpg</url>
+      <title>LongerMC</title>
+      <link>https://mc.longer.xin/</link>
+    </image>
+
+    <item>
+      <title>LongerMC 首页 · Minecraft Java 1.21.11 原版生存服务器</title>
+      <link>https://mc.longer.xin/</link>
+      <guid isPermaLink="true">https://mc.longer.xin/</guid>
+      <pubDate>Sun, 08 Nov 2026 00:00:00 +0800</pubDate>
+      <description><![CDATA[服务器地址 play.mc.longer.xin。原版生存基础上提供领地保护、多世界管理、跨版本进入、账号保护、箱子商店、实用指令、权限与经济、自定义皮肤；长期运营、长期存档、友善社区、稳定流畅，暂不提供任何充值入口。]]></description>
+    </item>
+
+    <item>
+      <title>白名单申请与查询 · LongerMC</title>
+      <link>https://mc.longer.xin/whitelist/</link>
+      <guid isPermaLink="true">https://mc.longer.xin/whitelist/</guid>
+      <pubDate>Sun, 08 Nov 2026 00:00:00 +0800</pubDate>
+      <description><![CDATA[LongerMC 使用 Minecraft 原版白名单。可在线提交申请（邮箱验证 + 人机验证）、自助查询审核进度、申请修改白名单信息；系统只负责收集与人工审核记录，最终由管理员在服务器上手动加入。]]></description>
+    </item>
+
+    <item>
+      <title>服务器状态与四步加入流程</title>
+      <link>https://mc.longer.xin/#join</link>
+      <guid isPermaLink="false">https://mc.longer.xin/#join</guid>
+      <pubDate>Sun, 08 Nov 2026 00:00:00 +0800</pubDate>
+      <description><![CDATA[首页可查看服务器实时在线状态。四步进入世界：启动 Minecraft Java 版（推荐 1.21.11，装了 ViaVersion 系列插件，其它版本也可进入）→ 多人游戏添加服务器 → 地址填 play.mc.longer.xin → 首次进服用 AuthMe 注册密码。进服前请先到 /whitelist/ 申请白名单；基岩版暂不互通。]]></description>
+    </item>
+
+    <item>
+      <title>服务器特色与插件介绍</title>
+      <link>https://mc.longer.xin/#features</link>
+      <guid isPermaLink="false">https://mc.longer.xin/#features</guid>
+      <pubDate>Sun, 08 Nov 2026 00:00:00 +0800</pubDate>
+      <description><![CDATA[原版之上，插件之趣：自由建造、友善社区、稳定流畅；领地保护、多世界管理、跨版本进入、账号保护、实用指令、权限与经济、箱子商店、自定义皮肤。]]></description>
+    </item>
+
+    <item>
+      <title>服务器基本规则</title>
+      <link>https://mc.longer.xin/#rules</link>
+      <guid isPermaLink="false">https://mc.longer.xin/#rules</guid>
+      <pubDate>Sun, 08 Nov 2026 00:00:00 +0800</pubDate>
+      <description><![CDATA[LongerMC 服务器基本规则共 5 条，涉及出生点、领地使用、作弊与模组、聊天与内容、服务器性能；进服前请先阅读，共同维护友善的生存社区。]]></description>
+    </item>
+
+    <item>
+      <title>未来玩法规划：起床战争、空岛战争等小游戏</title>
+      <link>https://mc.longer.xin/#coming</link>
+      <guid isPermaLink="false">https://mc.longer.xin/#coming</guid>
+      <pubDate>Sun, 08 Nov 2026 00:00:00 +0800</pubDate>
+      <description><![CDATA[起床战争、空岛战争等小游戏正在考虑之中，未来将视社区情况逐步加入；当前仍以原版生存为主。]]></description>
+    </item>
+  </channel>
+</rss>
