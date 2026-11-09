@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 200">
+<style>
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-13px)}}
+@keyframes spark{0%,100%{opacity:.2}50%{opacity:1}}
+.bob{transform-box:view-box}
+.bob-a{animation:bob 7s ease-in-out infinite}
+.bob-b{animation:bob 5.6s ease-in-out infinite;animation-delay:-1.6s}
+.bob-c{animation:bob 6.4s ease-in-out infinite;animation-delay:-3.2s}
+.bob-d{animation:bob 6.8s ease-in-out infinite;animation-delay:-4.4s}
+.sparks rect{animation:spark 3.2s steps(2,jump-none) infinite}
+.sparks rect:nth-child(2){animation-delay:-.7s}
+.sparks rect:nth-child(3){animation-delay:-1.4s}
+.sparks rect:nth-child(4){animation-delay:-2.1s}
+.sparks--gold rect:nth-child(2){animation-delay:-1s}
+.sparks--gold rect:nth-child(3){animation-delay:-2.4s}
+.bar-live{animation:spark 2.6s steps(2,jump-none) infinite}
+</style>
+<defs>
+      <linearGradient id="g-grass-top" x1="0" y1="0" x2=".4" y2="1">
+        <stop offset="0" stop-color="#8ae66c"/><stop offset="1" stop-color="#57ad3f"/>
+      </linearGradient>
+      <linearGradient id="g-dirt-left" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#6d4830"/><stop offset="1" stop-color="#523524"/>
+      </linearGradient>
+      <linearGradient id="g-dirt-right" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#8a5c3b"/><stop offset="1" stop-color="#68432b"/>
+      </linearGradient>
+      <linearGradient id="g-stone-top" x1="0" y1="0" x2=".4" y2="1">
+        <stop offset="0" stop-color="#a3b0c2"/><stop offset="1" stop-color="#76839a"/>
+      </linearGradient>
+      <linearGradient id="g-stone-left" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#4d586b"/><stop offset="1" stop-color="#3b4554"/>
+      </linearGradient>
+      <linearGradient id="g-stone-right" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#626e82"/><stop offset="1" stop-color="#4a5568"/>
+      </linearGradient>
+      <linearGradient id="g-goldblock-top" x1="0" y1="0" x2=".4" y2="1">
+      <stop offset="0" stop-color="#ffe08a"/><stop offset="1" stop-color="#f2c14e"/>
+    </linearGradient>
+    <linearGradient id="g-goldblock-left" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#c9962f"/><stop offset="1" stop-color="#a87a22"/>
+    </linearGradient>
+    <linearGradient id="g-goldblock-right" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#e8b53f"/><stop offset="1" stop-color="#c08c28"/>
+    </linearGradient>
+    <linearGradient id="g-portal" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#c084fc"/><stop offset=".5" stop-color="#8b5cf6"/><stop offset="1" stop-color="#d946ef"/>
+      </linearGradient>
+    </defs>
+
+              <g class="sparks" fill="#8ae66f">
+                <rect x="16" y="44" width="4" height="4"/>
+                <rect x="152" y="66" width="4" height="4"/>
+                <rect x="142" y="152" width="4" height="4"/>
+              </g>
+              <g transform="translate(90 86) scale(.72)">
+      <polygon points="0,-48 96,0 0,48 -96,0" fill="url(#g-grass-top)"/>
+      <polygon points="-96,0 0,48 0,118 -96,70" fill="url(#g-dirt-left)"/>
+      <polygon points="0,48 96,0 96,70 0,118" fill="url(#g-dirt-right)"/>
+      <polygon points="-96,0 0,48 0,62 -96,14" fill="#63c94a"/>
+      <polygon points="0,48 96,0 96,14 0,62" fill="#4fa83a"/>
+      <path d="M-40,-20 l14,7 -14,7 -14,-7z" fill="#a6f28b" opacity=".5"/>
+      <path d="M24,-8 l12,6 -12,6 -12,-6z" fill="#4a9a35" opacity=".45"/>
+      <path d="M-8,20 l10,5 -10,5 -10,-5z" fill="#a6f28b" opacity=".28"/>
+      <path d="M-76,30 l12,6 -12,6 -12,-6z" fill="#3f2719" opacity=".4"/>
+      <path d="M-44,64 l12,6 -12,6 -12,-6z" fill="#3f2719" opacity=".3"/>
+      <path d="M46,40 l12,6 -12,6 -12,-6z" fill="#4b2d1c" opacity=".28"/>
+      <path d="M12,88 l10,5 -10,5 -10,-5z" fill="#4b2d1c" opacity=".22"/>
+    </g>
+              <g transform="translate(64 40)"><g transform="scale(.62)">
+      <rect x="14" y="18" width="8" height="26" fill="#4a2c1a"/>
+      <rect x="16" y="18" width="2" height="26" fill="#6b4026"/>
+      <rect x="0" y="10" width="36" height="8" fill="#35702a"/>
+      <rect x="0" y="2" width="36" height="8" fill="#3f8a2f"/>
+      <rect x="6" y="-8" width="24" height="10" fill="#4aa338"/>
+      <rect x="12" y="-16" width="12" height="8" fill="#5cbb45"/>
+      <rect x="4" y="4" width="8" height="4" fill="#4aa338"/>
+      <rect x="26" y="12" width="6" height="4" fill="#2f6322"/>
+    </g></g>
+              <g transform="translate(102 76)"><g transform="scale(.72)">
+      <rect x="-14" y="-10" width="4" height="4" fill="#d9a54f"/>
+      <rect x="-11" y="-14" width="4" height="4" fill="#e8b76a"/>
+      <rect x="-9" y="-14" width="13" height="14" fill="#e8b76a"/>
+      <rect x="-2" y="-24" width="14" height="12" fill="#f0c97e"/>
+      <rect x="-2" y="-28" width="4" height="4" fill="#f0c97e"/>
+      <rect x="8" y="-28" width="4" height="4" fill="#f0c97e"/>
+      <rect x="1" y="-21" width="3" height="3" fill="#57a64a"/>
+      <rect x="7" y="-21" width="3" height="3" fill="#57a64a"/>
+      <rect x="1" y="-21" width="1" height="1" fill="#173015"/>
+      <rect x="7" y="-21" width="1" height="1" fill="#173015"/>
+      <rect x="0" y="-18" width="12" height="2" fill="#e0b268"/>
+      <rect x="-9" y="0" width="5" height="4" fill="#d9a54f"/>
+      <rect x="0" y="0" width="5" height="4" fill="#d9a54f"/>
+    </g></g>
+            
+</svg>

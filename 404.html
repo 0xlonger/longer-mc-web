@@ -22,100 +22,7 @@
 
   <div class="scroll-progress" aria-hidden="true"><span id="scrollProgress"></span></div>
 
-  <svg class="svg-sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
-    <defs>
-      <linearGradient id="g-grass-top" x1="0" y1="0" x2=".4" y2="1">
-        <stop offset="0" stop-color="#8ae66c"/><stop offset="1" stop-color="#57ad3f"/>
-      </linearGradient>
-      <linearGradient id="g-dirt-left" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0" stop-color="#6d4830"/><stop offset="1" stop-color="#523524"/>
-      </linearGradient>
-      <linearGradient id="g-dirt-right" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0" stop-color="#8a5c3b"/><stop offset="1" stop-color="#68432b"/>
-      </linearGradient>
-      <linearGradient id="g-stone-top" x1="0" y1="0" x2=".4" y2="1">
-        <stop offset="0" stop-color="#a3b0c2"/><stop offset="1" stop-color="#76839a"/>
-      </linearGradient>
-      <linearGradient id="g-stone-left" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0" stop-color="#4d586b"/><stop offset="1" stop-color="#3b4554"/>
-      </linearGradient>
-      <linearGradient id="g-stone-right" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0" stop-color="#626e82"/><stop offset="1" stop-color="#4a5568"/>
-      </linearGradient>
-    </defs>
-
-    <g id="cube-grass">
-      <polygon points="0,-48 96,0 0,48 -96,0" fill="url(#g-grass-top)"/>
-      <polygon points="-96,0 0,48 0,118 -96,70" fill="url(#g-dirt-left)"/>
-      <polygon points="0,48 96,0 96,70 0,118" fill="url(#g-dirt-right)"/>
-      <polygon points="-96,0 0,48 0,62 -96,14" fill="#63c94a"/>
-      <polygon points="0,48 96,0 96,14 0,62" fill="#4fa83a"/>
-      <path d="M-40,-20 l14,7 -14,7 -14,-7z" fill="#a6f28b" opacity=".5"/>
-      <path d="M24,-8 l12,6 -12,6 -12,-6z" fill="#4a9a35" opacity=".45"/>
-      <path d="M-76,30 l12,6 -12,6 -12,-6z" fill="#3f2719" opacity=".4"/>
-      <path d="M46,40 l12,6 -12,6 -12,-6z" fill="#4b2d1c" opacity=".28"/>
-    </g>
-
-    <g id="cube-diamond">
-      <polygon points="0,-48 96,0 0,48 -96,0" fill="url(#g-stone-top)"/>
-      <polygon points="-96,0 0,48 0,118 -96,70" fill="url(#g-stone-left)"/>
-      <polygon points="0,48 96,0 96,70 0,118" fill="url(#g-stone-right)"/>
-      <path d="M-18,-12 l13,7 -13,7 -13,-7z" fill="#65dbe8"/>
-      <path d="M-18,-12 l6,3 -6,3 -6,-3z" fill="#d5fbff"/>
-      <path d="M38,4 l10,6 -10,6 -10,-6z" fill="#3fbccd"/>
-      <path d="M-58,38 l11,7 -11,7 -11,-7z" fill="#5ad2df"/>
-      <path d="M34,66 l11,7 -11,7 -11,-7z" fill="#3fbccd"/>
-    </g>
-
-    <symbol id="i-copy" viewBox="0 0 24 24">
-      <g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="miter">
-        <path d="M9 3h11v14h-4"/>
-        <path d="M4 8h11v13H4z"/>
-      </g>
-    </symbol>
-    <symbol id="i-arrow" viewBox="0 0 24 24">
-      <path d="M3 12h16M13 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2"/>
-    </symbol>
-    <symbol id="i-home" viewBox="0 0 24 24">
-      <g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="miter">
-        <path d="M3 11 12 3l9 8v10H3z"/>
-        <path d="M10 21v-6h4v6"/>
-      </g>
-    </symbol>
-    <symbol id="i-chat" viewBox="0 0 24 24">
-      <path d="M3 3h18v13h-9l-5 5v-5H3z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="miter"/>
-      <g fill="currentColor">
-        <rect x="7" y="8" width="2.4" height="2.4"/>
-        <rect x="11" y="8" width="2.4" height="2.4"/>
-        <rect x="15" y="8" width="2.4" height="2.4"/>
-      </g>
-    </symbol>
-    <symbol id="i-discord" viewBox="0 0 24 24">
-      <g fill="currentColor">
-        <rect x="9" y="2" width="6" height="3"/>
-        <rect x="6" y="4" width="3" height="3"/>
-        <rect x="15" y="4" width="3" height="3"/>
-        <rect x="4" y="7" width="4" height="4"/>
-        <rect x="16" y="7" width="4" height="4"/>
-        <rect x="3" y="9" width="3" height="7"/>
-        <rect x="18" y="9" width="3" height="7"/>
-        <rect x="5" y="15" width="14" height="4"/>
-        <rect x="7" y="18" width="3" height="3"/>
-        <rect x="14" y="18" width="3" height="3"/>
-      </g>
-      <g fill="#0d121a">
-        <rect x="8" y="11" width="2" height="3"/>
-        <rect x="14" y="11" width="2" height="3"/>
-      </g>
-    </symbol>
-    <symbol id="i-door" viewBox="0 0 24 24">
-      <g fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M5 3h14v19H5z"/>
-        <path d="M9 7h6v8H9z"/>
-      </g>
-      <rect x="15" y="13" width="2" height="2" fill="currentColor"/>
-    </symbol>
-  </svg>
+  
 
   <!-- 导航栏：由 js/nav.js 从 /partials/nav.html 统一载入（与首页同一份） -->
   <div id="nav-root"></div>
@@ -127,15 +34,11 @@
     <span class="err-glow" aria-hidden="true"></span>
 
     <div class="err-code-row">
-      <svg class="err-mini-cube err-mini-cube--left" viewBox="0 0 120 140" aria-hidden="true">
-        <g transform="translate(60 58)"><g class="bob bob-b"><use href="#cube-grass" transform="scale(.46)"/></g></g>
-      </svg>
+      <img class="err-mini-cube err-mini-cube--left" src="/assets/svg/mini-cube-grass.svg" alt="" aria-hidden="true">
 
       <div class="err-code" aria-hidden="true">404</div>
 
-      <svg class="err-mini-cube err-mini-cube--right" viewBox="0 0 120 140" aria-hidden="true">
-        <g transform="translate(60 58)"><g class="bob bob-c"><use href="#cube-diamond" transform="scale(.4)"/></g></g>
-      </svg>
+      <img class="err-mini-cube err-mini-cube--right" src="/assets/svg/mini-cube-diamond.svg" alt="" aria-hidden="true">
     </div>
 
     <div class="err-kicker"><span class="dot" aria-hidden="true"></span>CHUNK NOT FOUND</div>
@@ -149,18 +52,18 @@
 
     <div class="err-actions">
       <a class="btn" href="index.html">
-        <svg class="icon" aria-hidden="true"><use href="#i-home"/></svg>
+        <svg class="icon" aria-hidden="true"><use href="/assets/svg/icons.svg#i-home"/></svg>
         返回首页
       </a>
       <a class="btn btn-ghost" href="index.html#join">
-        <svg class="icon" aria-hidden="true"><use href="#i-door"/></svg>
+        <svg class="icon" aria-hidden="true"><use href="/assets/svg/icons.svg#i-door"/></svg>
         如何加入服务器
       </a>
       <button class="btn btn-ghost" type="button"
               data-copy="play.mc.longer.xin"
               data-copy-done="已复制"
               data-copy-fail="请手动复制">
-        <svg class="icon" aria-hidden="true"><use href="#i-copy"/></svg>
+        <svg class="icon" aria-hidden="true"><use href="/assets/svg/icons.svg#i-copy"/></svg>
         <span data-copy-label>复制服务器地址</span>
       </button>
     </div>

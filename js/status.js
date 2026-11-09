@@ -169,7 +169,7 @@
           var skin = 'https://minotar.net/helm/' + encodeURIComponent(name) + '/40.png';
           return '<span class="player-chip" title="' + safe + '">' +
             '<span class="player-avatar">' +
-              '<svg class="pixel-head" aria-hidden="true"><use href="#i-head"/></svg>' +
+              '<svg class="pixel-head" aria-hidden="true"><use href="/assets/svg/icons.svg#i-head"/></svg>' +
               '<img src="' + skin + '" alt="" width="20" height="20" loading="lazy" decoding="async" onerror="this.remove()">' +
             '</span>' +
             '<span>' + safe + '</span></span>';
