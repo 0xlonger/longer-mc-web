@@ -75,7 +75,7 @@
 
       if (el.heroState) {
         el.heroState.textContent = kind === 'on' ? '服务器在线'
-          : kind === 'off' ? '服务器维护中'
+          : kind === 'off' ? '服务器离线'
           : '正在连接服务器…';
       }
 
@@ -104,7 +104,7 @@
     }
 
     function renderUnknown() {
-      setState('', '暂时无法获取');
+      setState('', '检测中');
       if (el.player) el.player.textContent = '--';
       setHeroPlayers(0, 0);
       if (el.heroOnline) el.heroOnline.textContent = '--';
@@ -114,7 +114,7 @@
 
     function renderOffline() {
       hasResult = true;
-      setState('off', '离线 / 维护中');
+      setState('off', '离线');
       if (el.player) el.player.textContent = '0';
       setHeroPlayers(0, 0);
       if (el.panel) el.panel.hidden = true;

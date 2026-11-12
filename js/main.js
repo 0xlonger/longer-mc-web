@@ -133,6 +133,7 @@
     var hotbar = document.querySelector('.hotbar');
     var navLinks = Array.prototype.slice.call(document.querySelectorAll('[data-nav]'));
     var sections = Array.prototype.slice.call(document.querySelectorAll('main section[id]'));
+    var hotbarMobile = window.matchMedia('(max-width: 860px)');
     var ticking = false;
 
     function updateScrollUI() {
@@ -147,7 +148,8 @@
 
       if (nav) nav.classList.toggle('scrolled', y > 8);
       if (toTop) toTop.classList.toggle('show', y > 720);
-      if (hotbar) hotbar.classList.toggle('show', y > 320);
+      // ≤860px 无顶部导航，快捷栏始终显示；桌面由滚动阈值控制
+      if (hotbar) hotbar.classList.toggle('show', hotbarMobile.matches || y > 320);
 
       // 当前区块
       var current = '';

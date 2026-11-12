@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-theme="dark" data-theme-pref="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,7 +7,7 @@
   <title>查询申请状态 · LongerMC</title>
   <meta name="description" content="自助查询 LongerMC 白名单申请审核进度：游戏 ID + 邮箱 + 六位数邮箱验证码。" />
   <meta name="author" content="LongerMC" />
-  <meta name="theme-color" content="#0a0d12" />
+  <meta name="theme-color" content="#171615" />
   <link rel="canonical" href="https://mc.longer.xin/whitelist/inquire/" />
   <meta name="robots" content="noindex, follow" />
 
@@ -23,7 +23,24 @@
   <link rel="stylesheet" href="/css/style.css" />
   <link rel="stylesheet" href="/css/whitelist.css" />
 
-  <script>document.documentElement.classList.add('js');</script>
+  <script>
+    /* 主题初始化：首次访问默认深色；可选 浅色 / 跟随系统 / 深色
+       在首次绘制前完成，避免闪屏；实际外观写入 data-theme，用户偏好写入 data-theme-pref */
+    document.documentElement.classList.add('js');
+    (function () {
+      var root = document.documentElement, pref = 'dark';
+      try {
+        var saved = localStorage.getItem('lmc-theme');
+        if (saved === 'light' || saved === 'system' || saved === 'dark') pref = saved;
+      } catch (e) {}
+      var dark = pref === 'dark' || (pref === 'system' &&
+        window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      root.setAttribute('data-theme', dark ? 'dark' : 'light');
+      root.setAttribute('data-theme-pref', pref);
+      var meta = document.querySelector('meta[name="theme-color"]');
+      if (meta) meta.setAttribute('content', dark ? '#171615' : '#f4efe9');
+    })();
+  </script>
   <script>
     window.__lmcTsCb = window.__lmcTsCb || [];
     window.lmcTurnstileReady = function () {
@@ -98,6 +115,7 @@
   <script src="/js/nav.js" defer></script>
   <script src="/js/footer.js" defer></script>
   <script src="/js/main.js" defer></script>
+  <script src="/js/theme.js" defer></script>
   <script src="/js/status.js" defer></script>
   <script src="/js/whitelist.js" defer></script>
 </body>

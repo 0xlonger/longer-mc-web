@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-theme="dark" data-theme-pref="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,22 +7,37 @@
   <title>404 · 页面没有找到 | LongerMC</title>
   <meta name="description" content="你访问的页面不存在。返回 LongerMC 首页，或直接加入服务器 play.mc.longer.xin。" />
   <meta name="robots" content="noindex, follow" />
-  <meta name="theme-color" content="#0a0d12" />
+  <meta name="theme-color" content="#171615" />
 
   <link rel="icon" href="/icon.jpg" type="image/jpeg" />
   <link rel="apple-touch-icon" href="/icon.jpg" />
 
   <link rel="preload" href="/assets/fonts/press-start-2p.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="/css/style.css" />
-  <script>document.documentElement.classList.add('js');</script>
+  <script>
+    /* 主题初始化：首次访问默认深色；可选 浅色 / 跟随系统 / 深色
+       在首次绘制前完成，避免闪屏；实际外观写入 data-theme，用户偏好写入 data-theme-pref */
+    document.documentElement.classList.add('js');
+    (function () {
+      var root = document.documentElement, pref = 'dark';
+      try {
+        var saved = localStorage.getItem('lmc-theme');
+        if (saved === 'light' || saved === 'system' || saved === 'dark') pref = saved;
+      } catch (e) {}
+      var dark = pref === 'dark' || (pref === 'system' &&
+        window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      root.setAttribute('data-theme', dark ? 'dark' : 'light');
+      root.setAttribute('data-theme-pref', pref);
+      var meta = document.querySelector('meta[name="theme-color"]');
+      if (meta) meta.setAttribute('content', dark ? '#171615' : '#f4efe9');
+    })();
+  </script>
 </head>
 <body class="page-404">
 
   <a class="skip-link" href="#main">跳到主要内容</a>
 
   <div class="scroll-progress" aria-hidden="true"><span id="scrollProgress"></span></div>
-
-  
 
   <!-- 导航栏：由 js/nav.js 从 /partials/nav.html 统一载入（与首页同一份） -->
   <div id="nav-root"></div>
@@ -79,6 +94,7 @@
   <script src="js/nav.js" defer></script>
   <script src="js/footer.js" defer></script>
   <script src="js/main.js" defer></script>
+  <script src="js/theme.js" defer></script>
   <script src="js/status.js" defer></script>
 </body>
 </html>

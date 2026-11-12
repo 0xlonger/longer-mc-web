@@ -744,3 +744,182 @@
 .wl-fallback-list a:hover {
   color: var(--grass-2);
 }
+
+/* ------------------------------------------------------------
+   浅色模式（默认）：复用 css/style.css 的浅色令牌
+   ------------------------------------------------------------ */
+html[data-theme="light"] .wl-entry {
+  background: linear-gradient(180deg, #fffdfb 0%, #f7f1ea 100%);
+}
+
+html[data-theme="light"] .wl-entry:hover {
+  background: linear-gradient(180deg, #fffdfb 0%, #f2ece4 100%);
+}
+
+html[data-theme="light"] .wl-entry-ico {
+  background: #f2ebe4;
+  border-color: #cfc4ba;
+}
+
+html[data-theme="light"] .wl-card {
+  background: linear-gradient(180deg, #fffdfb 0%, #f7f1ea 100%);
+}
+
+html[data-theme="light"] .wl-input,
+html[data-theme="light"] .wl-textarea,
+html[data-theme="light"] .wl-select {
+  background: #f7f2ed;
+  border-color: #cfc4ba;
+  box-shadow: inset 0 2px 0 rgba(0, 0, 0, 0.08);
+}
+
+html[data-theme="light"] .wl-input::placeholder,
+html[data-theme="light"] .wl-textarea::placeholder {
+  color: #a89d93;
+}
+
+html[data-theme="light"] .wl-btn {
+  background: #e7dfd7;
+  box-shadow: inset 0 4px 0 rgba(255, 255, 255, 0.7), inset 0 -4px 0 #cfc4ba;
+}
+
+html[data-theme="light"] .wl-btn:hover:not(:disabled) {
+  background: linear-gradient(0deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.25)), #e7dfd7;
+}
+
+html[data-theme="light"] .wl-btn:active:not(:disabled) {
+  background: #d8cec5;
+}
+
+html[data-theme="light"] .wl-btn:disabled {
+  background: #e7dfd7;
+  color: #a89d93;
+  border-color: #b9aea5;
+  box-shadow: inset 0 -4px 0 #d8cec5;
+}
+
+html[data-theme="light"] .wl-btn--ghost {
+  border-color: #a89d93;
+}
+
+html[data-theme="light"] .wl-btn--ghost:hover:not(:disabled) {
+  background: #e7dfd7;
+}
+
+html[data-theme="light"] .wl-alert {
+  background: #f2ebe4;
+  border-color: #cfc4ba;
+  color: var(--text-2);
+}
+
+html[data-theme="light"] .wl-alert--info {
+  border-color: #9cc4d2;
+  border-left-color: var(--diamond);
+  color: #0b6a86;
+}
+
+html[data-theme="light"] .wl-alert--ok {
+  border-color: #7fb46a;
+  border-left-color: var(--grass-2);
+  color: #2a641c;
+}
+
+html[data-theme="light"] .wl-alert--warn {
+  border-color: #dcc27e;
+  border-left-color: var(--gold);
+  color: #8a5e00;
+}
+
+html[data-theme="light"] .wl-alert--err {
+  border-color: #d98a72;
+  border-left-color: var(--red);
+  color: #a82a0a;
+}
+
+html[data-theme="light"] .wl-devcode {
+  color: var(--gold-ink);
+}
+
+html[data-theme="light"] .wl-status-badge {
+  background: #f2ebe4;
+  border-color: #cfc4ba;
+  box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.8);
+}
+
+html[data-theme="light"] .wl-status-badge--approved {
+  color: #fff;
+  background: var(--grass-2);
+}
+
+html[data-theme="light"] .wl-tab {
+  background: #efe8e1;
+  box-shadow: inset 0 3px 0 rgba(255, 255, 255, 0.7), inset 0 -3px 0 rgba(0, 0, 0, 0.1);
+}
+
+html[data-theme="light"] .wl-tab:hover {
+  background: #e7dfd7;
+}
+
+html[data-theme="light"] .wl-tab.active {
+  color: #fff;
+  box-shadow: inset 0 3px 0 rgba(255, 255, 255, 0.25), inset 0 -3px 0 var(--grass-ink);
+}
+
+html[data-theme="light"] .wl-table-wrap {
+  background: #fffdfb;
+}
+
+html[data-theme="light"] .wl-table th {
+  background: #f2ebe4;
+}
+
+html[data-theme="light"] .wl-table tbody tr:hover {
+  background: rgba(23, 22, 21, 0.03);
+}
+
+html[data-theme="light"] .wl-diff th {
+  background: #f2ebe4;
+}
+
+html[data-theme="light"] .wl-cmd code {
+  background: #171615;
+  border-color: #cfc4ba;
+  color: #7fe3ff;
+}
+
+html[data-theme="light"] .wl-log li {
+  border-bottom-color: #ddd3c9;
+}
+
+html[data-theme="light"] .wl-modal-backdrop {
+  background: rgba(45, 40, 36, 0.55);
+}
+
+html[data-theme="light"] .wl-modal {
+  background: linear-gradient(180deg, #fffdfb 0%, #f7f1ea 100%);
+  box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.9), 0 24px 48px -20px rgba(0, 0, 0, 0.4);
+}
+
+html[data-theme="light"] .wl-close {
+  background: #f2ebe4;
+  border-color: #cfc4ba;
+}
+
+html[data-theme="light"] .wl-close:hover {
+  color: var(--text);
+  border-color: var(--grass-3);
+}
+
+html[data-theme="light"] .wl-switch input[type="checkbox"] {
+  background: #f2ebe4;
+  border-color: #a89d93;
+}
+
+html[data-theme="light"] .wl-switch input[type="checkbox"]:checked {
+  background: var(--grass-2);
+  border-color: #171615;
+}
+
+html[data-theme="light"] .wl-switch input[type="checkbox"]:checked::after {
+  background: #fff;
+}
