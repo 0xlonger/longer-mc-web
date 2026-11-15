@@ -50,7 +50,18 @@ async function verifyAccessJwt(request, env) {
     return { ok: false, code: 'bad_jwt', message: 'Access JWT 解析失败' };
   }
 
-  const team = cfg(env, 'ACCESS_TEAM_DOMAIN', '').replace(/^https?:\/\//, '').replace(/\/+$/, '');
+  /**
+   * team 变量期望是纯 team name（如 `my-team`），代码自己拼 `.cloudflareaccess.com`。
+   * 但控制台里显示的是完整 `my-team.cloudflareaccess.com`，很容易照抄进来，
+   * 那样会拼成 `my-team.cloudflareaccess.com.cloudflareaccess.com` → JWKS 拉取失败，
+   * 表现为所有后台请求 401 jwt_error。
+   * 所以这里把协议、尾部斜杠、`.cloudflareaccess.com` 后缀都容错去掉：
+   * 纯 team name / 完整域名 / 带 https:// 的完整域名，三种写法都能用。
+   */
+  const team = cfg(env, 'ACCESS_TEAM_DOMAIN', '')
+    .replace(/^https?:\/\//, '')
+    .replace(/\/+$/, '')
+    .replace(/\.cloudflareaccess\.com$/i, '');
   const aud = cfg(env, 'ACCESS_AUD', '');
   if (!team || !aud) return { ok: false, code: 'not_configured', message: '未配置 Access 校验参数' };
 
@@ -79,7 +90,18 @@ async function verifyAccessJwt(request, env) {
     if (payload.exp && payload.exp * 1000 < Date.now()) {
       return { ok: false, code: 'expired', message: 'Access JWT 已过期' };
     }
-    if (payload.aud && payload.aud !== aud) {
+    /**
+     * Cloudflare Access JWT 的 aud 是【数组】：
+     *   "aud": ["32eafc...bc3cdf1b53c4228"]
+     * 早期这里写的是 `payload.aud !== aud`（字符串比较），
+     * 数组 !== 字符串恒为 true → 所有已登录请求都会返回 401 bad_aud，
+     * 后台完全打不开。这一处不修，切到 Access 后必然踩坑。
+     * 兼容字符串与数组两种形态。
+     */
+    const audOk = Array.isArray(payload.aud)
+      ? payload.aud.includes(aud)
+      : payload.aud === aud;
+    if (payload.aud && !audOk) {
       return { ok: false, code: 'bad_aud', message: 'Access JWT audience 不匹配' };
     }
     const expectedIss = `https://${team}.cloudflareaccess.com`;

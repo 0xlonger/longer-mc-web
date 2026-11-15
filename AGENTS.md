@@ -170,6 +170,18 @@ npx wrangler pages dev . --persist
 - **写接口限流按用途分桶**：`buckets.applyIp` / `buckets.modifyIp` 各自计数（不要合并成一个 `writeIp`，否则改信息要跟新申请抢额度）。邮箱维度的冷却与每小时上限才是主要防线，IP 桶只兜底。
 - **新增一种「有效变更」时，前后端的判定必须同时加**：后端 `modify` 把邮箱变更单独算一项有效变更，前端提交校验（`js/whitelist.js` 的「请至少修改一项」）也要把「已勾选更换邮箱」算进去，否则只想换邮箱的用户会被前端挡住（且提示文案还是误导性的）。已发生过一次。
 - **后台详情的「修改前后对比」必须覆盖所有可变更字段**：换绑邮箱等于账户归属转移，审核员看不到新地址就点通过，等于把白名单交给了提交者。新增可修改字段时同步补一行。
+- **Cloudflare Access JWT 校验的两个硬事实**（`functions/_lib/access.js`）：
+  1. JWT payload 里 **`aud` 是数组**（`["<AUD>"]`），不是字符串。用 `payload.aud !== aud`
+     做比较会恒为 true，导致所有已登录请求 401 `bad_aud`、后台完全打不开。
+     必须用 `Array.isArray(payload.aud) ? payload.aud.includes(aud) : payload.aud === aud`。
+  2. 代码把 `ACCESS_TEAM_DOMAIN` 当**纯 team name** 用，自己拼
+     `https://${team}.cloudflareaccess.com`。而控制台显示的是完整域名，
+     照抄会拼出 `.cloudflareaccess.com.cloudflareaccess.com` → JWKS 拉取失败 → 401。
+     所以必须容错去掉协议、尾部斜杠和 `.cloudflareaccess.com` 后缀。
+  - `ACCESS_TEAM_DOMAIN` + `ACCESS_AUD` **必须同时配**才启用校验；校验开启后
+    `verifyAccessJwt` 先于 fallback 执行，fallback 不能绕过 JWT。
+  - 回归重点：aud 数组/字符串都通过、team 三种写法都拼对 JWKS URL、
+    aud/iss/exp/签名不匹配全部拒绝、无 JWT 时 `no_jwt`。
 - **后台有两种保护模式，切换靠环境变量、不改代码**：
   - 正式：Cloudflare Access（`/admin*`）+ `ACCESS_AUD` / `ACCESS_TEAM_DOMAIN` JWT 校验
   - 过渡：`ADMIN_ALLOW_ACCESS_FALLBACK=1` + Cloudflare WAF 的 IP 白名单

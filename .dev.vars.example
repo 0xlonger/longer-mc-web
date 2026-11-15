@@ -81,7 +81,14 @@ ADMIN_FALLBACK_ACTOR=waf-admin@local.invalid
 # 上线顺序必须是：先开这个锁 → 配并验证 WAF → 再开 fallback → 最后关掉这个锁。
 ADMIN_LOCKDOWN_TEST=0
 
-# ---------- Cloudflare Access JWT 严格校验（可选）----------
+# ---------- Cloudflare Access JWT 严格校验（用 Access 时强烈建议）----------
 # 两者都填才会做服务端 JWT 校验；留空则只信任 Cf-Access-Authenticated-User-Email 头
+# ACCESS_TEAM_DOMAIN：Zero Trust → Settings → 里的 Team name。
+#   控制台显示的是「xxx.cloudflareaccess.com」，只填 xxx 那一段即可；
+#   填完整域名或带 https:// 也能用（代码会自动去掉协议与 .cloudflareaccess.com 后缀）。
+#   注意不是应用域名 mc.longer.xin。
+# ACCESS_AUD：Zero Trust → Access controls → Applications → 你的应用
+#   → Configure → Additional settings → Application Audience (AUD) Tag，复制完整值。
+# ⚠️ WAF 过渡期绝对不要填这两个（配了会要求 JWT，而 WAF 不提供，后台立刻 401）。
 ACCESS_TEAM_DOMAIN=
 ACCESS_AUD=

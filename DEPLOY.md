@@ -134,7 +134,25 @@ Zero Trust → **Settings → 新建 Self-hosted 应用**：
 - Application domain：`mc.longer.xin`（建议同时加 `longer-mc.pages.dev`）
 - 路径规则：**`/admin*`**（含星号）
 - Policy：Action = Allow，规则选 Emails，填入你的管理员邮箱
-- 可选（启用严格 JWT 校验）：记下 **Application Audience (AUD)** 与 **Team domain**，填进 `ACCESS_AUD` / `ACCESS_TEAM_DOMAIN`
+- **强烈建议启用严格 JWT 校验**：记下下面两个值，填进 Pages 环境变量
+
+#### 两个值从哪拿、怎么填
+
+| 变量 | 在哪找 | 填什么 |
+| --- | --- | --- |
+| `ACCESS_AUD` | Zero Trust → **Access controls → Applications** → 点开你的应用 → **Configure → Additional settings** → **Application Audience (AUD) Tag** | 复制那一长串十六进制值，原样填 |
+| `ACCESS_TEAM_DOMAIN` | Zero Trust → **Settings → General / Custom Pages** → **Team domain** | 填 **team name 那一段**。控制台显示的是 `你的团队名.cloudflareaccess.com`，例如 `longer-mc-team.cloudflareaccess.com` → 填 `longer-mc-team` |
+
+`ACCESS_TEAM_DOMAIN` 已做容错：纯 team name、`longer-mc-team.cloudflareaccess.com`、
+`https://longer-mc-team.cloudflareaccess.com` 三种写法都能用（代码会自动去掉协议、
+尾部斜杠和 `.cloudflareaccess.com` 后缀）。**不要填别的域名**（比如 `mc.longer.xin`），
+那是应用域名，不是团队域名。
+
+> **为什么 JWT 校验值得配**：不配时代码只信任 `Cf-Access-Authenticated-User-Email`
+> 请求头——只要 Access 应用路径漏配，客户端伪造这个头就能进后台。
+> 配了 `ACCESS_AUD` + `ACCESS_TEAM_DOMAIN` 后，每个请求都必须带 Cloudflare 签发的
+> 合法 JWT，验证签名 / issuer / audience / 有效期，伪造头完全无效。
+> 注意：**两个变量必须同时配**，只配一个不会启用校验。
 
 > **⚠️ 路径必须写 `/admin*`，不能只写 `/admin/`！**
 > `/admin/` 只匹配后台页面本身，**不会**匹配 `/admin/api/whitelist/*`，
@@ -208,16 +226,32 @@ Cloudflare Dashboard → 你的域名 → **Security → WAF → Custom rules �
 
 激活 Zero Trust 成功后，按顺序做（**顺序错了会留后门**）：
 
+0. **先部署含 Access JWT 兼容修复的代码**（`functions/_lib/access.js`）。
+   Cloudflare Access JWT 的 `aud` 是数组，旧版代码用字符串比较会让所有已登录请求
+   返回 401 `bad_aud`，后台完全打不开。没打这个补丁就别往下走。
 1. 按 2.5 建 Access 应用，路径 `/admin*`，Policy 允许你的管理员邮箱
 2. 配 `ACCESS_AUD` + `ACCESS_TEAM_DOMAIN` + `ADMIN_ALLOWED_EMAILS`
-3. **把 `ADMIN_ALLOW_ACCESS_FALLBACK` 改成 `0`（或删除）** —— 不删等于留了个无条件入口
-4. **把 `ADMIN_LOCKDOWN_TEST` 改成 `0`（或删除）**
-5. **删除 WAF 规则** —— WAF 在 Access 之前执行，留着会让已认证但换了 IP 的你自己被挡
-6. 实测：未登录浏览器访问 `/admin/api/whitelist/me` 应被 Access 拦截；
-   登录后访问应返回 `{"ok":true,...}`，且 `mode` 是 `access-jwt`
+   （如果过渡期配过 `ADMIN_ALLOW_ACCESS_FALLBACK=1`，这一步同时把它改成 `0` 或删除）
+3. **Retry deployment** 让变量生效
+4. 验证：未登录浏览器访问 `/admin/api/whitelist/me` 应被 Access 拦到登录页；
+   登录后打开 `/admin/test` 应能看到自检页（此时 `ADMIN_LOCKDOWN_TEST` 仍为 `1`）
+5. **把 `ADMIN_LOCKDOWN_TEST` 改成 `0`（或删除）** → 再 Retry deployment
+6. 验证：登录后 `/admin/whitelist/` 能进；`/admin/api/whitelist/me` 返回
+   `{"ok":true,...}` 且 `mode` 是 **`access-jwt`**；审计日志里的操作人是你的真实邮箱
+7. **最后删除 WAF 规则** —— WAF 在 Access 之前执行，留着会让已认证但换了 IP 的你自己被挡
+8. 换一个不在原 IP 白名单里的网络（手机热点）再验一次：
+   未登录被 Access 拦、登录后能进后台 → 证明 WAF 确实不再挡、且 Access 是唯一防线
+
+> 在确认第 6 步通过之前**不要删 WAF**、也不要提前关 `ADMIN_LOCKDOWN_TEST`：
+> 这两层是 Access 万一配错时的兜底。反过来，第 6 步通过后 WAF 必须删，
+> 否则你出差换网络就进不了后台。
 
 `/admin/test` 自检页可以一直留着：它不读数据库、不调用后台接口、不含任何申请数据，
 任何模式下都能用来确认「当前来源 IP 是否被放行」。
+
+**预览部署不受这个 Access 应用管辖**：`<hash>.longer-mc-web.pages.dev` 不经过
+`mc.longer.xin` 的 Access 策略，切到正式方案后预览环境的后台会因为「没有合法 JWT」
+返回 401——安全但不可用。这是预期行为；预览环境本来也不该绑生产 D1 与生产邮件密钥。
 
 ### 2.6 Pages 环境变量
 
@@ -226,7 +260,7 @@ Cloudflare Dashboard → Pages 项目 → **Settings → Environment variables**
 | 变量 | 必填 | 示例 |
 | --- | --- | --- |
 | `RESEND_API_KEY` | 是（真实发信） | `re_xxxxxxxx` |
-| `EMAIL_FROM` | 是 | `LongerMC Whitelist <whitelist@notify.longer.xin>` |
+| `EMAIL_FROM` | 是 | `LongerMC 白名单 <whitelist@notify.longer.xin>` |
 | `TURNSTILE_SITE_KEY` | 是 | `0x4AAAAAAA...` |
 | `TURNSTILE_SECRET` | 是 | `0x4AAAAAAA...` |
 | `CODE_PEPPER` | 是 | 32 位以上随机串 |
