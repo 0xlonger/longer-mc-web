@@ -180,6 +180,8 @@ npx wrangler pages dev . --persist
      所以必须容错去掉协议、尾部斜杠和 `.cloudflareaccess.com` 后缀。
   - `ACCESS_TEAM_DOMAIN` + `ACCESS_AUD` **必须同时配**才启用校验；校验开启后
     `verifyAccessJwt` 先于 fallback 执行，fallback 不能绕过 JWT。
+  3. `iss` 比较必须规范化（去协议 / 尾斜杠 / 转小写）后比 host，不要整串精确比较；
+     且 `bad_iss` 错误信息要带「实际 / 期望」两个 host，否则管理员无从排查。
   - 回归重点：aud 数组/字符串都通过、team 三种写法都拼对 JWKS URL、
     aud/iss/exp/签名不匹配全部拒绝、无 JWT 时 `no_jwt`。
 - **后台有两种保护模式，切换靠环境变量、不改代码**：

@@ -143,6 +143,12 @@ Zero Trust → **Settings → 新建 Self-hosted 应用**：
 | `ACCESS_AUD` | Zero Trust → **Access controls → Applications** → 点开你的应用 → **Configure → Additional settings** → **Application Audience (AUD) Tag** | 复制那一长串十六进制值，原样填 |
 | `ACCESS_TEAM_DOMAIN` | Zero Trust → **Settings → General / Custom Pages** → **Team domain** | 填 **team name 那一段**。控制台显示的是 `你的团队名.cloudflareaccess.com`，例如 `longer-mc-team.cloudflareaccess.com` → 填 `longer-mc-team` |
 
+> **排查 `Access JWT issuer 不匹配`**：后台页面会直接显示「实际 xxx，期望 yyy」两个 host。
+> `实际` 就是 JWT 里 Cloudflare 签发的真实团队域名——**以它为准**，把 `ACCESS_TEAM_DOMAIN`
+> 改成那个 host 去掉 `.cloudflareaccess.com` 后的前缀即可（例如实际
+> `abc.cloudflareaccess.com` → 填 `abc`）。改完 Retry deployment。
+> 代码已做规范化比较，尾部斜杠、大小写、带不带 `https://` 都不会再误判。
+
 `ACCESS_TEAM_DOMAIN` 已做容错：纯 team name、`longer-mc-team.cloudflareaccess.com`、
 `https://longer-mc-team.cloudflareaccess.com` 三种写法都能用（代码会自动去掉协议、
 尾部斜杠和 `.cloudflareaccess.com` 后缀）。**不要填别的域名**（比如 `mc.longer.xin`），

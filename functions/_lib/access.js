@@ -104,9 +104,27 @@ async function verifyAccessJwt(request, env) {
     if (payload.aud && !audOk) {
       return { ok: false, code: 'bad_aud', message: 'Access JWT audience 不匹配' };
     }
+    /**
+     * issuer 比较用「规范化后的 host」而不是整串字符串：
+     *   - 不同 Cloudflare 版本 / 配置下，iss 可能带尾部斜杠、大小写不同
+     *   - ACCESS_TEAM_DOMAIN 也可能被填成完整域名或带 https://
+     * 早期用 `payload.iss !== expectedIss` 精确比较，任一细节不同就
+     * 401 bad_iss，而错误信息里又不带实际值，管理员完全无从排查。
+     *
+     * 现在错误信息会带上「实际 / 期望」两个 host（只是团队域名，不是密钥），
+     * 一眼就能看出是变量填错、还是 team name 与控制台显示的不一致。
+     */
+    const normHost = (v) => String(v || '')
+      .replace(/^https?:\/\//i, '')
+      .replace(/\/+$/, '')
+      .toLowerCase();
     const expectedIss = `https://${team}.cloudflareaccess.com`;
-    if (payload.iss && payload.iss !== expectedIss) {
-      return { ok: false, code: 'bad_iss', message: 'Access JWT issuer 不匹配' };
+    if (payload.iss && normHost(payload.iss) !== normHost(expectedIss)) {
+      return {
+        ok: false,
+        code: 'bad_iss',
+        message: `Access JWT issuer 不匹配（实际 ${normHost(payload.iss)}，期望 ${normHost(expectedIss)}）。请核对 Zero Trust → Settings 里的 Team domain`,
+      };
     }
     return { ok: true, email: payload.email || '' };
   } catch (e) {
